@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Automated Test for Functional Testing | Workshop Dashboard</title>
+  <meta name="description" content="Dashboard สำหรับรายงานข้อมูลและสถานะกิจกรรมอบรม Development of automated test systems of electronic control boards using LabVIEW, TestStand and myRIO" />
+  <style>
+    :root{
+      --bg:#07111f; --panel:#0d1b2e; --panel2:#10263f; --text:#eef6ff; --muted:#a9bfd8;
+      --cyan:#34d3ff; --blue:#3b82f6; --green:#34d399; --yellow:#facc15; --red:#fb7185;
+      --line:rgba(148,189,255,.22); --shadow:0 18px 50px rgba(0,0,0,.32); --radius:22px;
+    }
+    *{box-sizing:border-box} body{margin:0;font-family:"Segoe UI",Tahoma,sans-serif;background:radial-gradient(circle at 20% 0%,#123a63 0,#07111f 38%,#050913 100%);color:var(--text);line-height:1.65}
+    a{color:var(--cyan);text-decoration:none} a:hover{text-decoration:underline}
+    .wrap{max-width:1180px;margin:auto;padding:28px 18px 64px}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;margin-top:10px}
+    .badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:rgba(52,211,255,.08);border-radius:999px;padding:7px 13px;color:#d9f7ff;font-size:14px}
+    h1{font-size:clamp(34px,5vw,62px);line-height:1.05;margin:18px 0 14px}.lead{font-size:20px;color:var(--muted);max-width:760px}.hero-card,.card{background:linear-gradient(180deg,rgba(16,38,63,.92),rgba(13,27,46,.92));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero-card{padding:18px}.hero-card img{width:100%;border-radius:16px;background:white;display:block}.grid{display:grid;gap:18px}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}
+    .section{margin-top:28px}.card{padding:22px}.stat{font-size:36px;font-weight:800;color:white}.label{color:var(--muted);font-size:14px}.tag{display:inline-block;padding:5px 10px;border-radius:999px;background:rgba(52,211,255,.10);border:1px solid var(--line);font-size:13px;color:#d9f7ff;margin:4px 4px 0 0}
+    h2{font-size:28px;margin:0 0 14px}h3{margin:0 0 8px}.muted{color:var(--muted)}.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:14px;font-weight:700;border:1px solid var(--line);background:rgba(52,211,255,.12)}.btn.primary{background:linear-gradient(135deg,var(--blue),#06b6d4);color:white;border:0}.btn.disabled{opacity:.55;pointer-events:none}
+    table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:16px}th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:#d9f7ff;background:rgba(52,211,255,.09)}tr:last-child td{border-bottom:0}.status{font-weight:700}.open{color:var(--green)}.soon{color:var(--yellow)}.placeholder{border:1px dashed rgba(169,191,216,.45);border-radius:16px;padding:16px;color:var(--muted);background:rgba(255,255,255,.03)}
+    .timeline{display:grid;gap:12px}.round{display:grid;grid-template-columns:88px 1fr auto;gap:14px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.035)}.round .no{font-size:22px;font-weight:800;color:var(--cyan)}
+    .overview-img{width:75%;border-radius:18px;border:1px solid var(--line);background:#fff;display:block;margin:10px auto 18px}.material-card{display:block;color:var(--text);height:100%;transition:.18s ease}.material-card:hover{transform:translateY(-2px);text-decoration:none;border-color:rgba(52,211,255,.55)}.material-card .open-link{font-weight:700;color:var(--cyan);font-size:14px}
+    .tabs{margin-top:14px}.tab-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tab-buttons label{cursor:pointer;padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);font-weight:700;color:var(--muted)}.tab-panel{display:none;border:1px solid var(--line);border-radius:18px;padding:18px;background:rgba(255,255,255,.035)}.tabs input{position:absolute;opacity:0;pointer-events:none}.tabs input:nth-of-type(1):checked~.tab-buttons label:nth-child(1),.tabs input:nth-of-type(2):checked~.tab-buttons label:nth-child(2),.tabs input:nth-of-type(3):checked~.tab-buttons label:nth-child(3),.tabs input:nth-of-type(4):checked~.tab-buttons label:nth-child(4),.tabs input:nth-of-type(5):checked~.tab-buttons label:nth-child(5),.tabs input:nth-of-type(6):checked~.tab-buttons label:nth-child(6),.tabs input:nth-of-type(7):checked~.tab-buttons label:nth-child(7){background:linear-gradient(135deg,var(--blue),#06b6d4);color:white;border-color:transparent}.tabs input:nth-of-type(1):checked~.tab-content .tab-panel:nth-child(1),.tabs input:nth-of-type(2):checked~.tab-content .tab-panel:nth-child(2),.tabs input:nth-of-type(3):checked~.tab-content .tab-panel:nth-child(3),.tabs input:nth-of-type(4):checked~.tab-content .tab-panel:nth-child(4),.tabs input:nth-of-type(5):checked~.tab-content .tab-panel:nth-child(5),.tabs input:nth-of-type(6):checked~.tab-content .tab-panel:nth-child(6),.tabs input:nth-of-type(7):checked~.tab-content .tab-panel:nth-child(7){display:block}.round-media{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.photo-slot{min-height:140px;border:1px dashed rgba(169,191,216,.45);border-radius:16px;display:flex;align-items:center;justify-content:center;color:var(--muted);background:rgba(255,255,255,.025);text-align:center;padding:12px}@media(max-width:900px){.round-media{grid-template-columns:1fr}}
+    footer{margin-top:34px;color:var(--muted);font-size:14px;text-align:center}@media(max-width:900px){.hero,.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}.round{grid-template-columns:1fr}.wrap{padding:18px 14px 48px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <!-- SECTION: Hero / Header and primary navigation -->
+    <section class="hero">
+      <div>
+        <span class="badge">Future Mobility • BOI-STEM++ 2569</span>
+        <h1>Automated Test for Functional Testing</h1>
+        <p class="lead">การพัฒนาระบบทดสอบแบบอัตโนมัติสำหรับแผงวงจรควบคุมด้วย <b>LabVIEW</b>, <b>TestStand</b> และ <b>NI myRIO</b></p> รหัสหลักสูตร <b>B0C690121</b>
+        <div class="btns">
+          <a class="btn primary" href="#apply">สมัครเข้าร่วมอบรม</a>
+          <a class="btn" href="#training-materials">Training materials</a>
+          <a class="btn" href="photos/">Photos</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img src="images/FCT_problem.jpg" alt="FCT problem overview: LabVIEW, NI myRIO, DUT and FCT interface" />
+      </div>
+    </section>
+
+    <!-- SECTION: Key statistics summary -->
+    <section class="section grid grid-4">
+      <div class="card"><div class="stat">7</div><div class="label">รุ่นอบรม</div></div>
+      <div class="card"><div class="stat">4 วัน</div><div class="label">ต่อรุ่น เวลา 9.00–17.00 น.</div></div>
+      <div class="card"><div class="stat">20</div><div class="label">คนต่อรุ่น</div></div>
+      <div class="card"><div class="stat">140</div><div class="label">เป้าหมายรวม</div></div>
+    </section>
+
+    <!-- SECTION: Course overview and application information -->
+    <section class="section grid grid-2">
+      <div class="card">
+        <h2>ภาพรวมหลักสูตร</h2>
+        <p>หลักสูตรเน้นการสร้างระบบทดสอบอัตโนมัติครบวงจร ตั้งแต่การเชื่อมต่อฮาร์ดแวร์ Test Fixture, การสร้าง/วัดสัญญาณด้วย myRIO, การพัฒนา VI ด้วย LabVIEW และการจัดลำดับทดสอบ PASS/FAIL พร้อมรายงานด้วย TestStand</p>
+        <span class="tag">Functional Test</span><span class="tag">LabVIEW</span><span class="tag">TestStand</span><span class="tag">NI myRIO</span><span class="tag">PCB Control Board</span>
+      </div>
+      <div class="card" id="apply">
+        <h2>การสมัคร</h2>
+        <p>สมัครผ่าน Google Form โดยรายชื่อจะถูกส่งให้ผู้บริหารหน่วยงาน/อาจารย์เพื่ออนุมัติก่อน เนื่องจากเป็นการอบรมต่อเนื่อง 4 วัน</p>
+        <p><b>สถานที่อบรม:</b> คณะวิศวกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์ ศูนย์รังสิต</p>
+        <div class="btns">
+          <a class="btn primary" href="https://forms.gle/2fZMSc5xiRbo1u4k8" target="_blank" rel="noopener">เปิด Google Form</a>
+          <a class="btn" href="https://maps.app.goo.gl/39AQxayLcaCgLPiHA" target="_blank" rel="noopener">เปิด Google Maps</a>
+        </div>
+      </div>
+    </section>
+    
+    <img class="overview-img" src="images/overview.png" alt="ภาพรวมระบบทดสอบอัตโนมัติด้วย LabVIEW, myRIO และ test fixture" />
+
+    <!-- SECTION: Training schedule; status can later be calculated from data/*.json by JS -->
+    <section class="section card" id="schedule">
+      <h2>ตารางอบรม</h2>
+      <div class="timeline">
+        <div class="round"><div class="no">#1</div><div>14 – 17 กรกฎาคม 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
+        <div class="round"><div class="no">#2</div><div>21 – 24 กรกฎาคม 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
+        <div class="round"><div class="no">#3</div><div>4 – 7 สิงหาคม 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
+        <div class="round"><div class="no">#4</div><div>18 – 21 สิงหาคม 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
+        <div class="round"><div class="no">#5</div><div>25 – 28 สิงหาคม 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
+        <div class="round"><div class="no">#6</div><div>8 – 11 กันยายน 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
+        <div class="round"><div class="no">#7</div><div>22 – 25 กันยายน 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
+      </div>
+    </section>
+
+    <!-- SECTION: Training materials links; each card links to Quarto Revealjs HTML -->
+    <section class="section grid grid-3" id="training-materials">
+      <a class="card material-card" href="training_materials/day1.html"><h3>Day 1</h3><p class="muted">องค์ประกอบระบบทดสอบอัตโนมัติ, myRIO, การสร้าง/วัดสัญญาณ analog/digital, timing ใน LabVIEW</p><span class="open-link">เปิดเนื้อหา Day 1 →</span></a>
+      <a class="card material-card" href="training_materials/day2.html"><h3>Day 2</h3><p class="muted">Sequence/state testing, การอ่านและบันทึกข้อมูล, การสร้าง VI เพื่อทดสอบวงจรตามลำดับ</p><span class="open-link">เปิดเนื้อหา Day 2 →</span></a>
+      <a class="card material-card" href="training_materials/day3.html"><h3>Day 3</h3><p class="muted">TestStand sequence/execution, PASS/FAIL condition และการสร้างรายงาน</p><span class="open-link">เปิดเนื้อหา Day 3 →</span></a>
+      <a class="card material-card" href="training_materials/day4.html"><h3>Day 4</h3><p class="muted">Test fixture reliability, self-test/calibration concept และโจทย์ทดสอบแผงวงจรจริง</p><span class="open-link">เปิดเนื้อหา Day 4 →</span></a>
+      <div class="card"><h3>Outcome</h3><div class="placeholder">สรุปผลลัพธ์การเรียนรู้, จำนวนผู้ผ่าน, </div></div>
+      <div class="card"><h3>Round detail</h3><div class="placeholder">คะแนน pre/post-test และตัวอย่างผลงาน</div></div>
+    </section>
+
+    <!-- SECTION: Workshop status tabs; future JS can populate each round from data/*.json -->
+    <section class="section card" id="workshop-status">
+      <h2>Workshop status</h2>
+      <p class="muted">รายละเอียดของแต่ละรอบการอบรม</p>
+      <div class="tabs">
+        <input type="radio" name="round-tabs" id="round-1" checked />
+        <input type="radio" name="round-tabs" id="round-2"  />
+        <input type="radio" name="round-tabs" id="round-3"  />
+        <input type="radio" name="round-tabs" id="round-4"  />
+        <input type="radio" name="round-tabs" id="round-5"  />
+        <input type="radio" name="round-tabs" id="round-6"  />
+        <input type="radio" name="round-tabs" id="round-7"  />
+        <div class="tab-buttons">
+          <label for="round-1">#1</label>
+          <label for="round-2">#2</label>
+          <label for="round-3">#3</label>
+          <label for="round-4">#4</label>
+          <label for="round-5">#5</label>
+          <label for="round-6">#6</label>
+          <label for="round-7">#7</label>
+        </div>
+        <div class="tab-content">
+          <div class="tab-panel" id="round-1-panel">
+            <h3>รอบที่ 1: 14 – 17 กรกฎาคม 2569</h3>
+            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <div class="grid grid-3">
+              <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Outcome</div><div class="status soon">รอข้อมูล</div></div>
+            </div>
+            <div class="round-media">
+              <div class="photo-slot">พื้นที่สำหรับรูปกิจกรรม<br>photos/round1/</div>
+              <div class="placeholder">สรุปผลการอบรม คะแนน pre/post-test ตัวอย่างผลงาน และข้อเสนอแนะของผู้เข้าอบรม</div>
+            </div>
+          </div><div class="tab-panel" id="round-2-panel">
+            <h3>รอบที่ 2: 21 – 24 กรกฎาคม 2569</h3>
+            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <div class="grid grid-3">
+              <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Outcome</div><div class="status soon">รอข้อมูล</div></div>
+            </div>
+            <div class="round-media">
+              <div class="photo-slot">พื้นที่สำหรับรูปกิจกรรม<br>photos/round2/</div>
+              <div class="placeholder">สรุปผลการอบรม คะแนน pre/post-test ตัวอย่างผลงาน และข้อเสนอแนะของผู้เข้าอบรม</div>
+            </div>
+          </div><div class="tab-panel" id="round-3-panel">
+            <h3>รอบที่ 3: 4 – 7 สิงหาคม 2569</h3>
+            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <div class="grid grid-3">
+              <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Outcome</div><div class="status soon">รอข้อมูล</div></div>
+            </div>
+            <div class="round-media">
+              <div class="photo-slot">พื้นที่สำหรับรูปกิจกรรม<br>photos/round3/</div>
+              <div class="placeholder">สรุปผลการอบรม คะแนน pre/post-test ตัวอย่างผลงาน และข้อเสนอแนะของผู้เข้าอบรม</div>
+            </div>
+          </div><div class="tab-panel" id="round-4-panel">
+            <h3>รอบที่ 4: 18 – 21 สิงหาคม 2569</h3>
+            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <div class="grid grid-3">
+              <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Outcome</div><div class="status soon">รอข้อมูล</div></div>
+            </div>
+            <div class="round-media">
+              <div class="photo-slot">พื้นที่สำหรับรูปกิจกรรม<br>photos/round4/</div>
+              <div class="placeholder">สรุปผลการอบรม คะแนน pre/post-test ตัวอย่างผลงาน และข้อเสนอแนะของผู้เข้าอบรม</div>
+            </div>
+          </div><div class="tab-panel" id="round-5-panel">
+            <h3>รอบที่ 5: 25 – 28 สิงหาคม 2569</h3>
+            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <div class="grid grid-3">
+              <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Outcome</div><div class="status soon">รอข้อมูล</div></div>
+            </div>
+            <div class="round-media">
+              <div class="photo-slot">พื้นที่สำหรับรูปกิจกรรม<br>photos/round5/</div>
+              <div class="placeholder">สรุปผลการอบรม คะแนน pre/post-test ตัวอย่างผลงาน และข้อเสนอแนะของผู้เข้าอบรม</div>
+            </div>
+          </div><div class="tab-panel" id="round-6-panel">
+            <h3>รอบที่ 6: 8 – 11 กันยายน 2569</h3>
+            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <div class="grid grid-3">
+              <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Outcome</div><div class="status soon">รอข้อมูล</div></div>
+            </div>
+            <div class="round-media">
+              <div class="photo-slot">พื้นที่สำหรับรูปกิจกรรม<br>photos/round6/</div>
+              <div class="placeholder">สรุปผลการอบรม คะแนน pre/post-test ตัวอย่างผลงาน และข้อเสนอแนะของผู้เข้าอบรม</div>
+            </div>
+          </div><div class="tab-panel" id="round-7-panel">
+            <h3>รอบที่ 7: 22 – 25 กันยายน 2569</h3>
+            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <div class="grid grid-3">
+              <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
+              <div><div class="label">Outcome</div><div class="status soon">รอข้อมูล</div></div>
+            </div>
+            <div class="round-media">
+              <div class="photo-slot">พื้นที่สำหรับรูปกิจกรรม<br>photos/round7/</div>
+              <div class="placeholder">สรุปผลการอบรม คะแนน pre/post-test ตัวอย่างผลงาน และข้อเสนอแนะของผู้เข้าอบรม</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Footer -->
+    <footer>© 2569 Faculty of Engineering, Thammasat University • Automated Test Workshop</footer>
+  </main>
+</body>
+</html>
