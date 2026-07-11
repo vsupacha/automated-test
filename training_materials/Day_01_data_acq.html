@@ -130,7 +130,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" data-background-image="figs/background.png" data-background-opacity="0.2" data-background-size="contain" class="quarto-title-block center">
   <h1 class="title">BOI STEM++</h1>
   <p class="subtitle">B0C690121: การพัฒนาระบบทดสอบแบบอัตโนมัติสำหรับ<br>แผงวงจรควบคุมด้วย LabVIEW, TestStand และ myRIO</p>
 
@@ -149,35 +149,34 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul class="task-list">
-<li><label><input type="checkbox" checked="">วันที่ 1 LabVIEW + myRIO</label>
+<li><label><input type="checkbox" checked=""><strong>วันที่ 1 LabVIEW + myRIO</strong></label>
 <ul>
 <li>Automated Test Equipment</li>
-<li>อุปกรณ์ NI myRIO</li>
-<li><strong>workshop</strong>: analog/digital signal generation</li>
-<li>การเข้าจังหวะและส่งผ่านข้อมูลภายใน LabVIEW</li>
-<li><strong>workshop</strong>: signal sequence/timing</li>
+<li>ทบทวน LabVIEW และ NI myRIO</li>
+<li>การสร้างสัญญาณทดสอบ</li>
+<li>การเข้าจังหวะและส่งผ่านข้อมูล</li>
+<li><strong>workshop</strong>: การเชื่อมต่อ DUT</li>
 </ul></li>
-<li><label><input type="checkbox">วันที่ 2 test development</label>
+<li><label><input type="checkbox"><strong>วันที่ 2 instrument control</strong></label>
 <ul>
-<li>การทดสอบแบบ sequence และ state</li>
-<li><strong>workshop</strong>: test sequencing</li>
+<li>การเชื่อมต่อเครื่องมือวัด</li>
+<li>ไดรเวอร์ DAQmx และ VISA</li>
 <li>การวิเคราะห์/บันทึกข้อมูล</li>
-<li><strong>workshop</strong>: test data processing</li>
+<li><strong>workshop</strong>: การเชื่อมต่อและควบคุมเครื่องมือวัด</li>
 </ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <ul class="task-list">
-<li><label><input type="checkbox">วันที่ 3 NI TestStand</label>
+<li><label><input type="checkbox"><strong>วันที่ 3 NI TestStand</strong></label>
 <ul>
-<li>หลักการ sequence, execution</li>
-<li><strong>workshop</strong>: PASS/FAIL test</li>
+<li>หลักการ sequence และ action step</li>
+<li>การใช้งาน code module</li>
 <li>การสร้างรายงานด้วย TestStand</li>
-<li><strong>workshop</strong>: test report generation</li>
+<li><strong>workshop</strong>: การทดสอบ</li>
 </ul></li>
-<li><label><input type="checkbox">วันที่ 4 testing in electronics industry</label>
+<li><label><input type="checkbox"><strong>วันที่ 4 testing in electronics industry</strong></label>
 <ul>
-<li>Test fixture สำหรับการทดสอบทางไฟฟ้า</li>
-<li>การสอบเทียบและการทำ self-test</li>
+<li>กรณีศึกษาของการทดสอบในอุตสาหกรรม</li>
 <li><strong>workshop</strong>: TestStand + LabVIEW for circuit testing</li>
 </ul></li>
 </ul>
@@ -212,11 +211,21 @@
 <h2>Problem-based learning #1</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
-<h4 id="ads11115-adc-module-as-dut"><a href="https://www.ti.com/product/ADS1115">ADS11115</a> ADC module as DUT</h4>
+<h4 id="ads11115-module-as-dut"><a href="https://www.ti.com/product/ADS1115">ADS11115</a> module as DUT</h4>
 <ul>
-<li>16-bit Delta-Sigma: upto 860 Samples/sec</li>
-<li>2 differential inputs or 4 single-ended inputs</li>
-<li>Programmable Gain Amplifier (PGA): ±256mV to ±6.144V</li>
+<li>16-bit Delta-Sigma ADC:
+<ul>
+<li>upto 860 samples/sec</li>
+</ul></li>
+<li>I2C interface:
+<ul>
+<li>4 device addresses</li>
+</ul></li>
+<li>2 differential or 4 single-ended inputs</li>
+<li>Programmable Gain Amplifier (PGA):
+<ul>
+<li>±256mV to ±6.144V</li>
+</ul></li>
 <li>Supply voltage: upto 5.5V</li>
 <li>Comparator → ALERT/RDY pin</li>
 </ul>
@@ -282,24 +291,27 @@
 </ul>
 </section>
 <section id="automated-test-equipment-ate" class="slide level2 smaller">
-<h2>Automated Test Equipment (ATE)</h2>
-<p>Computer-controlled systems that automatically measure and evaluate functional, structural, or electrical performance on electronic devices.</p>
+<h2>1. Automated Test Equipment (ATE)</h2>
+<p>Computer-controlled systems that automatically measure and evaluate functional, structural, or electrical performance on electronic devices</p>
+<ul>
+<li>Usability / Reusability / Maintainability / Performance</li>
+</ul>
 <div class="columns">
-<div class="column" style="width:73%;">
-<p><img data-src="figs/01_ATE_structure.jpg" alt="NI ATE"><br>
+<div class="column" style="width:70%;">
+<p><img data-src="figs/A1_ATE_structure.jpg" alt="NI ATE"><br>
 </p>
-</div><div class="column" style="width:27%;">
+</div><div class="column" style="width:30%;">
 <h4 id="ni-sts-semiconductor-test-system"><a href="https://www.ni.com/en/shop/electronic-test-instrumentation/what-is-the-semiconductor-test-system.html">NI STS</a>: Semiconductor Test System</h4>
-<p><img data-src="figs/01_NI_ATE.jpg" alt="NI ATE"><br>
+<p><img data-src="figs/A1_NI_ATE.jpg" alt="NI ATE"><br>
 </p>
 </div></div>
 </section>
 <section id="ate-for-semiconductor-products" class="slide level2 smaller">
-<h2>ATE for semiconductor products</h2>
+<h2>1. ATE for semiconductor products</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <h4 id="teradyne-ets-800"><a href="https://www.teradyne.com/products/ets-800/">TERADYNE ETS-800</a></h4>
-<p><img data-src="figs/01_teradyne_ets800.jpg" alt="ETS-800"><br>
+<p><img data-src="figs/A1_teradyne_ets800.jpg" alt="ETS-800"><br>
 </p>
 </div><div class="column" style="width:55%;">
 <h4 id="ets-800-d20-two-sectors-20-slots">ETS-800 D20: Two sectors, 20-slots</h4>
@@ -330,11 +342,11 @@
 </div></div>
 </section>
 <section id="ate-for-pcb-products" class="slide level2 smaller">
-<h2>ATE for PCB products<sup>1</sup></h2>
+<h2>1. ATE for PCB products<sup>1</sup></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="automated-optical-inspection-aoi">Automated Optical Inspection (AOI)</h4>
-<p><img data-src="figs/01_ATE_PCB_AOI.jpg" alt="PCB AOI"><br>
+<p><img data-src="figs/A1_ATE_PCB_AOI.jpg" alt="PCB AOI"><br>
 </p>
 </div><div class="column" style="width:50%;">
 <h4 id="electrical-testing-ict-or-flying-probe">Electrical testing → ICT or Flying probe</h4>
@@ -343,42 +355,42 @@
 <li>Insulation Resistance Testing</li>
 <li>Impedance Testing: Time-domain reflectometry (TDR)</li>
 </ul>
-<p><img data-src="figs/01_ATE_PCB_ELEC.jpg" alt="PCB Elec"><br>
+<p><img data-src="figs/A1_ATE_PCB_ELEC.jpg" alt="PCB Elec"><br>
 </p>
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn1"><p><a href="https://resources.pcb.cadence.com/blog/2022-understanding-bare-board-pcb-testing">Understanding Bare Board PCB Testing</a></p></li></ol></aside></section>
 <section id="ate-for-pcba-products" class="slide level2 smaller">
-<h2>ATE for PCBA products<sup>1</sup></h2>
+<h2>1. ATE for PCBA products<sup>1</sup></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="automated-optical-inspection-aoi-1">Automated Optical Inspection (AOI)</h4>
-<p><img data-src="figs/01_ATE_PCBA_AOI.jpg" style="width:80.0%" alt="X-Ray PCBA"><br>
+<p><img data-src="figs/A1_ATE_PCBA_AOI.jpg" style="width:80.0%" alt="X-Ray PCBA"><br>
 </p>
 <h4 id="pcb-x-ray-inspection">PCB X-Ray Inspection</h4>
-<p><img data-src="figs/01_ATE_PCBA_XRAY.jpg" style="width:80.0%" alt="X-Ray PCBA"><br>
+<p><img data-src="figs/A1_ATE_PCBA_XRAY.jpg" style="width:80.0%" alt="X-Ray PCBA"><br>
 </p>
 </div><div class="column" style="width:50%;">
 <h4 id="electrical-testing">Electrical testing</h4>
 <ul>
 <li>Flying Probe Test (FPT) → PCB trace, component values</li>
 <li>In-Circuit Testing (ICT) → electrical signals at test points</li>
-<li>Functional Testing (FCT) <img data-src="figs/01_ATE_PCBA_FCT.jpg" alt="PCBA FCT"><br>
+<li>Functional Testing (FCT) <img data-src="figs/A1_ATE_PCBA_FCT.jpg" alt="PCBA FCT"><br>
 </li>
 </ul>
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn2"><p><a href="https://jlcpcb.com/blog/pcba-testing">What Is PCBA Testing? Complete Guide to Inspection Methods, Process, and Quality Control</a></p></li></ol></aside></section>
 <section id="ate-for-appliance-products" class="slide level2 smaller">
-<h2>ATE for appliance products</h2>
+<h2>1. ATE for appliance products</h2>
 <p><strong>Requirements</strong> ← Safety/Energy efficiency/Endurance/… standards</p>
-<p><img data-src="figs/01_ATE_Appliance.jpg" style="width:75.0%" alt="Appliance"><br>
+<p><img data-src="figs/A1_ATE_Appliance.jpg" style="width:75.0%" alt="Appliance"><br>
 </p>
 </section>
 <section id="semiconductor-test-concepts" class="slide level2 smaller">
-<h2>Semiconductor test concepts</h2>
+<h2>1. Semiconductor test concepts</h2>
 <div class="columns">
 <div class="column" style="width:75%;">
 <h4 id="ate-pin-dut">ATE pin ⇆ DUT</h4>
-<p><img data-src="figs/01_ATE_pin_io.jpg" alt="ATE I/O"><br>
+<p><img data-src="figs/A1_ATE_pin_io.jpg" alt="ATE I/O"><br>
 </p>
 </div><div class="column" style="width:25%;">
 <h4 id="subsystems">Subsystems:</h4>
@@ -395,7 +407,7 @@
 </div></div>
 </section>
 <section id="semiconductor-terminology" class="slide level2 smaller">
-<h2>Semiconductor terminology</h2>
+<h2>1. Semiconductor terminology</h2>
 <div class="columns">
 <div class="column" style="width:32%;">
 <ul>
@@ -426,13 +438,13 @@
 </div></div>
 </section>
 <section id="digital-logics-vs-electrical-signals" class="slide level2 smaller">
-<h2>Digital logics vs electrical signals</h2>
+<h2>1. Digital logics vs electrical signals</h2>
 <div class="columns">
 <div class="column" style="width:70%;">
-<p><img data-src="figs/01_ATE_digital_v.jpg" alt="Dig V"><br>
+<p><img data-src="figs/A1_ATE_digital_v.jpg" alt="Dig V"><br>
 </p>
 </div><div class="column" style="width:30%;">
-<p><img data-src="figs/01_ATE_digital_i.jpg" alt="Dig V"><br>
+<p><img data-src="figs/A1_ATE_digital_i.jpg" alt="Dig V"><br>
 </p>
 </div></div>
 <div class="columns">
@@ -488,16 +500,72 @@
 </div></div>
 </section>
 <section id="microcontroller-pin" class="slide level2 smaller">
-<h2>Microcontroller pin</h2>
+<h2>1. Microcontroller pin</h2>
 <h4 id="multiplexed-io-pin">Multiplexed I/O pin</h4>
-<p><img data-src="figs/01_ATE_MCU_pin.jpg" alt="MCU pin"><br>
+<p><img data-src="figs/A1_ATE_MCU_pin.jpg" alt="MCU pin"><br>
 </p>
 </section>
+<section id="openshort-test" class="slide level2 smaller">
+<h2>1. Open/short test</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="die-test-esd-diode">Die test: ESD diode</h4>
+<ul>
+<li>Force current (เช่น +100 µA) เข้า pin</li>
+<li>Measure voltage:
+<ul>
+<li>PASS: ประมาณ 0.6–0.8 V</li>
+<li>Short: ใกล้ 0V</li>
+<li>Open: เพิ่มถึงค่า V limit <img data-src="figs/A1_ATE_OpenShortI.jpg" alt="OpenShort"><br>
+</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h4 id="pcbpcba-test">PCB/PCBA test</h4>
+<ul>
+<li>วัดระหว่าง 2 test point
+<ul>
+<li>ผลกระทบของ trace, solder, การเชื่อมต่อบน PCB</li>
+</ul></li>
+<li>Force voltage, measure current → ความต้านทาน
+<ul>
+<li>ต่ำมาก = short / สูงมาก = open <img data-src="figs/A1_ATE_OpenShortV.jpg" alt="OpenShort"><br>
+</li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="pin-electronics" class="slide level2 smaller">
+<h2>1. Pin electronics<sup>1</sup></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="smu-source-measure-unit">SMU (Source Measure Unit)</h4>
+<ul>
+<li>Operating modes:
+<ul>
+<li>2 quadrants (source only)</li>
+<li>4 quadrants (source and sink) <img data-src="figs/A1_ATE_SMU.jpg" style="width:85.0%" alt="SMU"><br>
+</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h4 id="ppmu-pin-parametric-measurement-unit">PPMU (Pin Parametric Measurement Unit)</h4>
+<ul>
+<li>Operation modes:
+<ul>
+<li>Force voltage, measure current</li>
+<li>Force current, measure voltage</li>
+</ul></li>
+<li>Less precision, no programmable limits, but higher speed, and more channels <img data-src="figs/A1_ATE_PPMU.jpg" style="width:65.0%" alt="PPMU"><br>
+</li>
+</ul>
+</div></div>
+<aside><ol class="aside-footnotes"><li id="fn3"><p><a href="https://www.ni.com/en/shop/electronic-test-instrumentation/source-measure-units/what-are-source-measure-units/understanding-key-differences-between-smus-and-ppmus.html">Understanding Key Differences between SMUs and PPMUs</a></p></li></ol></aside></section>
 <section id="die-testing-bin-distribution" class="slide level2 smaller scrollable">
-<h2>Die testing → bin distribution</h2>
+<h2>1. Die testing → bin distribution</h2>
 <div class="columns">
 <div class="column" style="width:75%;">
-<p><img data-src="figs/01_ATE_test_flow.jpg" alt="Test Flow"><br>
+<p><img data-src="figs/A1_ATE_test_flow.jpg" alt="Test Flow"><br>
 </p>
 </div><div class="column" style="width:25%;">
 <h4 id="testing-flow">Testing flow</h4>
@@ -517,10 +585,10 @@
 </div></div>
 </section>
 <section id="pcba-testing-passscraprework" class="slide level2 smaller">
-<h2>PCBA testing → PASS/Scrap/Rework</h2>
+<h2>1. PCBA testing → PASS/Scrap/Rework</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="figs/01_ATE_PCBA.jpg" alt="PCBA Test"><br>
+<p><img data-src="figs/A1_ATE_PCBA.jpg" alt="PCBA Test"><br>
 </p>
 </div><div class="column" style="width:50%;">
 <h4 id="testing-flow-1">Testing flow</h4>
@@ -528,10 +596,379 @@
 <li>Continuity: Open/Short test</li>
 <li>Component verification: RLC, diode</li>
 <li>Power-up verification: VDD → IDD</li>
-<li>Functional test: <img data-src="figs/01_ATE_PCBA_pogo.jpg" alt="PCBA Test"><br>
+<li>Functional test: <img data-src="figs/A1_ATE_PCBA_pogo.jpg" alt="PCBA Test"><br>
 </li>
 </ol>
 </div></div>
+</section>
+<section id="why-labview" class="slide level2 smaller">
+<h2>2. Why LabVIEW?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="hardware-interfacing">Hardware interfacing</h4>
+<p><img data-src="figs/A2_PC_PXI.jpg" alt="PC with PXI"><br>
+<img data-src="figs/A2_PC_scope.jpg" alt="PC with scope"><br>
+</p>
+</div><div class="column" style="width:50%;">
+<h4 id="virtual-instrument-ui">Virtual Instrument → UI</h4>
+<p><img data-src="figs/A2_LabVIEW_UI_basics.jpg" alt="Basic UI"><br>
+<img data-src="figs/A2_LabVIEW_UI_car.jpg" alt="Car UI"><br>
+</p>
+</div></div>
+</section>
+<section id="why-labview-for-ate" class="slide level2 smaller">
+<h2>2. Why LabVIEW for ATE?</h2>
+<div class="columns">
+<div class="column" style="width:32%;">
+<h4 id="ni-daqmx">NI-DAQmx</h4>
+<ul>
+<li>NI instrument driver that controls DAQ systems</li>
+<li>Library of VIs, functions, classes, attributes, and properties to configure, control, stream data</li>
+</ul>
+<p><img data-src="figs/A2_DAQmx_mioDAQ.jpg" style="width:75.0%" alt="mioDAQ"><br>
+<img data-src="figs/A2_DAQmx_cDAQ.jpg" style="width:75.0%" alt="cDAQ"><br>
+</p>
+</div><div class="column" style="width:32%;">
+<h4 id="ni-visa">NI-VISA</h4>
+<ul>
+<li>Virtual Instrument Software Architecture</li>
+<li>Instrument driver and software API used to configure, program, and control instruments</li>
+<li>Interfaces: USB, Ethernet, GPIB, Serial.</li>
+</ul>
+<p><img data-src="figs/A2_VISA_instruments.jpg" alt="Instrument"><br>
+</p>
+</div><div class="column" style="width:32%;">
+<h4 id="ni-pxi">NI-PXI</h4>
+<ul>
+<li>HW/SW platform built for test automation</li>
+<li>Synchronize across multiple modules or chassis</li>
+<li>PXI embedded controller = PC inside PXI</li>
+</ul>
+<p><img data-src="figs/A2_PXI_chassis.jpg" alt="PXI"><br>
+</p>
+</div></div>
+</section>
+<section id="labview" class="slide level2 smaller">
+<h2>2. LabVIEW</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="front-panel-สวนหนาจอ">Front panel: ส่วนหน้าจอ</h4>
+<ul>
+<li>ประกอบด้วย Controls (รับคำสั่ง/ข้อมูล) และ Indicators (แสดงผล)</li>
+<li>ทำงานแบบ interactive</li>
+</ul>
+<p><img data-src="figs/A2_LabVIEW_front_panel.jpg" alt="FrontPanel"><br>
+</p>
+</div><div class="column" style="width:50%;">
+<h4 id="block-diagram-สวนโคด">Block diagram: ส่วนโค้ด</h4>
+<ul>
+<li>GUI style → drag &amp; drop แล้ว connect</li>
+<li>Execution → dataflow programming
+<ul>
+<li>(รอ) ข้อมูลเข้า → ประมวลผลและส่งต่อ</li>
+<li>ทำงานแบบ <strong>parallel</strong> loop ได้</li>
+</ul></li>
+<li>แนะนำไล่จาก <strong>ซ้าย</strong> ไป <strong>ขวา</strong></li>
+</ul>
+<p><img data-src="figs/A2_LabVIEW_block_diagram.jpg" alt="BlockDiagram"><br>
+</p>
+</div></div>
+</section>
+<section id="labview-quick-tutorial" class="slide level2 smaller">
+<h2>2. LabVIEW quick tutorial</h2>
+<h4 id="ลองสราง-n-point-moving-average-filter">ลองสร้าง N-point moving average filter</h4>
+<ul>
+<li>Delay loop + waveform chart + shift register + build array + sub VI</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+
+</div><div class="column" style="width:50%;">
+
+</div></div>
+</section>
+<section id="labview-terminology" class="slide level2 smaller">
+<h2>2. LabVIEW terminology</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><strong>Data types:</strong>
+<ul>
+<li><strong>Numeric</strong>: สีส้ม (DBL/SGL), สีน้ำเงิน (INT/UINT/enum)</li>
+<li><strong>Boolean</strong>: สีเขียว</li>
+<li><strong>Array</strong>: เส้นหนา (1D), เส้นคู่ (2D)</li>
+<li><strong>String</strong> และ <strong>Cluster</strong>: สีชมพู</li>
+</ul></li>
+<li><strong>Control flow:</strong>
+<ul>
+<li><strong>While</strong>: ทำงานจนกว่าเงื่อนไข (False/True + mech action)<br>
+</li>
+<li><strong>For</strong>: N รอบ หรือตามจำนวนข้อมูล</li>
+<li><strong>Case structure</strong>: if-else, switch-case</li>
+</ul></li>
+<li><strong>SubVI</strong>
+<ul>
+<li><strong>Connector Pane</strong>: Required/Recommend/Optional</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><strong>Timing:</strong>
+<ul>
+<li><strong>Loop + delay</strong>: ง่ายแต่ไม่แม่น</li>
+<li><strong>Timed loop</strong>: ความแม่นยำ/ความละเอียดทางเวลา</li>
+<li><strong>Block waiting</strong>: รอข้อมูลจาก HW</li>
+</ul></li>
+<li><strong>Data passing:</strong>
+<ul>
+<li><strong>Shift register</strong>: ส่งข้อมูลข้าม loop</li>
+<li><strong>Local variable</strong>: แชร์การเข้าถึง</li>
+<li>กลุ่ม synchronized function</li>
+</ul></li>
+<li><strong>UI programming:</strong>
+<ul>
+<li><strong>Event structure</strong>: callback ของ UI event</li>
+<li><strong>Property node</strong>: อัพเดท UI</li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="ni-max" class="slide level2 smaller">
+<h2>2. NI MAX</h2>
+<p><strong>Measurement &amp; Automation Explorer</strong> ใช้ตั้งค่าและตรวจสอบเครื่องมือวัด/DAQ/PXI <img data-src="figs/A2_NI_MAX.jpg" alt="NI MAX"><br>
+</p>
+</section>
+<section id="ni-myrio" class="slide level2 smaller">
+<h2>3. NI myRIO</h2>
+<p><img data-src="figs/A3_myRIO_start.jpg" alt="NI myRIO"><br>
+</p>
+</section>
+<section id="ni-myrio-1" class="slide level2 smaller">
+<h2>3. NI myRIO</h2>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><img data-src="figs/A3_myRIO.jpg" alt="NI myRIO"><br>
+<img data-src="figs/A3_myRIO_DIO_X.jpg" alt="NI myRIO DIO"><br>
+<img data-src="figs/A3_myRIO_DIO_S.jpg" alt="NI myRIO DIO"><br>
+</p>
+</div><div class="column" style="width:35%;">
+<p><img data-src="figs/A3_myRIO_channels.jpg" alt="NI myRIO AIO"><br>
+</p>
+</div><div class="column" style="width:40%;">
+<h4 id="zynq-7010-fpga-256-mb-ram">Zynq-7010 FPGA: 256 MB RAM</h4>
+<ul>
+<li>Real-time Linux, USB, WiFi</li>
+</ul>
+<h4 id="analog-input-ai">Analog Input (AI)</h4>
+<ul>
+<li>12-bit, aggregated 500 kS/s</li>
+<li>MXP: 4 single-ended, 0-5V</li>
+<li>MSP: 2 differential, ±10V</li>
+</ul>
+<h4 id="analog-output-ao">Analog output (AO)</h4>
+<ul>
+<li>MXP: 2 single-ended, 0-5V</li>
+<li>MSP: 2 single-ended, ±10V</li>
+</ul>
+<h4 id="digital-io-dio">Digital I/O (DIO)</h4>
+<ul>
+<li>MXP (2 x 16 pins), MSP (8 pins)</li>
+</ul>
+</div></div>
+</section>
+<section id="myrio-quick-tutorial" class="slide level2 smaller">
+<h2>3. myRIO quick tutorial</h2>
+<p><strong>ลองสร้าง signal processing โดยใช้ analog loopback</strong></p>
+<ul>
+<li>Parallel timed loop + FFT + peak detection + notifier</li>
+</ul>
+</section>
+<section id="myrio-in-labview" class="slide level2 smaller">
+<h2>3. myRIO in LabVIEW</h2>
+<p><img data-src="figs/A3_myRIO_function.jpg" alt="NI myRIO"><br>
+</p>
+</section>
+<section id="labview-synchronization" class="slide level2 smaller">
+<h2>3. LabVIEW synchronization</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><strong>Notifier</strong>: send event → wait on event
+<ul>
+<li>ใช้กลไก broadcast (1-to-many)</li>
+</ul></li>
+<li><strong>Queue</strong>: enqueue msg → dequeue
+<ul>
+<li>ทำงานแบบ FIFO</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h4 id="resource-protection">Resource protection</h4>
+<ul>
+<li><strong>Semaphore</strong>: acquire ← wait for release</li>
+</ul>
+<h4 id="wait-for-every-task">Wait for every task</h4>
+<ul>
+<li><strong>Rendezvous</strong>: wait on → continue together</li>
+</ul>
+</div></div>
+<p><img data-src="figs/A3_LabVIEW_sync.jpg" style="width:80.0%" alt="LabVIEW sync"><br>
+</p>
+</section>
+<section id="myrio-digital-io-timed-comm." class="slide level2 smaller">
+<h2>3. myRIO digital: I/O, timed, comm.</h2>
+<p><img data-src="figs/A3_myRIO_digital.jpg" alt="myRIO digital"><br>
+</p>
+</section>
+<section id="problem-based-learning-1-1" class="slide level2 smaller">
+<h2>4. Problem-based learning #1</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<h4 id="ads11115-adc-module-as-dut"><a href="https://www.ti.com/product/ADS1115">ADS11115</a> ADC module as DUT</h4>
+<ul>
+<li>16-bit Delta-Sigma: upto 860 Samples/sec</li>
+<li>2 differential inputs or 4 single-ended inputs</li>
+<li>Programmable Gain Amplifier (PGA): ±256mV to ±6.144V</li>
+<li>Supply voltage: upto 5.5V</li>
+<li>Comparator → ALERT/RDY pin</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<p><img data-src="figs/00_ADS1115.jpg" alt="ADS1115"><br>
+<img data-src="figs/00_ADS1115_board.jpg" alt="ADS1115"><br>
+</p>
+</div></div>
+</section>
+<section id="ads1115-schematics" class="slide level2 smaller">
+<h2>4. ADS1115 schematics</h2>
+<p><img data-src="figs/A4_ADS1115_schematics.jpg" alt="ADS1115"><br>
+</p>
+</section>
+<section id="ads1115-operations" class="slide level2 smaller">
+<h2>4. ADS1115 operations</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="multiplexer-mux">Multiplexer (MUX):</h4>
+<ul>
+<li>Singled-ended, differential <img data-src="figs/A4_ADS1115_MUX.jpg" alt="ADS1115"><br>
+</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h4 id="programmable-gain-amplifier-pga">Programmable Gain Amplifier (PGA):</h4>
+<ul>
+<li><span class="math inline">\(LSB = \frac{FSR}{2^{16}}\)</span> <img data-src="figs/A4_ADS1115_PGA.jpg" alt="ADS1115"><br>
+</li>
+</ul>
+</div></div>
+</section>
+<section id="i2c-write-ads1115" class="slide level2 smaller">
+<h2>4. I2C write → ADS1115</h2>
+<ul>
+<li>I2C bus: half-duplex, master-slave (7-bit dev address + R/W bit)</li>
+<li>I2C device: registers for control/status/data <img data-src="figs/A4_ADS1115_I2C_W.jpg" alt="I2C"><br>
+</li>
+</ul>
+</section>
+<section id="i2c-read-ads1115" class="slide level2 smaller">
+<h2>4. I2C read ← ADS1115</h2>
+<p><img data-src="figs/A4_ADS1115_I2C_R.jpg" style="width:80.0%" alt="I2C"><br>
+</p>
+</section>
+<section id="programming-ads1115" class="slide level2 smaller">
+<h2>4. Programming ADS1115</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="configure-modes">Configure modes</h4>
+<ul>
+<li>write(device address+W) + address pointer + (MSB/LSB) payload</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h4 id="read-data">Read data</h4>
+<ul>
+<li>write(device address+W) + address pointer</li>
+<li>read(device address+R) + 2-byte payload</li>
+</ul>
+</div></div>
+<h4 id="device-address-7bit-ขนกบขา-addr">Device address (7bit) ขึ้นกับขา ADDR</h4>
+<ul>
+<li>GND (1001000) หรือ VDD (1001001)</li>
+</ul>
+<h4 id="address-pointer">Address Pointer</h4>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Register</th>
+<th>Address</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Conversion</td>
+<td>00b</td>
+<td>ข้อมูล 16 บิตล่าสุด</td>
+</tr>
+<tr class="even">
+<td>Config</td>
+<td>01b</td>
+<td>ตั้งโหมด เลือกอินพุต ตั้งอัตราสุ่ม กำหนดย่าน ตั้ง comparator</td>
+</tr>
+<tr class="odd">
+<td>Low Thres</td>
+<td>10b</td>
+<td>กำหนดเงื่อนไขช่วงต่ำ → ALERT</td>
+</tr>
+<tr class="even">
+<td>High Thres</td>
+<td>11b</td>
+<td>กำหนดเงื่อนไขช่วงสูง → ALERT</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="testing-ads1115-module" class="slide level2 smaller">
+<h2>4. Testing ADS1115 module</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><img data-src="figs/00_ADS1115_board.jpg" style="width:65.0%" alt="ADS1115"><br>
+</p>
+<h4 id="spring-loaded-pogo-pins">Spring-loaded pogo pins</h4>
+<p><img data-src="figs/A4_PCB_pogo.jpg" alt="PCB clip"><br>
+</p>
+</div><div class="column" style="width:70%;">
+<h4 id="basic-test">Basic test</h4>
+<ul>
+<li>Power-on test: VDD = 5V, GND</li>
+</ul>
+<h4 id="digital-test">Digital test</h4>
+<ul>
+<li>I2C comm test:</li>
+<li>Device address test: ADDR pin = 0/1</li>
+<li>Configuration test: write/read Config register</li>
+<li>ADC value test: start conversion, read data</li>
+</ul>
+<h4 id="analog-test">Analog test</h4>
+<ul>
+<li>Singled-ended reading: myRIO AO0 → A0 pin</li>
+<li>MUX swap reading: myRIO AO1 → A1 pin</li>
+<li>Differential reading: myRIO AO0/AO1 → A0/A1 pin</li>
+</ul>
+</div></div>
+</section>
+<section id="labview-myrio-ads1115" class="slide level2 smaller">
+<h2>4. LabVIEW + myRIO ⇆ ADS1115</h2>
+<h4 id="เตรยม-subvi-สำหรบ-write-register">เตรียม SubVI สำหรับ write register</h4>
+</section>
+<section id="labview-myrio-ads1115-1" class="slide level2 smaller">
+<h2>4. LabVIEW + myRIO ⇆ ADS1115</h2>
+<h4 id="เตรยม-subvi-สำหรบ-read-register">เตรียม SubVI สำหรับ read register</h4>
+</section>
+<section id="labview-myrio-ads1115-2" class="slide level2 smaller">
+<h2>4. LabVIEW + myRIO ⇆ ADS1115</h2>
+<h4 id="สราง-vi-สำหรบ-i2c-comm-test">สร้าง VI สำหรับ I2C comm test</h4>
+</section>
+<section id="labview-myrio-ads1115-3" class="slide level2 smaller">
+<h2>4. LabVIEW + myRIO ⇆ ADS1115</h2>
+<h4 id="สราง-vi-สำหรบ-ads1115-a0-conversion">สร้าง VI สำหรับ ADS1115 A0 conversion</h4>
 
 </section>
 
