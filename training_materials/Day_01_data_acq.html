@@ -6,8 +6,8 @@
 <script src="Day_01_data_acq_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="Day_01_data_acq_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Day_01_data_acq_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Day_01_data_acq_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+<link href="Day_01_data_acq_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
   <meta name="dcterms.date" content="2569-07-14">
@@ -211,7 +211,7 @@
 <h2>Problem-based learning #1</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
-<h4 id="ads11115-module-as-dut"><a href="https://www.ti.com/product/ADS1115">ADS11115</a> module as DUT</h4>
+<h4 id="ads1115-module-as-dut"><a href="https://www.ti.com/product/ADS1115">ADS1115</a> module as DUT</h4>
 <ul>
 <li>16-bit Delta-Sigma ADC:
 <ul>
@@ -297,10 +297,10 @@
 <li>Usability / Reusability / Maintainability / Performance</li>
 </ul>
 <div class="columns">
-<div class="column" style="width:70%;">
+<div class="column" style="width:67%;">
 <p><img data-src="figs/A1_ATE_structure.jpg" alt="NI ATE"><br>
 </p>
-</div><div class="column" style="width:30%;">
+</div><div class="column" style="width:33%;">
 <h4 id="ni-sts-semiconductor-test-system"><a href="https://www.ni.com/en/shop/electronic-test-instrumentation/what-is-the-semiconductor-test-system.html">NI STS</a>: Semiconductor Test System</h4>
 <p><img data-src="figs/A1_NI_ATE.jpg" alt="NI ATE"><br>
 </p>
@@ -337,7 +337,6 @@
 <ul>
 <li>200V, 2A</li>
 </ul></li>
-<li>And much more …</li>
 </ul>
 </div></div>
 </section>
@@ -561,6 +560,39 @@
 </ul>
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn3"><p><a href="https://www.ni.com/en/shop/electronic-test-instrumentation/source-measure-units/what-are-source-measure-units/understanding-key-differences-between-smus-and-ppmus.html">Understanding Key Differences between SMUs and PPMUs</a></p></li></ol></aside></section>
+<section id="dc-parametric-test" class="slide level2 smaller">
+<h2>1. DC parametric test</h2>
+<div class="columns">
+<div class="column" style="width:20%;">
+<h4 id="idd-testing">IDD testing</h4>
+</div><div class="column" style="width:80%;">
+<p><img data-src="figs/A1_DC_IDD.jpg" alt="IDD"><br>
+</p>
+</div></div>
+<div class="columns">
+<div class="column" style="width:20%;">
+<h4 id="voliol-testing">VOL/IOL Testing</h4>
+</div><div class="column" style="width:80%;">
+<p><img data-src="figs/A1_DC_IOL.jpg" alt="IOL"><br>
+</p>
+</div></div>
+</section>
+<section id="ac-parametric-test" class="slide level2 smaller">
+<h2>1. AC parametric test</h2>
+<p><img data-src="figs/A1_AC_timing.jpg" style="width:80.0%" alt="AC"><br>
+</p>
+</section>
+<section id="functional-testing-digital-dut" class="slide level2 smaller">
+<h2>1. Functional testing: digital DUT</h2>
+<div class="columns">
+<div class="column" style="width:75%;">
+<p><img data-src="figs/A1_FCT_test.jpg" alt="FCT"><br>
+</p>
+</div><div class="column" style="width:25%;">
+<h4 id="test-vector">Test vector</h4>
+<p>Timing and a series of input (0/1) - output (L/H/Z) combinations</p>
+</div></div>
+</section>
 <section id="die-testing-bin-distribution" class="slide level2 smaller scrollable">
 <h2>1. Die testing → bin distribution</h2>
 <div class="columns">
@@ -615,6 +647,11 @@
 <img data-src="figs/A2_LabVIEW_UI_car.jpg" alt="Car UI"><br>
 </p>
 </div></div>
+</section>
+<section id="ni-max" class="slide level2 smaller">
+<h2>2. NI MAX</h2>
+<p><strong>Measurement &amp; Automation Explorer</strong> ใช้ตั้งค่าและตรวจสอบเครื่องมือวัด/DAQ/PXI <img data-src="figs/A2_NI_MAX.jpg" alt="NI MAX"><br>
+</p>
 </section>
 <section id="why-labview-for-ate" class="slide level2 smaller">
 <h2>2. Why LabVIEW for ATE?</h2>
@@ -674,6 +711,28 @@
 </p>
 </div></div>
 </section>
+<section id="debugging-labview" class="slide level2 smaller">
+<h2>2. Debugging LabVIEW</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<p><img data-src="figs/A2_LabVIEW_Debug.jpg" alt="Debug"><br>
+</p>
+</div><div class="column" style="width:35%;">
+<h4 id="highlight-execution">Highlight Execution</h4>
+<ul>
+<li>แสดงลำดับการไหลของ data ผ่าน node ต่างๆ</li>
+</ul>
+<h4 id="probe">Probe</h4>
+<ul>
+<li>แสดงข้อมูลส่งผ่านระหว่าง node</li>
+</ul>
+<h4 id="breakpoint-step">Breakpoint / Step</h4>
+<ul>
+<li>หยุดการทำงานเมื่อ node มีข้อมูลครบ</li>
+<li>บังคับให้ทำงานทีละ node</li>
+</ul>
+</div></div>
+</section>
 <section id="labview-quick-tutorial" class="slide level2 smaller">
 <h2>2. LabVIEW quick tutorial</h2>
 <h4 id="ลองสราง-n-point-moving-average-filter">ลองสร้าง N-point moving average filter</h4>
@@ -701,14 +760,13 @@
 </ul></li>
 <li><strong>Control flow:</strong>
 <ul>
-<li><strong>While</strong>: ทำงานจนกว่าเงื่อนไข (False/True + mech action)<br>
-</li>
+<li><strong>While</strong>: ทำงานตามเงื่อนไข</li>
 <li><strong>For</strong>: N รอบ หรือตามจำนวนข้อมูล</li>
 <li><strong>Case structure</strong>: if-else, switch-case</li>
 </ul></li>
-<li><strong>SubVI</strong>
+<li><strong>SubVI:</strong>
 <ul>
-<li><strong>Connector Pane</strong>: Required/Recommend/Optional</li>
+<li><strong>Connector Pane</strong>: Required, Recommend, Optional</li>
 </ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
@@ -733,10 +791,62 @@
 </ul>
 </div></div>
 </section>
-<section id="ni-max" class="slide level2 smaller">
-<h2>2. NI MAX</h2>
-<p><strong>Measurement &amp; Automation Explorer</strong> ใช้ตั้งค่าและตรวจสอบเครื่องมือวัด/DAQ/PXI <img data-src="figs/A2_NI_MAX.jpg" alt="NI MAX"><br>
+<section id="labview-quick-tutorial-1" class="slide level2 smaller">
+<h2>2. LabVIEW quick tutorial</h2>
+<h4 id="ลองสราง-iteractive-ui-สำหรบประเมน-reaction-time">ลองสร้าง iteractive UI สำหรับประเมิน <a href="https://humanbenchmark.com/tests/reactiontime">reaction time</a></h4>
+<ul>
+<li>Event Structure + array + property node</li>
+</ul>
+</section>
+<section id="pattern-state-machine" class="slide level2 smaller">
+<h2>2. Pattern: <a href="https://www.ni.com/en/support/documentation/supplemental/16/simple-state-machine-template-documentation.html">state machine</a></h2>
+<p>Programming architecture that allows dynamic flow to <strong>states</strong> depending on values from previous states or user inputs</p>
+<ul>
+<li><strong>Enum</strong> หรือ <strong>String</strong> เป็น state → shift register คงค่าไปรอบถัดไป</li>
+<li><strong>Case structure</strong> อยู่ใน <strong>while loop</strong></li>
+</ul>
+<p><img data-src="figs/A2_LabVIEW_StateMachine.jpg" alt="StateMachine"><br>
 </p>
+</section>
+<section id="pattern-producerconsumer" class="slide level2 smaller">
+<h2>2. Pattern: <a href="https://www.ni.com/en/support/documentation/supplemental/21/producer-consumer-architecture-in-labview0.html">producer/consumer</a></h2>
+<p>Data sharing architecture between multiple loops running at different rates.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img data-src="figs/A2_LabVIEW_ProducerConsumer.jpg" alt="ProducerConsumer"><br>
+</p>
+</div><div class="column" style="width:60%;">
+<ul>
+<li>Queue</li>
+<li>Loops with similar/different timing
+<ul>
+<li>Data producing loops: <strong>enqueue</strong></li>
+<li>Data consuming loops: <strong>dequeue</strong></li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="pattern-actor-framework" class="slide level2 smaller">
+<h2>2. Pattern: <a href="https://www.linkedin.com/pulse/masterclass-labview-architectures-mastering-actor-framework-zhang-mqvvf/">Actor Framework</a></h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><img data-src="figs/A2_LabVIEW_ActorFramework.jpg" alt="ActorFramework"><br>
+</p>
+</div><div class="column" style="width:70%;">
+<p>Set of <strong>reusable</strong> classes that provide common state and message handling functions for <strong>concurrent</strong> operations.</p>
+<ul>
+<li><strong>Actor</strong> class: by-value object with encapsulated state
+<ul>
+<li>Binded with queue as tree architecture</li>
+</ul></li>
+<li><strong>Message</strong> class:
+<ul>
+<li>Inherited <strong>Do.vi</strong></li>
+</ul></li>
+</ul>
+<p><img data-src="figs/A2_LabVIEW_ActorFramework_ex.jpg" alt="ActorFramework"><br>
+</p>
+</div></div>
 </section>
 <section id="ni-myrio" class="slide level2 smaller">
 <h2>3. NI myRIO</h2>
@@ -755,24 +865,46 @@
 <p><img data-src="figs/A3_myRIO_channels.jpg" alt="NI myRIO AIO"><br>
 </p>
 </div><div class="column" style="width:40%;">
-<h4 id="zynq-7010-fpga-256-mb-ram">Zynq-7010 FPGA: 256 MB RAM</h4>
+<h4 id="myrio-1900">myRIO-1900</h4>
 <ul>
-<li>Real-time Linux, USB, WiFi</li>
-</ul>
-<h4 id="analog-input-ai">Analog Input (AI)</h4>
+<li><strong>Analog Input (AI)</strong>:
 <ul>
 <li>12-bit, aggregated 500 kS/s</li>
 <li>MXP: 4 single-ended, 0-5V</li>
 <li>MSP: 2 differential, ±10V</li>
-</ul>
-<h4 id="analog-output-ao">Analog output (AO)</h4>
+</ul></li>
+<li><strong>Analog output (AO)</strong>:
 <ul>
-<li>MXP: 2 single-ended, 0-5V</li>
-<li>MSP: 2 single-ended, ±10V</li>
-</ul>
-<h4 id="digital-io-dio">Digital I/O (DIO)</h4>
+<li>MXP A/B: 2 single-ended, 0-5V</li>
+<li>MSP C: 2 single-ended, ±10V</li>
+</ul></li>
+<li><strong>Digital I/O (DIO)</strong>:
 <ul>
 <li>MXP (2 x 16 pins), MSP (8 pins)</li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="myrio-hardwaresoftware-arch" class="slide level2 smaller">
+<h2>3. myRIO hardware/software arch</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="figs/A3_myRIO_inside.jpg" alt="NI myRIO"><br>
+</p>
+</div><div class="column" style="width:40%;">
+<h4 id="zynq-7010-soc">Zynq-7010 SoC</h4>
+<ul>
+<li><strong>Dual-core ARM Cortex-A9</strong>:
+<ul>
+<li>256MB RAM + 512MB Flash</li>
+<li>Linux RT kernel 4.14</li>
+<li>SSH: admin:no password</li>
+</ul></li>
+<li><strong>Artix-7 FPGA</strong>:
+<ul>
+<li>28k logic cells</li>
+<li>240KB block RAM</li>
+</ul></li>
 </ul>
 </div></div>
 </section>
@@ -956,11 +1088,69 @@
 </section>
 <section id="labview-myrio-ads1115" class="slide level2 smaller">
 <h2>4. LabVIEW + myRIO ⇆ ADS1115</h2>
-<h4 id="เตรยม-subvi-สำหรบ-write-register">เตรียม SubVI สำหรับ write register</h4>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="figs/A3_myRIO_MXP.jpg" alt="MXP"><br>
+</p>
+</div><div class="column" style="width:40%;">
+<h4 id="pin-interfaces">Pin interfaces</h4>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>myRIO</th>
+<th>ADS1115</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1 (5V)</td>
+<td>VCC</td>
+</tr>
+<tr class="even">
+<td>8 (DGND)</td>
+<td>GND</td>
+</tr>
+<tr class="odd">
+<td>32 (DIO14/I2C.SCL)</td>
+<td>SCL</td>
+</tr>
+<tr class="even">
+<td>34 (DIO15/I2C.SDA)</td>
+<td>SDA</td>
+</tr>
+<tr class="odd">
+<td>11 (DIO0)</td>
+<td>ADDR</td>
+</tr>
+<tr class="even">
+<td>13 (DIO1)</td>
+<td>ALRT</td>
+</tr>
+<tr class="odd">
+<td>2 (AO0)</td>
+<td>A0</td>
+</tr>
+<tr class="even">
+<td>4 (AO1)</td>
+<td>A1</td>
+</tr>
+</tbody>
+</table>
+</div></div>
 </section>
 <section id="labview-myrio-ads1115-1" class="slide level2 smaller">
 <h2>4. LabVIEW + myRIO ⇆ ADS1115</h2>
-<h4 id="เตรยม-subvi-สำหรบ-read-register">เตรียม SubVI สำหรับ read register</h4>
+<h4 id="เตรยม-subvi-สำหรบ-readwrite-register">เตรียม SubVI สำหรับ read/write register</h4>
+</section>
+<section id="pattern-state-machine-1" class="slide level2 smaller">
+<h2>4. Pattern: <a href="https://www.ni.com/en/support/documentation/supplemental/16/simple-state-machine-template-documentation.html">state machine</a></h2>
+<p>Programming architecture that allows dynamic flow to <strong>states</strong> depending on values from previous states or user inputs</p>
+<ul>
+<li><strong>Enum</strong> หรือ <strong>String</strong> เป็น state → shift register คงค่าไปรอบถัดไป</li>
+<li><strong>Case structure</strong> อยู่ใน <strong>while loop</strong></li>
+</ul>
+<p><img data-src="figs/A2_LabVIEW_StateMachine.jpg" alt="StateMachine"><br>
+</p>
 </section>
 <section id="labview-myrio-ads1115-2" class="slide level2 smaller">
 <h2>4. LabVIEW + myRIO ⇆ ADS1115</h2>
