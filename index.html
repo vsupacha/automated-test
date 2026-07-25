@@ -24,6 +24,224 @@
     .overview-img{width:75%;border-radius:18px;border:1px solid var(--line);background:#fff;display:block;margin:10px auto 18px}.material-card{display:block;color:var(--text);height:100%;transition:.18s ease}.material-card:hover{transform:translateY(-2px);text-decoration:none;border-color:rgba(52,211,255,.55)}.material-card .open-link{font-weight:700;color:var(--cyan);font-size:14px}
     .tabs{margin-top:14px}.tab-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tab-buttons label{cursor:pointer;padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);font-weight:700;color:var(--muted)}.tab-panel{display:none;border:1px solid var(--line);border-radius:18px;padding:18px;background:rgba(255,255,255,.035)}.tabs input{position:absolute;opacity:0;pointer-events:none}.tabs input:nth-of-type(1):checked~.tab-buttons label:nth-child(1),.tabs input:nth-of-type(2):checked~.tab-buttons label:nth-child(2),.tabs input:nth-of-type(3):checked~.tab-buttons label:nth-child(3),.tabs input:nth-of-type(4):checked~.tab-buttons label:nth-child(4),.tabs input:nth-of-type(5):checked~.tab-buttons label:nth-child(5),.tabs input:nth-of-type(6):checked~.tab-buttons label:nth-child(6),.tabs input:nth-of-type(7):checked~.tab-buttons label:nth-child(7){background:linear-gradient(135deg,var(--blue),#06b6d4);color:white;border-color:transparent}.tabs input:nth-of-type(1):checked~.tab-content .tab-panel:nth-child(1),.tabs input:nth-of-type(2):checked~.tab-content .tab-panel:nth-child(2),.tabs input:nth-of-type(3):checked~.tab-content .tab-panel:nth-child(3),.tabs input:nth-of-type(4):checked~.tab-content .tab-panel:nth-child(4),.tabs input:nth-of-type(5):checked~.tab-content .tab-panel:nth-child(5),.tabs input:nth-of-type(6):checked~.tab-content .tab-panel:nth-child(6),.tabs input:nth-of-type(7):checked~.tab-content .tab-panel:nth-child(7){display:block}.round-media{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.photo-slot{min-height:140px;border:1px dashed rgba(169,191,216,.45);border-radius:16px;display:flex;align-items:center;justify-content:center;color:var(--muted);background:rgba(255,255,255,.025);text-align:center;padding:12px}@media(max-width:900px){.round-media{grid-template-columns:1fr}}
     footer{margin-top:34px;color:var(--muted);font-size:14px;text-align:center}@media(max-width:900px){.hero,.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}.round{grid-template-columns:1fr}.wrap{padding:18px 14px 48px}}
+    .status.clickable{
+      cursor:pointer;
+      text-decoration:underline;
+    }
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.65);
+      z-index:9999;
+    }
+    .modal.show{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .modal-content{
+      width:min(900px,92vw);
+      max-height:85vh;
+      overflow:auto;
+      background:#fff;
+      color:#222;
+      border-radius:16px;
+      padding:24px;
+    }
+    .modal-close{
+      float:right;
+      cursor:pointer;
+      font-size:28px;
+      font-weight:bold;
+    }
+    #nameTable table{
+      width:100%;
+      border-collapse:collapse;
+    }
+    #nameTable th,
+    #nameTable td{
+      border:1px solid #ddd;
+      padding:8px;
+    }
+
+    /* ==============================================================
+       SECTION: Training schedule status badges
+       ============================================================== */
+    .schedule-status{
+      min-width:190px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:9px 13px;
+      background:rgba(255,255,255,.045);
+      text-align:center;
+      line-height:1.35;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .schedule-status.clickable{
+      cursor:pointer;
+      text-decoration:none;
+    }
+    .schedule-status.clickable:hover,
+    .schedule-status.clickable:focus-visible{
+      transform:translateY(-1px);
+      border-color:rgba(52,211,255,.65);
+      background:rgba(52,211,255,.09);
+      outline:none;
+    }
+    .schedule-status .status-main{
+      display:block;
+      font-weight:800;
+    }
+    .schedule-status .status-count{
+      display:block;
+      margin-top:2px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:600;
+    }
+    .schedule-status[data-status="confirmed"] .status-main{color:var(--green)}
+    .schedule-status[data-status="waiting"] .status-main{color:var(--yellow)}
+    .schedule-status[data-status="open"] .status-main{color:var(--cyan)}
+    .schedule-status[data-status="closed"] .status-main{color:var(--red)}
+
+    /* ==============================================================
+       SECTION: Participant list modal
+       ============================================================== */
+    body.modal-open{overflow:hidden}
+    .modal{
+      padding:20px;
+      backdrop-filter:blur(4px);
+    }
+    .modal.show{animation:modalFadeIn .16s ease-out}
+    .modal-content{
+      position:relative;
+      width:min(960px,96vw);
+      max-height:88vh;
+      padding:26px;
+      box-shadow:0 24px 70px rgba(0,0,0,.45);
+    }
+    .modal-close{
+      position:absolute;
+      top:12px;
+      right:18px;
+      float:none;
+      width:40px;
+      height:40px;
+      border:0;
+      border-radius:50%;
+      background:transparent;
+      color:#243447;
+      line-height:1;
+    }
+    .modal-close:hover,
+    .modal-close:focus-visible{
+      background:#edf2f7;
+      outline:none;
+    }
+    .modal-subtitle{
+      margin:-8px 50px 18px 0;
+      color:#5f6f82;
+    }
+    .modal-toolbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin:0 0 16px;
+      flex-wrap:wrap;
+    }
+    .participant-count{
+      font-weight:800;
+      color:#17324d;
+    }
+    #nameSearch{
+      width:min(320px,100%);
+      border:1px solid #cbd5e1;
+      border-radius:10px;
+      padding:10px 12px;
+      font:inherit;
+    }
+    #nameSearch:focus{
+      border-color:#0ea5e9;
+      outline:3px solid rgba(14,165,233,.16);
+    }
+    .table-scroll{
+      overflow:auto;
+      border:1px solid #dbe3ec;
+      border-radius:12px;
+    }
+    #nameTable table{min-width:620px}
+    #nameTable th{
+      position:sticky;
+      top:0;
+      z-index:1;
+      color:#17324d;
+      background:#eaf5fb;
+    }
+    #nameTable tbody tr:nth-child(even){background:#f8fafc}
+    #nameTable tbody tr:hover{background:#eef8fd}
+    .empty-message,
+    .error-message{
+      padding:22px;
+      border-radius:12px;
+      text-align:center;
+    }
+    .empty-message{background:#f8fafc;color:#64748b}
+    .error-message{background:#fff7ed;color:#9a3412}
+    .loading-message{padding:24px;text-align:center;color:#64748b}
+
+    @keyframes modalFadeIn{
+      from{opacity:0}
+      to{opacity:1}
+    }
+
+    @media(max-width:900px){
+      .schedule-status{min-width:0;width:100%;text-align:left}
+      .modal{padding:10px}
+      .modal-content{padding:22px 16px}
+    }
+
+
+    /* ==============================================================
+       SECTION: Dynamic round summary
+       ============================================================== */
+    .round-photo{
+      width:100%;
+      min-height:220px;
+      max-height:360px;
+      object-fit:cover;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      display:block;
+    }
+    .round-photo[hidden]{display:none}
+    .summary-metrics{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+    .summary-metric{
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(255,255,255,.035);
+    }
+    .summary-metric .value{
+      margin-top:4px;
+      font-size:24px;
+      font-weight:800;
+      color:#fff;
+    }
+    .summary-note{
+      margin-top:14px;
+    }
+    @media(max-width:700px){
+      .summary-metrics{grid-template-columns:1fr}
+    }
+
   </style>
 </head>
 <body>
@@ -73,17 +291,116 @@
     
     <img class="overview-img" src="images/overview.png" alt="ภาพรวมระบบทดสอบอัตโนมัติด้วย LabVIEW, myRIO และ test fixture" />
 
-    <!-- SECTION: Training schedule; status can later be calculated from data/*.json by JS -->
+    <!-- SECTION: Training schedule -->
     <section class="section card" id="schedule">
       <h2>ตารางอบรม</h2>
+      <p class="muted">คลิกสถานะเพื่อดูรายชื่อผู้เข้าอบรมที่ประกาศแล้ว</p>
+
       <div class="timeline">
-        <div class="round"><div class="no">#1</div><div>14 – 17 กรกฎาคม 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">ยืนยันรายชื่อแล้ว</div></div>
-        <div class="round"><div class="no">#2</div><div>21 – 24 กรกฎาคม 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
-        <div class="round"><div class="no">#3</div><div>4 – 7 สิงหาคม 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
-        <div class="round"><div class="no">#4</div><div>18 – 21 สิงหาคม 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
-        <div class="round"><div class="no">#5</div><div>27 – 30 สิงหาคม 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
-        <div class="round"><div class="no">#6</div><div>5-6 และ 12-13 กันยายน 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
-        <div class="round"><div class="no">#7</div><div>22 – 25 กันยายน 2569<br><span class="muted">9.00 – 17.00 น.</span></div><div class="status soon">รอเปิดอบรม</div></div>
+        <div class="round">
+          <div class="no">#1</div>
+          <div>
+            14 – 17 กรกฎาคม 2569<br>
+            <span class="muted">9.00 – 17.00 น.</span>
+          </div>
+          <div class="schedule-status clickable"
+               role="button"
+               tabindex="0"
+               data-round="01"
+               data-status="confirmed"
+               aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 1">
+          </div>
+        </div>
+
+        <div class="round">
+          <div class="no">#2</div>
+          <div>
+            21 – 24 กรกฎาคม 2569<br>
+            <span class="muted">9.00 – 17.00 น.</span>
+          </div>
+          <div class="schedule-status clickable"
+               role="button"
+               tabindex="0"
+               data-round="02"
+               data-status="confirmed"
+               aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 2">
+          </div>
+        </div>
+
+        <div class="round">
+          <div class="no">#3</div>
+          <div>
+            4 – 7 สิงหาคม 2569<br>
+            <span class="muted">9.00 – 17.00 น.</span>
+          </div>
+          <div class="schedule-status clickable"
+               role="button"
+               tabindex="0"
+               data-round="03"
+               data-status="closed"
+               aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 3">
+          </div>
+        </div>
+
+        <div class="round">
+          <div class="no">#4</div>
+          <div>
+            18 – 21 สิงหาคม 2569<br>
+            <span class="muted">9.00 – 17.00 น.</span>
+          </div>
+          <div class="schedule-status clickable"
+               role="button"
+               tabindex="0"
+               data-round="04"
+               data-status="open"
+               aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 4">
+          </div>
+        </div>
+
+        <div class="round">
+          <div class="no">#5</div>
+          <div>
+            27 – 30 สิงหาคม 2569<br>
+            <span class="muted">9.00 – 17.00 น.</span>
+          </div>
+          <div class="schedule-status clickable"
+               role="button"
+               tabindex="0"
+               data-round="05"
+               data-status="open"
+               aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 5">
+          </div>
+        </div>
+
+        <div class="round">
+          <div class="no">#6</div>
+          <div>
+            5–6 และ 12–13 กันยายน 2569<br>
+            <span class="muted">9.00 – 17.00 น.</span>
+          </div>
+          <div class="schedule-status clickable"
+               role="button"
+               tabindex="0"
+               data-round="06"
+               data-status="open"
+               aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 6">
+          </div>
+        </div>
+
+        <div class="round">
+          <div class="no">#7</div>
+          <div>
+            22 – 25 กันยายน 2569<br>
+            <span class="muted">9.00 – 17.00 น.</span>
+          </div>
+          <div class="schedule-status clickable"
+               role="button"
+               tabindex="0"
+               data-round="07"
+               data-status="open"
+               aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 7">
+          </div>
+        </div>
       </div>
     </section>
 
@@ -211,5 +528,470 @@
     <!-- SECTION: Footer -->
     <footer>© 2569 Faculty of Engineering, Thammasat University • Automated Test Workshop</footer>
   </main>
+
+  <!-- SECTION: Participant list popup -->
+  <div id="nameModal"
+       class="modal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="popupTitle"
+       aria-hidden="true">
+
+    <div class="modal-content">
+      <button class="modal-close"
+              type="button"
+              aria-label="ปิดหน้าต่าง">&times;</button>
+
+      <h2 id="popupTitle">รายชื่อผู้เข้าอบรม</h2>
+      <p id="popupSubtitle" class="modal-subtitle"></p>
+
+      <div id="nameTable" aria-live="polite">
+        <div class="loading-message">กำลังโหลดข้อมูล...</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SECTION: JavaScript -->
+  <script>
+    "use strict";
+
+    // ==============================================================
+    // Configuration
+    // ==============================================================
+    const ROUND_IDS = ["01", "02", "03", "04", "05", "06", "07"];
+
+    const STATUS_CONFIG = {
+      finished:  { icon: "✅", text: "อบรมเสร็จสิ้นแล้ว", cssClass: "confirmed" },
+      confirmed: { icon: "🟢", text: "ยืนยันรายชื่อแล้ว", cssClass: "confirmed" },
+      waiting:   { icon: "🟡", text: "รอเปิดอบรม", cssClass: "waiting" },
+      open:      { icon: "🔵", text: "เปิดรับสมัคร", cssClass: "open" },
+      closed:    { icon: "🔴", text: "ปิดรับสมัคร", cssClass: "closed" }
+    };
+
+    const FALLBACK_DATES = {
+      "01": "14 – 17 กรกฎาคม 2569",
+      "02": "21 – 24 กรกฎาคม 2569",
+      "03": "4 – 7 สิงหาคม 2569",
+      "04": "18 – 21 สิงหาคม 2569",
+      "05": "27 – 30 สิงหาคม 2569",
+      "06": "5–6 และ 12–13 กันยายน 2569",
+      "07": "22 – 25 กันยายน 2569"
+    };
+
+    const modal = document.getElementById("nameModal");
+    const modalCloseButton = modal.querySelector(".modal-close");
+    const popupTitle = document.getElementById("popupTitle");
+    const popupSubtitle = document.getElementById("popupSubtitle");
+    const nameTable = document.getElementById("nameTable");
+
+    const summaryCache = new Map();
+    const participantCache = new Map();
+    let lastFocusedElement = null;
+
+    // ==============================================================
+    // General helpers
+    // ==============================================================
+    function roundPath(round, fileName) {
+      return `rounds/${round}/${fileName}`;
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function formatRoundNumber(round) {
+      return Number.parseInt(round, 10);
+    }
+
+    function getStatusConfig(status) {
+      return STATUS_CONFIG[status] ?? STATUS_CONFIG.waiting;
+    }
+
+    // ==============================================================
+    // Data loading
+    // ==============================================================
+    async function loadSummary(round) {
+      if (summaryCache.has(round)) {
+        return summaryCache.get(round);
+      }
+
+      const filePath = roundPath(round, "summary.json");
+      const response = await fetch(filePath, { cache: "no-store" });
+
+      if (!response.ok) {
+        throw new Error(`ไม่พบไฟล์ ${filePath}`);
+      }
+
+      const summary = await response.json();
+      summaryCache.set(round, summary);
+      return summary;
+    }
+
+    function parseCSV(csvText) {
+      const rows = [];
+      let row = [];
+      let field = "";
+      let insideQuotes = false;
+
+      for (let index = 0; index < csvText.length; index += 1) {
+        const character = csvText[index];
+        const nextCharacter = csvText[index + 1];
+
+        if (character === '"') {
+          if (insideQuotes && nextCharacter === '"') {
+            field += '"';
+            index += 1;
+          } else {
+            insideQuotes = !insideQuotes;
+          }
+        } else if (character === "," && !insideQuotes) {
+          row.push(field.trim());
+          field = "";
+        } else if ((character === "\n" || character === "\r") && !insideQuotes) {
+          if (character === "\r" && nextCharacter === "\n") {
+            index += 1;
+          }
+
+          row.push(field.trim());
+
+          if (row.some(cell => cell !== "")) {
+            rows.push(row);
+          }
+
+          row = [];
+          field = "";
+        } else {
+          field += character;
+        }
+      }
+
+      row.push(field.trim());
+
+      if (row.some(cell => cell !== "")) {
+        rows.push(row);
+      }
+
+      return rows;
+    }
+
+    async function loadParticipants(round, summary) {
+      if (participantCache.has(round)) {
+        return participantCache.get(round);
+      }
+
+      const participantFile = summary?.participants || "participants.csv";
+      const filePath = roundPath(round, participantFile);
+      const response = await fetch(filePath, { cache: "no-store" });
+
+      if (!response.ok) {
+        throw new Error(`ไม่พบไฟล์ ${filePath}`);
+      }
+
+      const csvText = await response.text();
+      const rows = parseCSV(csvText.replace(/^\uFEFF/, ""));
+
+      if (rows.length === 0) {
+        throw new Error("ไฟล์รายชื่อไม่มีข้อมูล");
+      }
+
+      participantCache.set(round, rows);
+      return rows;
+    }
+
+    // ==============================================================
+    // Schedule
+    // ==============================================================
+    function renderScheduleStatus(statusElement, summary = null) {
+      const statusName = summary?.status || statusElement.dataset.status || "waiting";
+      const status = getStatusConfig(statusName);
+      const registered = Number.isFinite(Number(summary?.registered))
+        ? Number(summary.registered)
+        : null;
+      const capacity = Number.isFinite(Number(summary?.capacity))
+        ? Number(summary.capacity)
+        : null;
+
+      statusElement.dataset.status = status.cssClass;
+
+      const countMarkup = registered !== null && capacity !== null
+        ? `<span class="status-count">${registered}/${capacity} คน</span>`
+        : "";
+
+      statusElement.innerHTML = `
+        <span class="status-main">${status.icon} ${status.text}</span>
+        ${countMarkup}
+      `;
+
+      const canOpenParticipants = Boolean(summary?.participants);
+
+      statusElement.classList.toggle("clickable", canOpenParticipants);
+      statusElement.tabIndex = canOpenParticipants ? 0 : -1;
+
+      if (canOpenParticipants) {
+        statusElement.setAttribute(
+          "aria-label",
+          `ดูรายชื่อผู้เข้าอบรม รุ่นที่ ${formatRoundNumber(statusElement.dataset.round)}`
+        );
+      } else {
+        statusElement.removeAttribute("role");
+        statusElement.removeAttribute("aria-label");
+      }
+    }
+
+    async function initializeScheduleRound(statusElement) {
+      const round = statusElement.dataset.round;
+      renderScheduleStatus(statusElement);
+
+      try {
+        const summary = await loadSummary(round);
+        renderScheduleStatus(statusElement, summary);
+      } catch (error) {
+        console.info(error.message);
+      }
+    }
+
+    // ==============================================================
+    // Workshop status panels
+    // ==============================================================
+    function renderMetric(label, value) {
+      return `
+        <div class="summary-metric">
+          <div class="label">${escapeHTML(label)}</div>
+          <div class="value">${escapeHTML(value)}</div>
+        </div>
+      `;
+    }
+
+    function renderWorkshopPanel(round, summary) {
+      const panel = document.getElementById(`round-${formatRoundNumber(round)}-panel`);
+
+      if (!panel) {
+        return;
+      }
+
+      const status = getStatusConfig(summary.status);
+      const date = summary.date || FALLBACK_DATES[round];
+      const registered = summary.registered ?? "–";
+      const capacity = summary.capacity ?? "–";
+      const preTest = summary.pre_test ?? "–";
+      const postTest = summary.post_test ?? "–";
+      const certificate = summary.certificate ? "พร้อมออก" : "ยังไม่ออก";
+      const photoFile = summary.photo || "photo.jpg";
+      const photoPath = roundPath(round, photoFile);
+
+      panel.innerHTML = `
+        <h3>รอบที่ ${formatRoundNumber(round)}: ${escapeHTML(date)}</h3>
+        <p class="muted">
+          เวลา 9.00 – 17.00 น. • ${status.icon} ${escapeHTML(status.text)}
+        </p>
+
+        <div class="summary-metrics">
+          ${renderMetric("Registration", `${registered}/${capacity} คน`)}
+          ${renderMetric("Pre-test", preTest)}
+          ${renderMetric("Post-test", postTest)}
+        </div>
+
+        <div class="round-media">
+          <div>
+            <img class="round-photo"
+                 src="${escapeHTML(photoPath)}"
+                 alt="ภาพกิจกรรมอบรม รุ่นที่ ${formatRoundNumber(round)}">
+            <div class="photo-slot" hidden>
+              ยังไม่มีภาพกิจกรรม<br>${escapeHTML(photoPath)}
+            </div>
+          </div>
+
+          <div class="placeholder">
+            <b>Certificate:</b> ${escapeHTML(certificate)}<br>
+            <b>Participants:</b>
+            ${summary.participants
+              ? escapeHTML(roundPath(round, summary.participants))
+              : "ยังไม่มีข้อมูล"}<br>
+            <b>Status:</b> ${escapeHTML(summary.status || "waiting")}
+          </div>
+        </div>
+      `;
+
+      const image = panel.querySelector(".round-photo");
+      const photoFallback = panel.querySelector(".photo-slot");
+
+      image.addEventListener("error", () => {
+        image.hidden = true;
+        photoFallback.hidden = false;
+      });
+    }
+
+    function renderWorkshopFallback(round) {
+      const panel = document.getElementById(`round-${formatRoundNumber(round)}-panel`);
+
+      if (!panel) {
+        return;
+      }
+
+      panel.innerHTML = `
+        <h3>รอบที่ ${formatRoundNumber(round)}: ${escapeHTML(FALLBACK_DATES[round])}</h3>
+        <p class="muted">เวลา 9.00 – 17.00 น.</p>
+        <div class="placeholder">
+          ยังไม่มีข้อมูลใน rounds/${round}/summary.json
+        </div>
+      `;
+    }
+
+    async function initializeWorkshopPanel(round) {
+      try {
+        const summary = await loadSummary(round);
+        renderWorkshopPanel(round, summary);
+      } catch (error) {
+        console.info(error.message);
+        renderWorkshopFallback(round);
+      }
+    }
+
+    // ==============================================================
+    // Participant table
+    // ==============================================================
+    function renderParticipantTable(rows, summary) {
+      const header = rows[0];
+      const participants = rows.slice(1);
+
+      const headerHTML = header
+        .map(column => `<th scope="col">${escapeHTML(column)}</th>`)
+        .join("");
+
+      const bodyHTML = participants
+        .map(row => {
+          const normalizedRow = header.map((_, columnIndex) => row[columnIndex] ?? "");
+          const cells = normalizedRow
+            .map(cell => `<td>${escapeHTML(cell)}</td>`)
+            .join("");
+
+          return `<tr>${cells}</tr>`;
+        })
+        .join("");
+
+      const registered = summary?.registered ?? participants.length;
+      const capacity = summary?.capacity ?? "–";
+
+      nameTable.innerHTML = `
+        <div class="modal-toolbar">
+          <div class="participant-count">
+            จำนวนผู้เข้าอบรม ${escapeHTML(registered)}/${escapeHTML(capacity)} คน
+          </div>
+
+          <input id="nameSearch"
+                 type="search"
+                 placeholder="ค้นหาชื่อหรือหน่วยงาน"
+                 aria-label="ค้นหารายชื่อผู้เข้าอบรม">
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead><tr>${headerHTML}</tr></thead>
+            <tbody>${bodyHTML}</tbody>
+          </table>
+        </div>
+      `;
+
+      const searchInput = document.getElementById("nameSearch");
+
+      searchInput.addEventListener("input", event => {
+        const keyword = event.target.value.trim().toLowerCase();
+
+        nameTable.querySelectorAll("tbody tr").forEach(row => {
+          row.hidden = !row.textContent.toLowerCase().includes(keyword);
+        });
+      });
+
+      searchInput.focus();
+    }
+
+    // ==============================================================
+    // Modal
+    // ==============================================================
+    function openModal() {
+      lastFocusedElement = document.activeElement;
+      modal.classList.add("show");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeModal() {
+      modal.classList.remove("show");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+
+      if (lastFocusedElement instanceof HTMLElement) {
+        lastFocusedElement.focus();
+      }
+    }
+
+    async function showNameList(statusElement) {
+      const round = statusElement.dataset.round;
+
+      popupTitle.textContent = `รายชื่อผู้เข้าอบรม รุ่นที่ ${formatRoundNumber(round)}`;
+      popupSubtitle.textContent = `ข้อมูลจาก rounds/${round}/`;
+      nameTable.innerHTML = '<div class="loading-message">กำลังโหลดข้อมูล...</div>';
+
+      openModal();
+
+      try {
+        const summary = await loadSummary(round);
+        const rows = await loadParticipants(round, summary);
+        renderParticipantTable(rows, summary);
+      } catch (error) {
+        nameTable.innerHTML = `
+          <div class="error-message">
+            ยังไม่สามารถแสดงรายชื่อผู้เข้าอบรมได้<br>
+            <small>${escapeHTML(error.message)}</small>
+          </div>
+        `;
+      }
+    }
+
+    // ==============================================================
+    // Initialization and events
+    // ==============================================================
+    document.querySelectorAll(".schedule-status").forEach(statusElement => {
+      initializeScheduleRound(statusElement);
+
+      statusElement.addEventListener("click", () => {
+        if (statusElement.classList.contains("clickable")) {
+          showNameList(statusElement);
+        }
+      });
+
+      statusElement.addEventListener("keydown", event => {
+        if (
+          statusElement.classList.contains("clickable") &&
+          (event.key === "Enter" || event.key === " ")
+        ) {
+          event.preventDefault();
+          showNameList(statusElement);
+        }
+      });
+    });
+
+    ROUND_IDS.forEach(initializeWorkshopPanel);
+
+    modalCloseButton.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", event => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && modal.classList.contains("show")) {
+        closeModal();
+      }
+    });
+  </script>
 </body>
 </html>

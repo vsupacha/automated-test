@@ -1,0 +1,12 @@
+{
+    "round":4,
+    "date":"18-21 August 2026",
+    "status":"open",
+    "capacity":20,
+    "registered":17,
+    "photo":"photo.jpg",
+    "participants":"participants.csv",
+    "pre_test":0,
+    "post_test":0,
+    "certificate":false
+}

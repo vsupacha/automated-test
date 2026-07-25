@@ -1,0 +1,12 @@
+{
+    "round":1,
+    "date":"14-17 July 2026",
+    "status":"finished",
+    "capacity":20,
+    "registered":14,
+    "photo":"photo.jpg",
+    "participants":"participants.csv",
+    "pre_test":0,
+    "post_test":0,
+    "certificate":false
+}

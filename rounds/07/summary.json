@@ -1,0 +1,12 @@
+{
+    "round":7,
+    "date":"22-25 September 2026",
+    "status":"open",
+    "capacity":20,
+    "registered":18,
+    "photo":"photo.jpg",
+    "participants":"participants.csv",
+    "pre_test":0,
+    "post_test":0,
+    "certificate":false
+}
