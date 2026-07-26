@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Day_03_content_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Day_03_content_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Day_03_content_files/libs/quarto-html/popper.min.js"></script>
-<script src="Day_03_content_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Day_03_content_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Day_03_content_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Day_03_content_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="Day_04_content_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Day_04_content_files/libs/quarto-html/tabby.min.js"></script>
+<script src="Day_04_content_files/libs/quarto-html/popper.min.js"></script>
+<script src="Day_04_content_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="Day_04_content_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Day_04_content_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="Day_04_content_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
-  <meta name="dcterms.date" content="2569-08-06">
+  <meta name="dcterms.date" content="2569-07-24">
   <title>BOI STEM++</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Day_03_content_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Day_03_content_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="Day_04_content_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="Day_04_content_files/libs/revealjs/dist/reveal.css">
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -32,12 +32,78 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="Day_03_content_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
-  <link href="Day_03_content_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Day_03_content_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Day_03_content_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Day_03_content_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="Day_04_content_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link href="Day_04_content_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="Day_04_content_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="Day_04_content_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="Day_04_content_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -142,7 +208,7 @@
 </div>
 </div>
 
-  <p class="date">August 6, 2569</p>
+  <p class="date">July 24, 2569</p>
 </section>
 <section id="course-outline" class="slide level2 smaller">
 <h2>Course outline</h2>
@@ -166,7 +232,7 @@
 </ul>
 </div><div class="column" style="width:50%;">
 <ul class="task-list">
-<li><label><input type="checkbox" checked=""><strong>วันที่ 3 NI TestStand</strong></label>
+<li><label><input type="checkbox"><strong>วันที่ 3 NI TestStand</strong></label>
 <ul>
 <li>NI TestStand</li>
 <li>หลักการ sequence และ action/test steps</li>
@@ -174,7 +240,7 @@
 <li>การสร้างรายงานด้วย TestStand</li>
 <li><strong>workshop</strong>: การทดสอบ</li>
 </ul></li>
-<li><label><input type="checkbox"><strong>วันที่ 4 testing in electronics industry</strong></label>
+<li><label><input type="checkbox" checked=""><strong>วันที่ 4 testing in electronics industry</strong></label>
 <ul>
 <li>กรณีศึกษาของการทดสอบในอุตสาหกรรม</li>
 <li><strong>workshop</strong>: TestStand + LabVIEW for circuit testing</li>
@@ -183,295 +249,248 @@
 </div></div>
 </section>
 <section>
-<section id="ni-teststand" class="title-slide slide level1 center">
-<h1>1. NI TestStand</h1>
+<section id="opamp-characterization" class="title-slide slide level1 center">
+<h1>1. Opamp characterization</h1>
 
 </section>
-<section id="ni-teststand-1" class="slide level2 smaller">
-<h2>NI TestStand</h2>
-<p>Off-the-shelf test management software (development/execution/deployment) for validation and production test</p>
-<p><img data-src="figs/TS_01_NI_TestStand.jpg" alt="TestStand"><br>
-</p>
-</section>
-<section id="running-teststand-example" class="slide level2 smaller">
-<h2>Running TestStand example</h2>
+<section id="lm321-opamp" class="slide level2 smaller">
+<h2><a href="https://www.ti.com/product/LM321">LM321</a> opamp</h2>
+<h4 id="single-30-v-1-mhz-operational-amplifier">Single, 30-V, 1-MHz operational amplifier</h4>
 <div class="columns">
-<div class="column" style="width:83%;">
-<p><img data-src="figs/TS_01_NI_TestStand_ex_mobile.jpg" alt="TestStand"><br>
+<div class="column" style="width:55%;">
+<p><img data-src="figs/EL_01_LM321.jpg" alt="LM321"><br>
 </p>
-</div><div class="column" style="width:17%;">
-<h4 id="try-example">Try example</h4>
-<ol type="1">
-<li>Open Examples&gt;Demos&gt; Mobile Device Test</li>
-<li>Execute &gt; Run MainSequence</li>
-</ol>
+</div><div class="column" style="width:45%;">
+<ul>
+<li>Supply Voltage Range: 3 V to 32 V</li>
+<li>Gain-Bandwidth Product: 1 MHz</li>
+<li>Slew rate: 0.4 V/µs</li>
+<li>Supply Current: 430 µA</li>
+<li>Input Bias Current: 45 nA</li>
+<li>SOT-23 package: 2.90 mm x 1.60 mm</li>
+</ul>
 </div></div>
 </section>
-<section id="teststand-terminology" class="slide level2 smaller">
-<h2>TestStand terminology</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 66%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>keywords</th>
-<th>details</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Sequence</strong>: <br> ordered list of <strong>steps</strong></td>
-<td>- <strong>Step Groups</strong>: Setup / Main / Cleanup <br> - <strong>Variables</strong>: Parameters / Locals / FileGlobals / StationGlobals</td>
-</tr>
-<tr class="even">
-<td><strong>Adapters</strong></td>
-<td>connect Steps to Code Modules (LabVIEW, Python, C/C++ DLL, .NET)</td>
-</tr>
-<tr class="odd">
-<td><strong>Step Types</strong></td>
-<td>- <strong>Tests</strong>: Pass/Fail, Numeric Limit, Multiple Numeric Limit, String Value <br> - <strong>Action</strong>: execute without automatic limit evaluation <br> - <strong>Sequence Call</strong>: call a reusable Sequence <br> - <strong>Statement</strong>: evaluate expressions and update variables <br> - <strong>Flow Control</strong>: If–Else, For, While, Do–While, Sweep</td>
-</tr>
-<tr class="even">
-<td><strong>Execution options</strong>: <br> Test UUTs, Single-pass, MainSequence</td>
-<td><strong>Results</strong>: Status, measurements, limits, report, database</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="process-model" class="slide level2 smaller scrollable">
-<h2>Process model</h2>
-<p><img data-src="figs/TS_01_Exec_options.jpg" alt="ExecOptions"><br>
-</p>
-</section>
-<section id="test-uuts-execution" class="slide level2 smaller">
-<h2>Test UUTs execution</h2>
-<p><img data-src="figs/TS_01_Test_UUTs.jpg" alt="ExecOptions"><br>
-</p>
-</section>
-<section id="process-model-batchparallel" class="slide level2 smaller">
-<h2>Process model: batch/parallel</h2>
+<section id="opamp-dc-characteristics" class="slide level2 smaller">
+<h2>Opamp DC characteristics</h2>
+<h4 id="behavior-of-the-op-amp-with-constant-zero-or-low-frequency-input-signals">Behavior of the op-amp with constant (zero or low frequency) input signals</h4>
+<ul>
+<li>Result of mismatches between components inside the op amp</li>
+</ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>Execution</strong>: Test UUTs, Single-pass, MainSequence</p>
-</div><div class="column" style="width:50%;">
-<p><strong>Model</strong>: sequential, batch, parallel</p>
-</div></div>
-<p><img data-src="figs/TS_01_Model_Config.jpg" alt="TestStand"><br>
-</p>
-</section>
-<section id="parallel-model" class="slide level2 smaller">
-<h2>Parallel model</h2>
-<p><img data-src="figs/TS_01_Parallel_UUT.jpg" alt="TestStand"><br>
-</p>
-</section>
-<section id="python-adaptors" class="slide level2 smaller">
-<h2>Python adaptors</h2>
-<h4 id="ทดลองตวอยาง-computer-motherboard-test-แบบ-python">ทดลองตัวอย่าง Computer Motherboard Test แบบ Python</h4>
-<div class="columns">
-<div class="column" style="width:65%;">
-<p><img data-src="figs/TS_01_Python_Adaptor.jpg" alt="TestStand"><br>
-</p>
-</div><div class="column" style="width:35%;">
 <ol type="1">
-<li>ติดตั้ง Python โดยใช้ standalone installer หรือ embedded packages
-<ul>
-<li>ติดตั้งแบบ admin และเพิ่มเข้าสู่ PATH</li>
-</ul></li>
-<li>ใช้ Configure &gt; Adaptors เลือก Python</li>
+<li><strong>Input Offset Voltage (<span class="math inline">\(V_{OS}\)</span>)</strong>: <br> input voltage that bring output to 0V (mid of ±V supply)</li>
+<li><strong>Input Bias Current (<span class="math inline">\(I_{B+}\)</span> and <span class="math inline">\(I_{B-}\)</span>)</strong>: <br> DC currents that flow into inverting/non-inverting inputs</li>
+<li><strong>Input Offset Current (<span class="math inline">\(I_{OS}\)</span>)</strong>: <br> difference between the two input bias currents</li>
+<li><strong>Quiescent Current (<span class="math inline">\(I_Q\)</span>)</strong>: <br> Supply current drawn with no load condition</li>
+</ol>
+</div><div class="column" style="width:50%;">
+<ol start="5" type="1">
+<li><strong>Open-Loop Voltage Gain (<span class="math inline">\(A_{OL}\)</span>)</strong>: <br> DC differential voltage gain (very high value) without feedback</li>
+<li><strong>Common-Mode Rejection Ratio (CMRR)</strong>: <br> ability to reject signals common to both inputs</li>
+<li><strong>Power Supply Rejection Ratio (PSRR)</strong>: <br> ability to reject variations in power supply voltage</li>
+<li><strong>Output Voltage Swing (<span class="math inline">\(V_{OH}\)</span> and <span class="math inline">\(V_{OL}\)</span>)</strong>: <br> Maximum positive and negative output voltages relative to the rails</li>
 </ol>
 </div></div>
 </section>
-<section id="automated-test-equipment-ate" class="slide level2 smaller">
-<h2>Automated Test Equipment (ATE)</h2>
-<p>Computer-controlled systems that automatically measure and evaluate functional, structural, or electrical performance on electronic devices</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 40%">
-<col style="width: 40%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Values</th>
-<th>LabVIEW</th>
-<th>TestStand</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Connectivity</td>
-<td>Direct access via DAQmx, VISA, PXI, proprietary drivers</td>
-<td>Adapters for code modules (C/C++ DLL, Python, LabVIEW)</td>
-</tr>
-<tr class="even">
-<td>Usability</td>
-<td>Fully customizable FrontPanel with custom .CTL</td>
-<td>TS Operator interface, call sequence from LabVIEW</td>
-</tr>
-<tr class="odd">
-<td>Reusability</td>
-<td>SubVI, libraries (.llb), .CTL files</td>
-<td>Code Modules, SubSequence</td>
-</tr>
-<tr class="even">
-<td>Maintainability</td>
-<td>Patterns for single project</td>
-<td>Sequence for multiple projects</td>
-</tr>
-<tr class="odd">
-<td>Scalability</td>
-<td>Single DUT</td>
-<td>Multi-DUT, multi-station</td>
-</tr>
-</tbody>
-</table>
+<section id="opamp-ac-characteristics" class="slide level2 smaller">
+<h2>Opamp AC characteristics</h2>
+<h4 id="behavior-of-the-op-amp-with-time-varying-alternating-input-signals">Behavior of the op-amp with time-varying (alternating) input signals</h4>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ol type="1">
+<li><strong>Gain-Bandwidth Product (GBP)</strong>: <br> product of closed-loop gain and bandwidth in the 20 dB/decade rolloff region</li>
+<li><strong>Unity-Gain Bandwidth</strong>: <br> frequency where open-loop gain drops to 1 (0 dB)</li>
+<li><strong>Full-power bandwidth (<span class="math inline">\(BW_{FP}\)</span>)</strong>: <br> Maximum frequency to deliver a full-amplitude undistorted sine wave</li>
+<li><strong>Gain margin (<span class="math inline">\(G_M\)</span>) - Phase margin (<span class="math inline">\(\Phi_M\)</span>)</strong>: key measures of stability in op-amp feedback systems</li>
+</ol>
+</div><div class="column" style="width:50%;">
+<ol start="5" type="1">
+<li><strong>Slew Rate (SR)</strong>: <br> maximum rate of change (V/µs) of the output voltage</li>
+<li><strong>Settling Time (<span class="math inline">\(t_S\)</span>)</strong>: <br> time required for the output to be within ab error band after step input</li>
+<li><strong>Voltage noise density</strong>: <br> spectral noise voltage per √Hz (nV/√Hz)</li>
+<li><strong>Total Harmonic Distortion (THD)</strong>: <br> harmonic distortion introduced by the amplifier.</li>
+</ol>
+</div></div>
+</section>
+<section id="opamp-characterization-1" class="slide level2 smaller scrollable">
+<h2><a href="https://www.analog.com/en/resources/analog-dialogue/articles/simple-op-amp-measurements.html">Opamp characterization</a></h2>
+<p><strong>Servo-loop config</strong>: using auxiliary (integrator) op-amp to force the DUT’s differential input to zero <strong>→ negate very high DC open-loop gains</strong></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<ol start="2" type="1">
+<li><span class="math inline">\(V_{OS}\)</span> measurement</li>
+<li><span class="math inline">\(I_B\)</span> measurement</li>
+<li>DC gain measurement</li>
+</ol>
+</div><div class="column" style="width:33%;">
+<ol start="5" type="1">
+<li>AC gain measurement</li>
+<li>DC CMRR measurement</li>
+<li>DC PSRR measurement</li>
+</ol>
+</div><div class="column" style="width:33%;">
+<ol start="8" type="1">
+<li>AC CMRR measurement</li>
+<li>AC PSRR measurement</li>
+</ol>
+</div></div>
+<p><img data-src="figs/EL_01_Opamp_Servoloop.jpg" alt="Opamp"><br>
+</p>
+</section>
+<section id="offset-voltage-measurement" class="slide level2 smaller">
+<h2>Offset voltage measurement</h2>
+<p><strong>Offset voltage (VOS)</strong>: small differential voltage that must be applied between the input terminals to make the output zero.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Null feedback with attenuated <strong>TP1</strong> (integrated <span class="math inline">\(V_{OS}\)</span>)</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Voltage <strong>TP1</strong> เท่ากับ <span class="math inline">\(1000 * V_{OS}\)</span></li>
+</ul>
+</div></div>
+<p><img data-src="figs/EL_01_Offset_Voltage.jpg" alt="Opamp"><br>
+</p>
+</section>
+<section id="dc-cmrrpsrr-measurement" class="slide level2 smaller">
+<h2>DC CMRR/PSRR measurement</h2>
+<p>Ability to reject signals common to both inputs (<strong>CMRR</strong>) and variations in power supply voltage (<strong>PSRR</strong>)</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><strong>CMRR</strong>: ±2.5V supply voltage → +3.5V/-1.5V</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><strong>PSRR</strong>: ±2.5V supply voltage → ±3V</li>
+</ul>
+</div></div>
+<p><img data-src="figs/EL_01_CMRR_PSRR.jpg" style="width:70.0%" alt="Opamp"><br>
+</p>
+</section>
+<section id="lm321-simulation" class="slide level2 smaller">
+<h2>LM321 simulation</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="figs/EL_01_LM321_schematic.jpg" alt="LM321"><br>
+</p>
+</div><div class="column" style="width:50%;">
+<h4 id="spice-simulation">SPICE simulation</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource spice number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href=""></a>*LMV321  BICMOS  Low Voltage General Purpose Op Amp</span>
+<span id="cb1-2"><a href=""></a>* MODEL FORMAT: PSPICE</span>
+<span id="cb1-3"><a href=""></a>* Rev:  11/07/97 -- ABG </span>
+<span id="cb1-4"><a href=""></a>*/////////////////////////////////////////</span>
+<span id="cb1-5"><a href=""></a>* Connections       non-inverting input</span>
+<span id="cb1-6"><a href=""></a>*                   |  inverting input</span>
+<span id="cb1-7"><a href=""></a>*                   |  |  positive power supply </span>
+<span id="cb1-8"><a href=""></a>*                   |  |  |  negative power supply </span>
+<span id="cb1-9"><a href=""></a>*                   |  |  |  |  output </span>
+<span id="cb1-10"><a href=""></a>*                   |  |  |  |  |</span>
+<span id="cb1-11"><a href=""></a>.SUBCKT  lMV321     3  2  4  5  6</span>
+<span id="cb1-12"><a href=""></a></span>
+<span id="cb1-13"><a href=""></a>EOX 120 10 31 32 2.0</span>
+<span id="cb1-14"><a href=""></a>RCX 120 121 1K</span>
+<span id="cb1-15"><a href=""></a>RDX 121 10 1K</span>
+<span id="cb1-16"><a href=""></a>RBX 120 122 1K</span>
+<span id="cb1-17"><a href=""></a>GOS 10 57 122 121 1.0</span>
+<span id="cb1-18"><a href=""></a></span>
+<span id="cb1-19"><a href=""></a>* Input Offset Voltage</span>
+<span id="cb1-20"><a href=""></a>.MODEL MRAX RES (TC1=1e-05)</span>
+<span id="cb1-21"><a href=""></a>FIN1 18 5 VTEMP 0.833333</span>
+<span id="cb1-22"><a href=""></a>FIN2 19 5 VTEMP 1.16667</span>
+<span id="cb1-23"><a href=""></a>* Input Bias Currents</span>
+<span id="cb1-24"><a href=""></a>CIN1 2 10 1e-12</span>
+<span id="cb1-25"><a href=""></a>CIN2 3 10 1e-12</span>
+<span id="cb1-26"><a href=""></a></span>
+<span id="cb1-27"><a href=""></a>* Slope of Supp. Curr. vs. Supp. Volt.</span>
+<span id="cb1-28"><a href=""></a>GPWR 4 5 26 10 0.00013</span>
+<span id="cb1-29"><a href=""></a>* Quiescent Supply Current</span>
+<span id="cb1-30"><a href=""></a>ETEMP 27 28 32 33 0.286906</span>
+<span id="cb1-31"><a href=""></a>RIB 32 33 MRIB 1K</span>
+<span id="cb1-32"><a href=""></a>* Temp. Co. of Input Currents</span>
+<span id="cb1-33"><a href=""></a>.MODEL MRIB RES (TC1=0.00283713)</span>
+<span id="cb1-34"><a href=""></a></span>
+<span id="cb1-35"><a href=""></a>* Output Voltage Swing Settings</span>
+<span id="cb1-36"><a href=""></a>GSOURCE 74 73 33 34 0.0006</span>
+<span id="cb1-37"><a href=""></a>GSINK 72 75 33 34 0.0016</span>
+<span id="cb1-38"><a href=""></a>* Output Current Settings</span>
+<span id="cb1-39"><a href=""></a>ROO 81 86 8.5</span>
+<span id="cb1-40"><a href=""></a>.MODEL DMOD1 D</span>
+<span id="cb1-41"><a href=""></a>.MODEL DMOD2 D  (IS=1e-17)</span>
+<span id="cb1-42"><a href=""></a>.MODEL NPN1 NPN (BF=100 IS=1e-15)</span>
+<span id="cb1-43"><a href=""></a>.MODEL PNP1 PNP (BF=100 IS=1e-15)</span>
+<span id="cb1-44"><a href=""></a>.ENDS lmv321</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
+<section id="spice-simulation-ltspice" class="slide level2 smaller">
+<h2>SPICE simulation: <a href="https://learn.sparkfun.com/tutorials/introduction-to-operational-amplifiers-with-ltspice/all">LTspice</a></h2>
+<h4 id="free-spice-simulator-software-schematic-capture-and-waveform-viewer">Free SPICE simulator software, schematic capture and waveform viewer</h4>
+<p><img data-src="figs/EL_01_LTspice.jpg" alt="LTspice"><br>
+</p>
 </section></section>
 <section>
-<section id="teststand-workflow" class="title-slide slide level1 center">
-<h1>2. TestStand workflow</h1>
+<section id="dib-dut" class="title-slide slide level1 center">
+<h1>2. DIB ⇆ DUT</h1>
 
 </section>
-<section id="ni-teststand-ui" class="slide level2 smaller">
-<h2>NI TestStand UI</h2>
-<p><img data-src="figs/TS_02_TestStand_UI.jpg" alt="TestStand"><br>
-</p>
-</section>
-<section id="ni-teststand-workflow" class="slide level2 smaller">
-<h2>NI TestStand workflow</h2>
-<div class="columns">
-<div class="column" style="width:75%;">
-<p><img data-src="figs/TS_02_TestStand_UI_new.jpg" alt="TestStand"><br>
-</p>
-</div><div class="column" style="width:25%;">
-<h4 id="workflow">Workflow</h4>
-<ol type="1">
-<li>Start Sequence
-<ul>
-<li>Add steps</li>
-</ul></li>
-<li>Modify code modules
-<ul>
-<li>Parameters</li>
-</ul></li>
-<li>Modify Sequence
-<ul>
-<li>Variables:
-<ul>
-<li>Locals</li>
-<li>FileGlobals</li>
-<li>StationGlobals</li>
-</ul></li>
-</ul></li>
-<li>Run MainSequence</li>
-</ol>
-</div></div>
-</section>
-<section id="teststand-tutorial" class="slide level2 smaller">
-<h2>TestStand tutorial</h2>
-<h4 id="สราง-sequence-แสดงขอความ">สร้าง sequence แสดงข้อความ</h4>
-<div class="columns">
-<div class="column" style="width:65%;">
-<p><img data-src="figs/TS_02_Ex_MsgPopup.jpg" alt="TestStand"><br>
-</p>
-</div><div class="column" style="width:35%;">
-<ol type="1">
-<li>ใช้ <code>Message Popup</code> โดยเพิ่มปุ่ม “Cancel”</li>
-<li>ใช้ Breakpoint + Step over ตรวจสอบการกดปุ่ม → <code>Step.Result.ButtonHit</code></li>
-<li>เพิ่ม <code>ButtonHit</code> เป็น <strong>Locals</strong></li>
-<li>กำหนด Properties &gt; Expressions &gt; Post-Expression: <code>Locals.ButtonHit = Step.Result.ButtonHit</code></li>
-</ol>
-</div></div>
-</section>
-<section id="teststand-tutorial-1" class="slide level2 smaller">
-<h2>TestStand tutorial</h2>
-<h4 id="ปรบปรง-sequence-โดยเพม-if-else-end">ปรับปรุง sequence โดยเพิ่ม If-Else-End</h4>
-<div class="columns">
-<div class="column" style="width:65%;">
-<p><img data-src="figs/TS_02_IfElse_Expression.jpg" alt="TestStand"><br>
-</p>
-</div><div class="column" style="width:35%;">
-<ol type="1">
-<li>เพิ่ม Flow Control แบบ <strong>If-Else-End</strong></li>
-<li>กำหนดเงื่อนไข<br> <code>Locals.ButtonHit == 1</code></li>
-</ol>
-</div></div>
-</section>
-<section id="code-modules" class="slide level2 smaller">
-<h2>Code modules</h2>
-<p><strong>Program module</strong> with one or more functions that perform a specific test or other action.</p>
-<ul>
-<li><strong>Module adapters</strong> (menu <strong>Configure</strong> &gt; <strong>Adapters</strong>) load and call code modules, pass parameters to code modules, and return values and status from code modules. <img data-src="figs/TS_02_Code_Modules.jpg" style="width:80.0%" alt="CodeModules"><br>
-</li>
-</ul>
-</section>
-<section id="teststand-code-modules" class="slide level2 smaller">
-<h2>TestStand ⇆ code modules<sup>1</sup></h2>
+<section id="dib-connectors" class="slide level2 smaller">
+<h2>DIB connectors</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h4 id="parameters">Parameters</h4>
+<h4 id="cdaq-9177-chassis">cDAQ-9177 chassis</h4>
 <ul>
-<li><strong>Pass-by-reference</strong>: two-way data exchange</li>
-<li>Pass-by-value</li>
+<li>NI-9239 วัดแรงดัน</li>
+<li>NI-9269 สร้างแรงดันทดสอบ</li>
+<li>NI-9477 ปิด/เปิด relay แนวสัญญาณ</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<h4 id="variables">Variables</h4>
+<h4 id="instruments">Instruments</h4>
 <ul>
-<li><strong>Local variables</strong>: scope within step</li>
-<li><strong>FileGlobals</strong>: global within sequence file</li>
-<li><strong>StationGlobals</strong>: global within machine</li>
+<li>UNI-T UT8805E วัดกระแส</li>
+<li>UNI-T UDP3305S แหล่งจ่ายไฟเลี้ยง</li>
+<li>PicoScope 2206B ทดสอบสัญญาณ &gt; 1 kHz</li>
 </ul>
 </div></div>
-<p><img data-src="figs/TS_02_TestStand_Param.jpg" alt="Param"><br>
+<p><img data-src="figs/TS_03_DIB_connectors.jpg" style="width:80.0%" alt="DIB"><br>
 </p>
-<aside><ol class="aside-footnotes"><li id="fn1"><p><a href="https://www.ni.com/en/support/documentation/supplemental/09/teststand-code-module-development-best-practices.html">TestStand Code Module Development Best Practices</a></p></li></ol></aside></section>
-<section id="teststand-tutorial-2" class="slide level2 smaller">
-<h2>TestStand tutorial</h2>
-<h4 id="สราง-sequence-เรมเชอมตอ-ปรบคา-ปดการเชอม">สร้าง sequence เริ่มเชื่อมต่อ / ปรับค่า / ปิดการเชื่อม</h4>
-<div class="columns">
-<div class="column" style="width:65%;">
-
-</div><div class="column" style="width:35%;">
-<ol type="1">
-<li>เพิ่ม Action สำหรับ <strong>ppsOpen</strong>, <strong>dmmOpen</strong> ใน <strong>Setup</strong> group และ <strong>ppsClose</strong>, <strong>dmmClose</strong> ใน <strong>Cleanup</strong> group</li>
-<li>เตรียม VI เรียกใช้ <code>VISA Open</code> และ <code>VISA Close</code> สำหรับ UDP3305S และ UT8805E</li>
-<li>กำหนด FileGlobals สำหรับ <code>ppsResource</code> และ <code>dmmResource</code></li>
-<li>ใช้ <code>ppsResource</code> และ <code>dmmResource</code> ส่งผ่าน</li>
-</ol>
-</div></div>
 </section>
-<section id="teststand-tutorial-3" class="slide level2 smaller">
-<h2>TestStand tutorial</h2>
-<h4 id="เพม-step-ในการสงการเครองมอวด">เพิ่ม step ในการสั่งการเครื่องมือวัด</h4>
-<div class="columns">
-<div class="column" style="width:65%;">
-
-</div><div class="column" style="width:35%;">
-<ol type="1">
-<li>เพิ่ม Action ในการตั้งค่าแรงดันของ UDP3305S
-<ul>
-<li>เตรียม VI เรียกใช้ <code>VISA Write</code></li>
-</ul></li>
-<li>เพิ่ม Test แบบ Numeric Limit Test ตรวจสอบแรงดันด้วย UT8805E
-<ul>
-<li>เตรียม VI เรียกใช้ <code>VISA Write</code> และ <code>VISA Read</code></li>
-</ul></li>
-<li>รับค่า <code>Volt</code> เป็น <code>Step.Result.Numeric</code>
-<ul>
-<li>กำหนดเงื่อนไข PASS/FAIL</li>
-</ul></li>
-</ol>
-</div></div>
-</section>
-<section id="teststand-sequence-callbacks" class="slide level2 smaller">
-<h2>TestStand sequence callbacks</h2>
-<p><strong>MainSequence</strong>: Setup → Main → Cleanup</p>
-<p><img data-src="figs/TS_02_Seq_Callback.jpg" alt="TestStand"><br>
+<section id="dib-switch-matrix" class="slide level2 smaller">
+<h2>DIB switch matrix</h2>
+<p><img data-src="figs/TS_03_Switch_matrix.jpg" alt="Switch"><br>
 </p>
+</section>
+<section id="dut-socket" class="slide level2 smaller">
+<h2>DUT socket</h2>
+<p><img data-src="figs/TS_03_DUT_socket.jpg" alt="Socket"><br>
+</p>
+</section>
+<section id="dut-socket-1" class="slide level2 smaller">
+<h2>DUT socket</h2>
+<p><img data-src="figs/TS_03_DUT_socket.jpg" alt="Socket"><br>
+</p>
+</section>
+<section id="dut-interface" class="slide level2 smaller">
+<h2>DUT interface</h2>
+<p><img data-src="figs/TS_03_DUT_interface.jpg" alt="DUT"><br>
+</p>
+</section>
+<section id="dut-characteristics-lm321" class="slide level2 smaller">
+<h2>DUT characteristics: LM321</h2>
+<p><img data-src="figs/TS_03_LM321_charac.jpg" alt="DUT"><br>
+</p>
+</section></section>
+<section>
+<section id="teststand-workshop" class="title-slide slide level1 center">
+<h1>3. TestStand workshop</h1>
+
+</section>
+<section id="test-sequence-for-opamp" class="slide level2 smaller">
+<h2>Test sequence for opamp</h2>
 
 </section></section>
-
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="figs/TSE_logo.svg" class="slide-logo"></p>
@@ -481,19 +500,19 @@
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Day_03_content_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="Day_04_content_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Day_03_content_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Day_03_content_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Day_03_content_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Day_03_content_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Day_03_content_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="Day_04_content_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="Day_04_content_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="Day_04_content_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="Day_04_content_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="Day_04_content_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Day_03_content_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Day_03_content_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Day_03_content_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Day_03_content_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="Day_04_content_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="Day_04_content_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="Day_04_content_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="Day_04_content_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

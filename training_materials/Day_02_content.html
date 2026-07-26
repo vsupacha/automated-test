@@ -6,11 +6,11 @@
 <script src="Day_02_content_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="Day_02_content_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Day_02_content_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Day_02_content_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="Day_02_content_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
-  <meta name="dcterms.date" content="2569-07-22">
+  <meta name="dcterms.date" content="2569-08-05">
   <title>BOI STEM++</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -142,7 +142,7 @@
 </div>
 </div>
 
-  <p class="date">July 22, 2569</p>
+  <p class="date">August 5, 2569</p>
 </section>
 <section id="course-outline" class="slide level2 smaller">
 <h2>Course outline</h2>
@@ -182,8 +182,8 @@
 </ul>
 </div></div>
 </section>
-<section id="hardware-configuration" class="slide level2 smaller">
-<h2>Hardware configuration</h2>
+<section id="instruments-for-opamp-testing" class="slide level2 smaller">
+<h2>Instruments for opamp testing</h2>
 <h4 id="objective-automated-testing-of-opamp">Objective: automated testing of opamp</h4>
 <p><img data-src="figs/00_orig_design.jpg" alt="OrigDesign"><br>
 </p>
@@ -193,8 +193,8 @@
 <p><img data-src="figs/00_TSE_DIB_schematics.jpg" alt="DIB"><br>
 </p>
 </section>
-<section id="tse-opamp-dib" class="slide level2 smaller">
-<h2>TSE opamp DIB</h2>
+<section id="instruments-opamp-dib" class="slide level2 smaller">
+<h2>Instruments ⇆ opamp DIB</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="cdaq-9177-chassis">cDAQ-9177 chassis</h4>
@@ -207,7 +207,7 @@
 <h4 id="instruments">Instruments</h4>
 <ul>
 <li>UNI-T UT8805E วัดกระแส</li>
-<li>UNI-T UDO3305S แหล่งจ่ายไฟเลี้ยง</li>
+<li>UNI-T UDP3305S แหล่งจ่ายไฟเลี้ยง</li>
 <li>PicoScope 2206B ทดสอบสัญญาณ &gt; 1 kHz</li>
 </ul>
 </div></div>
@@ -552,7 +552,7 @@
 <li>ใช้ <strong>VISA Open</strong> เปิดการเชื่อมต่อ</li>
 <li>วนรอบตั้งค่าด้วย <strong>VISA Write</strong> และอ่านค่าด้วย <strong>VISA Read</strong>
 <ul>
-<li>ตั้งค่า string เป็น <strong>’' Codes Display</strong></li>
+<li>ตั้งค่า string เป็น <strong><code>'\'</code> Codes Display</strong></li>
 <li>ใช้ <strong>Format Into String</strong> และ <strong>Fract/Exp String to Number</strong> เพื่อแปลง</li>
 </ul></li>
 <li>ใช้ <strong>VISA Close</strong> ปิดการเชื่อมต่อ</li>
