@@ -156,7 +156,7 @@
 <li>การสร้างสัญญาณทดสอบด้วย NI myRIO</li>
 <li><strong>workshop</strong>: การเชื่อมต่อ DUT</li>
 </ul></li>
-<li><label><input type="checkbox" checked=""><strong>วันที่ 2 instrument control</strong></label>
+<li><label><input type="checkbox" checked=""><strong>วันที่ 2 Instrument drivers</strong></label>
 <ul>
 <li>การเชื่อมต่อเครื่องมือวัด</li>
 <li>ไดรเวอร์ DAQmx และ VISA</li>
@@ -169,15 +169,14 @@
 <li><label><input type="checkbox"><strong>วันที่ 3 NI TestStand</strong></label>
 <ul>
 <li>NI TestStand</li>
-<li>หลักการ sequence และ action/test steps</li>
+<li>Sequence และ action/test steps</li>
 <li>การใช้งาน code module</li>
-<li>การสร้างรายงานด้วย TestStand</li>
-<li><strong>workshop</strong>: การทดสอบ</li>
+<li><strong>workshop</strong>: การสร้าง sequence ทดสอบ</li>
 </ul></li>
 <li><label><input type="checkbox"><strong>วันที่ 4 testing in electronics industry</strong></label>
 <ul>
 <li>กรณีศึกษาของการทดสอบในอุตสาหกรรม</li>
-<li><strong>workshop</strong>: TestStand + LabVIEW for circuit testing</li>
+<li><strong>workshop</strong>: LabVIEW + TestStand for opamp testing</li>
 </ul></li>
 </ul>
 </div></div>
@@ -186,11 +185,6 @@
 <h2>Instruments for opamp testing</h2>
 <h4 id="objective-automated-testing-of-opamp">Objective: automated testing of opamp</h4>
 <p><img data-src="figs/00_orig_design.jpg" alt="OrigDesign"><br>
-</p>
-</section>
-<section id="tse-opamp-dib-schematics" class="slide level2 smaller">
-<h2>TSE opamp DIB: schematics</h2>
-<p><img data-src="figs/00_TSE_DIB_schematics.jpg" alt="DIB"><br>
 </p>
 </section>
 <section id="instruments-opamp-dib" class="slide level2 smaller">
@@ -214,10 +208,162 @@
 <p><img data-src="figs/00_TSE_DIB_hardware.jpg" style="width:80.0%" alt="DIB"><br>
 </p>
 </section>
+<section id="tse-opamp-dib-schematics" class="slide level2 smaller">
+<h2>TSE opamp DIB: schematics</h2>
+<p><img data-src="figs/00_TSE_DIB_schematics.jpg" alt="DIB"><br>
+</p>
+</section>
+<section id="workshop-outcomes" class="slide level2 smaller">
+<h2>Workshop outcomes</h2>
+<ol type="1">
+<li>เข้าใจการเชื่อมต่อเครื่องมือวัดกับ DUT
+<ul>
+<li>การใช้งานเครื่องมือวัดแบบ manual และผ่านซอฟต์แวร์ remote</li>
+</ul></li>
+<li>การสร้าง LabVIEW SubVI เพื่อการวัด <span class="math inline">\(I_{S}\)</span> แบบอัตโนมัติ</li>
+</ol>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>VI</th>
+<th>อุปกรณ์</th>
+<th>หน้าที่</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>AO_init</code></td>
+<td>NI-9269</td>
+<td>เชื่อมต่อ DAQmx</td>
+</tr>
+<tr class="even">
+<td><code>AO_write</code></td>
+<td>NI-9269</td>
+<td>สร้างแรงดันไฟเลี้ยง DUT opamp</td>
+</tr>
+<tr class="odd">
+<td><code>DO_init</code></td>
+<td>NI-9477</td>
+<td>เชื่อมต่อ DAQmx</td>
+</tr>
+<tr class="even">
+<td><code>DO_write</code></td>
+<td>NI-9477</td>
+<td>คุมสถานะ ON/OFF ของสวิทช์</td>
+</tr>
+<tr class="odd">
+<td><code>PPS_init</code></td>
+<td>UDP3305S</td>
+<td>เชื่อมต่อ VISA</td>
+</tr>
+<tr class="even">
+<td><code>PPS_write</code></td>
+<td>UDP3305S</td>
+<td>สร้างแรงดันไฟเลี้ยง AUX opamp</td>
+</tr>
+<tr class="odd">
+<td><code>DMM_init</code></td>
+<td>UT8805E</td>
+<td>เชื่อมต่อ VISA</td>
+</tr>
+<tr class="even">
+<td><code>DMM_read</code></td>
+<td>UT8805E</td>
+<td>อ่านค่ากระแส</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section>
-<section id="labview-instruments" class="title-slide slide level1 center">
-<h1>1. LabVIEW ⇆ instruments</h1>
+<section id="dut-measurement" class="title-slide slide level1 center">
+<h1>1. DUT measurement</h1>
 
+</section>
+<section id="i_s-measurement" class="slide level2 smaller">
+<h2><span class="math inline">\(I_{S}\)</span> measurement</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ol type="1">
+<li><strong>UDP3305S</strong>: จ่ายไฟเลี้ยง AUX opamp</li>
+<li><strong>UT8805E</strong>: วัดกระแส <span class="math inline">\(I_{S}\)</span></li>
+</ol>
+</div><div class="column" style="width:50%;">
+<ol start="3" type="1">
+<li><strong>NI-9477</strong>: คุมสวิทช์เลือกวัดกระแส</li>
+<li><strong>NI-9269</strong>: จ่ายไฟเลี้ยง DUT opamp</li>
+</ol>
+</div></div>
+<p><img data-src="figs/Instr_01_IDD_meas.jpg" alt="IDD"><br>
+</p>
+</section>
+<section id="signal-interfaces" class="slide level2 smaller">
+<h2>Signal interfaces</h2>
+<p><img data-src="figs/Instr_01_signal.jpg" alt="Signals"><br>
+</p>
+</section>
+<section id="udp3305s-prog.-power-supply" class="slide level2 smaller">
+<h2>UDP3305S prog. power supply</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img data-src="figs/Instr_01_UDP3305S.jpg" alt="UDP3305S-E"><br>
+<img data-src="figs/Instr_01_UDP3305S_panel.jpg" alt="UDP3305S"><br>
+</p>
+</div><div class="column" style="width:60%;">
+<h4 id="channel-programmable-dc-power-supply">4-channel programmable DC power supply</h4>
+<ul>
+<li>Total power 328 Watts
+<ul>
+<li>CH1/CH2: 0–30V at up to 5A
+<ul>
+<li>Parallel 10A or series 60V</li>
+<li>Bipolar ±30V</li>
+</ul></li>
+<li>CH3: 0–6V/3A logic-level channel</li>
+<li>CH4: fixed 5V/2A USB</li>
+</ul></li>
+<li>Floating grounds → 4 channels</li>
+<li>SCPI over LAN, RS-232, USB</li>
+</ul>
+</div></div>
+</section>
+<section id="ut8805e-digital-multimeter" class="slide level2 smaller">
+<h2>UT8805E Digital Multimeter</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<p><img data-src="figs/Instr_01_UT8805E.jpg" alt="UT8805"><br>
+<img data-src="figs/Instr_01_UT8805E_panel.jpg" alt="UT8805"><br>
+</p>
+</div><div class="column" style="width:58%;">
+<h4 id="true-rms-digital-multimeter">True-RMS digital multimeter</h4>
+<ul>
+<li>Resolution 200000 count (5.5 digit)</li>
+<li>Basic measurements：
+<ul>
+<li>DC voltage: 200mV, 2V, 20V, 200V, 1000V</li>
+<li>DC current: 200μA, 2mA, 20mA, 200mA, 2A, 10A</li>
+<li>AC voltage: RMS 200mV, 2V, 20V, 200V, 750V</li>
+<li>AC current: RMS 2mA, 20mA, 200mA, 2A, 10A</li>
+<li>Resistance: 200Ω, 2kΩ, 20kΩ, 200kΩ, 2MΩ, 10MΩ, 100MΩ</li>
+<li>Capacitance: 2nF, 20nF, 200nF, 2μF, 20μF, 200μF, 2mF</li>
+<li>Continuity test: fixed 2kΩ</li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="i_s-measurement-instr.-setup" class="slide level2 smaller">
+<h2><span class="math inline">\(I_{S}\)</span> measurement: instr. setup</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="aux-opamp-supply-15v">AUX opamp supply: ±15V</h4>
+<ol type="1">
+<li></li>
+</ol>
+</div><div class="column" style="width:50%;">
+<h4 id="dc-current-measurement-20-ma">DC current measurement: 20 mA</h4>
+<ol type="1">
+<li></li>
+</ol>
+</div></div>
 </section>
 <section id="labview-hardware" class="slide level2 smaller">
 <h2>LabVIEW ⇆ hardware</h2>
@@ -256,39 +402,76 @@
 <p><img data-src="figs/Instr_01_NI_MAX.jpg" alt="NI_MAX"><br>
 </p>
 </section>
-<section id="ni-daqmx-daq-hardware" class="slide level2 smaller">
-<h2>NI-DAQmx ⇆ DAQ hardware</h2>
-<p><strong>Data acquisition (DAQ)</strong> is the process of measuring an electrical or physical phenomenon, such as voltage, current, temperature, pressure, or sound.</p>
+<section id="compactdaq" class="slide level2 smaller">
+<h2>CompactDAQ</h2>
+<p>Data acquisition platform with chassis connecting I/O modules to a PC over USB/Ethernet and built-in <strong>timing</strong> and <strong>synchronization</strong></p>
 <div class="columns">
-<div class="column" style="width:70%;">
-<p><img data-src="figs/Instr_01_DAQ_concepts.jpg" alt="DAQ"><br>
-</p>
-</div><div class="column" style="width:30%;">
-<h4 id="daqmx-api">DAQmx API</h4>
-<p><img data-src="figs/Instr_01_DAQmx_API.jpg" alt="DAQmx"><br>
-</p>
+<div class="column" style="width:50%;">
+<h4 id="cdaq-9177-chassis-1">cDAQ-9177 chassis</h4>
 <ul>
-<li>On-demand</li>
-<li>N-points + sampling rate</li>
+<li>8 slots for cDAQ modules</li>
+<li>Timing resolution: 50 ppm of sample rate</li>
+<li>FIFO buffer for analog and digital I/O channels</li>
 </ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="figs/Instr_01_cDAQ-9177.jpg" alt="cDAQ"><br>
+<img data-src="figs/Instr_01_cDAQ_modules.jpg" style="width:75.0%" alt="cDAQ"><br>
+</p>
 </div></div>
 </section>
-<section id="ni-visa-instrument" class="slide level2 smaller">
-<h2>NI-VISA ⇆ instrument</h2>
-<p>Instrument driver that provides a <strong>software interface</strong> for configuring, programming, and troubleshooting <strong>instrumentation systems</strong> across multiple <strong>communication buses</strong></p>
-<p><img data-src="figs/Instr_01_VISA_layers.jpg" alt="VISA"><br>
+<section id="cdaq-modules" class="slide level2 smaller">
+<h2>cDAQ modules</h2>
+<div class="columns">
+<div class="column" style="width:32%;">
+<h4 id="ni-9239">NI-9239</h4>
+<ul>
+<li>4-channel ±10 V differential analog input</li>
+<li>24-Bit Delta-Sigma ADC</li>
+<li>Simultaneous 50 kS/s/ch</li>
+<li>250 Vrms channel-to-channel isolation</li>
+</ul>
+<p><img data-src="figs/Instr_01_NI_9239.jpg" alt="NI-9239"><br>
+</p>
+</div><div class="column" style="width:32%;">
+<h4 id="ni-9269">NI-9269</h4>
+<ul>
+<li>4-channel ±10 V isolated analog output</li>
+<li>16-bit R-2R DAC</li>
+<li>Simultaneous 100 kS/s/ch</li>
+<li>250 Vrms channel-to-channel isolation</li>
+</ul>
+<p><img data-src="figs/Instr_01_NI_9269.jpg" alt="NI-9269"><br>
+</p>
+</div><div class="column" style="width:32%;">
+<h4 id="ni-9477">NI-9477</h4>
+<ul>
+<li>32-channel (sinking output) digital</li>
+<li>5 V - 60 V logic level</li>
+<li>20 A of current/module (max 1 A/channel)</li>
+</ul>
+<p><img data-src="figs/Instr_01_NI_9477.jpg" alt="NI-9477"><br>
+</p>
+</div></div>
+</section>
+<section id="cdaq-connectivity" class="slide level2 smaller">
+<h2>cDAQ connectivity</h2>
+<p><img data-src="figs/Instr_01_cDAQ_connectors.jpg" alt="Connectors"><br>
 </p>
 </section>
-<section id="proprietary-sdks" class="slide level2 smaller">
-<h2>Proprietary SDKs</h2>
-<p><a href="https://www.picotech.com/library/our-oscilloscope-software-development-kit-sdk">PicoSDK</a> is the driver to access PicoScope hardware functionalities, including ADC block and streaming capture and the built-in function generator. - LabVIEW Driver is the .DLL wrapper for PicoSDK</p>
-<p><img data-src="figs/Instr_01_PicoSDK.jpg" alt="PicoSDK"><br>
-</p>
-</section>
-<section id="signal-interfaces" class="slide level2 smaller">
-<h2>Signal interfaces</h2>
-<p><img data-src="figs/Instr_01_signal.jpg" alt="Signals"><br>
-</p>
+<section id="i_s-measurement-instr.-setup-1" class="slide level2 smaller">
+<h2><span class="math inline">\(I_{S}\)</span> measurement: instr. setup</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="relay-selection-s7-on">Relay selection: S7 ON</h4>
+<ol type="1">
+<li></li>
+</ol>
+</div><div class="column" style="width:50%;">
+<h4 id="dut-opamp-supply-5v">DUT opamp supply: ±5V</h4>
+<ol type="1">
+<li></li>
+</ol>
+</div></div>
 </section></section>
 <section>
 <section id="programming-compactdaq" class="title-slide slide level1 center">
@@ -331,61 +514,22 @@
 </p>
 </div></div>
 </section>
-<section id="compactdaq" class="slide level2 smaller">
-<h2>CompactDAQ</h2>
-<p>Data acquisition platform with chassis connecting I/O modules to a PC over USB/Ethernet and built-in <strong>timing</strong> and <strong>synchronization</strong></p>
+<section id="ni-daqmx-daq-hardware" class="slide level2 smaller">
+<h2>NI-DAQmx ⇆ DAQ hardware</h2>
+<p><strong>Data acquisition (DAQ)</strong> is the process of measuring an electrical or physical phenomenon, such as voltage, current, temperature, pressure, or sound.</p>
 <div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="cdaq-9177-chassis-1">cDAQ-9177 chassis</h4>
-<ul>
-<li>8 slots for cDAQ modules</li>
-<li>Timing resolution: 50 ppm of sample rate</li>
-<li>FIFO buffer for analog and digital I/O channels</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<p><img data-src="figs/Instr_02_cDAQ-9177.jpg" alt="cDAQ"><br>
-<img data-src="figs/Instr_02_cDAQ_modules.jpg" style="width:75.0%" alt="cDAQ"><br>
+<div class="column" style="width:70%;">
+<p><img data-src="figs/Instr_02_DAQ_concepts.jpg" alt="DAQ"><br>
 </p>
+</div><div class="column" style="width:30%;">
+<h4 id="daqmx-api">DAQmx API</h4>
+<p><img data-src="figs/Instr_02_DAQmx_API.jpg" alt="DAQmx"><br>
+</p>
+<ul>
+<li>On-demand</li>
+<li>N-points + sampling rate</li>
+</ul>
 </div></div>
-</section>
-<section id="cdaq-modules" class="slide level2 smaller">
-<h2>cDAQ modules</h2>
-<div class="columns">
-<div class="column" style="width:32%;">
-<h4 id="ni-9239">NI-9239</h4>
-<ul>
-<li>4-channel ±10 V differential analog input</li>
-<li>24-Bit Delta-Sigma ADC</li>
-<li>Simultaneous 50 kS/s/ch</li>
-<li>250 Vrms channel-to-channel isolation</li>
-</ul>
-<p><img data-src="figs/Instr_02_NI_9239.jpg" alt="NI-9239"><br>
-</p>
-</div><div class="column" style="width:32%;">
-<h4 id="ni-9269">NI-9269</h4>
-<ul>
-<li>4-channel ±10 V isolated analog output</li>
-<li>16-bit R-2R DAC</li>
-<li>Simultaneous 100 kS/s/ch</li>
-<li>250 Vrms channel-to-channel isolation</li>
-</ul>
-<p><img data-src="figs/Instr_02_NI_9269.jpg" alt="NI-9269"><br>
-</p>
-</div><div class="column" style="width:32%;">
-<h4 id="ni-9477">NI-9477</h4>
-<ul>
-<li>32-channel (sinking output) digital</li>
-<li>5 V - 60 V logic level</li>
-<li>20 A of current/module (max 1 A/channel)</li>
-</ul>
-<p><img data-src="figs/Instr_02_NI_9477.jpg" alt="NI-9477"><br>
-</p>
-</div></div>
-</section>
-<section id="cdaq-connectivity" class="slide level2 smaller">
-<h2>cDAQ connectivity</h2>
-<p><img data-src="figs/Instr_02_cDAQ_connectors.jpg" alt="Connectors"><br>
-</p>
 </section>
 <section id="daqmx-concepts" class="slide level2 smaller">
 <h2><a href="https://www.ni.com/docs/en-US/bundle/ni-daqmx/page/keyconcepts.html">DAQmx concepts</a></h2>
@@ -444,12 +588,18 @@
 </section>
 <section id="cdaq-tutorial" class="slide level2 smaller">
 <h2>cDAQ tutorial</h2>
-<h4 id="สราง-task-สำหรบสรางสญญาณ-แลวทดสอบดวย-picoscope">สร้าง task สำหรับสร้างสัญญาณ แล้วทดสอบด้วย PicoScope</h4>
+<h4 id="สราง-task-สำหรบควบคมไฟเลยง-dut-opamp-และสวทช-s7">สร้าง task สำหรับควบคุมไฟเลี้ยง DUT opamp และสวิทช์ S7</h4>
 </section></section>
 <section>
 <section id="programming-instruments" class="title-slide slide level1 center">
 <h1>3. Programming instruments</h1>
 
+</section>
+<section id="ni-visa-instrument" class="slide level2 smaller">
+<h2>NI-VISA ⇆ instrument</h2>
+<p>Instrument driver that provides a <strong>software interface</strong> for configuring, programming, and troubleshooting <strong>instrumentation systems</strong> across multiple <strong>communication buses</strong></p>
+<p><img data-src="figs/Instr_03_VISA_layers.jpg" alt="VISA"><br>
+</p>
 </section>
 <section id="ni-max-visa-test-panel" class="slide level2 smaller">
 <h2>NI MAX → VISA Test Panel</h2>
@@ -468,55 +618,6 @@
 <ul>
 <li><strong>*IDN?</strong> ขอข้อมูลของเครื่องมือ</li>
 <li><strong>*RST</strong> รีเซ็ตการทำงาน</li>
-</ul>
-</div></div>
-</section>
-<section id="ut8805e-digital-multimeter" class="slide level2 smaller">
-<h2>UT8805E Digital Multimeter</h2>
-<div class="columns">
-<div class="column" style="width:42%;">
-<p><img data-src="figs/Instr_03_UT8805E.jpg" alt="UT8805"><br>
-<img data-src="figs/Instr_03_UT8805E_SCPI.jpg" alt="UT8805"><br>
-</p>
-</div><div class="column" style="width:58%;">
-<h4 id="true-rms-digital-multimeter">True-RMS digital multimeter</h4>
-<ul>
-<li>Resolution 200000 count (5.5 digit)</li>
-<li>Basic measurements：
-<ul>
-<li>DC voltage: 200mV, 2V, 20V, 200V, 1000V</li>
-<li>DC current: 200μA, 2mA, 20mA, 200mA, 2A, 10A</li>
-<li>AC voltage: RMS 200mV, 2V, 20V, 200V, 750V</li>
-<li>AC current: RMS 2mA, 20mA, 200mA, 2A, 10A</li>
-<li>Resistance: 200Ω, 2kΩ, 20kΩ, 200kΩ, 2MΩ, 10MΩ, 100MΩ</li>
-<li>Capacitance: 2nF, 20nF, 200nF, 2μF, 20μF, 200μF, 2mF</li>
-<li>Continuity test: fixed 2kΩ</li>
-</ul></li>
-</ul>
-</div></div>
-</section>
-<section id="udp3305s-prog.-power-supply" class="slide level2 smaller">
-<h2>UDP3305S prog. power supply</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<p><img data-src="figs/Instr_03_UDP3305S-E.jpg" alt="UDP3305S-E"><br>
-<img data-src="figs/Instr_03_UDP3305S_SCPI.jpg" alt="UDP3305S"><br>
-</p>
-</div><div class="column" style="width:60%;">
-<h4 id="channel-programmable-dc-power-supply">4-channel programmable DC power supply</h4>
-<ul>
-<li>Total power 328 Watts
-<ul>
-<li>CH1/CH2: 0–30V at up to 5A
-<ul>
-<li>Parallel 10A or series 60V</li>
-<li>Bipolar ±30V</li>
-</ul></li>
-<li>CH3: 0–6V/3A logic-level channel</li>
-<li>CH4: fixed 5V/2A USB</li>
-</ul></li>
-<li>Floating grounds → 4 channels</li>
-<li>SCPI over LAN, RS-232, USB</li>
 </ul>
 </div></div>
 </section>
@@ -586,7 +687,7 @@
 </section>
 <section id="udp3305s-scpi-tutorial" class="slide level2 smaller">
 <h2>UDP3305S SCPI tutorial</h2>
-<h4 id="สรางแรงดนเรมจาก-2-โวลต-เพมทละ-0.5-ถง-3-โวลต">สร้างแรงดันเริ่มจาก 2 โวลต์ เพิ่มทีละ 0.5 ถึง 3 โวลต์</h4>
+<h4 id="ควบคมไฟเลยง-aux-opamp">ควบคุมไฟเลี้ยง AUX opamp</h4>
 </section>
 <section id="programming-ut8805e" class="slide level2 smaller scrollable">
 <h2>Programming <a href="https://uni-trendus.com/products/UT8805E">UT8805E</a></h2>
@@ -621,7 +722,7 @@
 </section>
 <section id="ut8805e-scpi-tutorial" class="slide level2 smaller">
 <h2>UT8805E SCPI tutorial</h2>
-<h4 id="วดแรงดนไฟฟา">วัดแรงดันไฟฟ้า</h4>
+<h4 id="เลอกโหมดวดกระแสและอานคา">เลือกโหมดวัดกระแสและอ่านค่า</h4>
 </section></section>
 <section>
 <section id="programming-picoscope" class="title-slide slide level1 center">
@@ -665,6 +766,12 @@
 <p><img data-src="figs/Instr_04_PicoScope7_Digital.jpg" alt="PicoScope7"><br>
 </p>
 </section>
+<section id="proprietary-sdks" class="slide level2 smaller">
+<h2>Proprietary SDKs</h2>
+<p><a href="https://www.picotech.com/library/our-oscilloscope-software-development-kit-sdk">PicoSDK</a> is the driver to access PicoScope hardware functionalities, including ADC block and streaming capture and the built-in function generator. - LabVIEW Driver is the .DLL wrapper for PicoSDK</p>
+<p><img data-src="figs/Instr_04_PicoSDK.jpg" alt="PicoSDK"><br>
+</p>
+</section>
 <section id="picosdk-wrapper-for-labview" class="slide level2 smaller">
 <h2>PicoSDK wrapper for LabVIEW</h2>
 <p><img data-src="figs/Instr_04_PicoSDK_LabVIEW.jpg" alt="PicoSDK LabVIEW"><br>
@@ -700,6 +807,9 @@
 <li><strong>PicoScope2000aClose.vi</strong> ปิดการเชื่อมต่อ</li>
 </ol>
 </div></div>
+</section>
+<section id="picoscope-programming-demo" class="slide level2 smaller">
+<h2>PicoScope programming demo</h2>
 
 </section></section>
     </div>

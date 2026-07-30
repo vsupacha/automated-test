@@ -156,7 +156,7 @@
 <li>การสร้างสัญญาณทดสอบด้วย NI myRIO</li>
 <li><strong>workshop</strong>: การเชื่อมต่อ DUT</li>
 </ul></li>
-<li><label><input type="checkbox"><strong>วันที่ 2 instrument control</strong></label>
+<li><label><input type="checkbox"><strong>วันที่ 2 Instrument drivers</strong></label>
 <ul>
 <li>การเชื่อมต่อเครื่องมือวัด</li>
 <li>ไดรเวอร์ DAQmx และ VISA</li>
@@ -169,15 +169,14 @@
 <li><label><input type="checkbox" checked=""><strong>วันที่ 3 NI TestStand</strong></label>
 <ul>
 <li>NI TestStand</li>
-<li>หลักการ sequence และ action/test steps</li>
+<li>Sequence และ action/test steps</li>
 <li>การใช้งาน code module</li>
-<li>การสร้างรายงานด้วย TestStand</li>
-<li><strong>workshop</strong>: การทดสอบ</li>
+<li><strong>workshop</strong>: การสร้าง sequence ทดสอบ</li>
 </ul></li>
 <li><label><input type="checkbox"><strong>วันที่ 4 testing in electronics industry</strong></label>
 <ul>
 <li>กรณีศึกษาของการทดสอบในอุตสาหกรรม</li>
-<li><strong>workshop</strong>: TestStand + LabVIEW for circuit testing</li>
+<li><strong>workshop</strong>: LabVIEW + TestStand for opamp testing</li>
 </ul></li>
 </ul>
 </div></div>
@@ -196,14 +195,19 @@
 <section id="running-teststand-example" class="slide level2 smaller">
 <h2>Running TestStand example</h2>
 <div class="columns">
-<div class="column" style="width:83%;">
+<div class="column" style="width:77%;">
 <p><img data-src="figs/TS_01_NI_TestStand_ex_mobile.jpg" alt="TestStand"><br>
 </p>
-</div><div class="column" style="width:17%;">
+</div><div class="column" style="width:23%;">
 <h4 id="try-example">Try example</h4>
 <ol type="1">
-<li>Open Examples&gt;Demos&gt; Mobile Device Test</li>
+<li>Open Examples &gt; Demos &gt; Mobile Device Test</li>
 <li>Execute &gt; Run MainSequence</li>
+</ol>
+<h4 id="debugging">Debugging</h4>
+<ol type="1">
+<li>Set breakpoint</li>
+<li>Step into/over module</li>
 </ol>
 </div></div>
 </section>
@@ -211,8 +215,8 @@
 <h2>TestStand terminology</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 66%">
+<col style="width: 28%">
+<col style="width: 71%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -250,8 +254,8 @@
 <p><img data-src="figs/TS_01_Test_UUTs.jpg" alt="ExecOptions"><br>
 </p>
 </section>
-<section id="process-model-batchparallel" class="slide level2 smaller">
-<h2>Process model: batch/parallel</h2>
+<section id="process-models" class="slide level2 smaller">
+<h2>Process models</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Execution</strong>: Test UUTs, Single-pass, MainSequence</p>
@@ -275,16 +279,17 @@
 </p>
 </div><div class="column" style="width:35%;">
 <ol type="1">
-<li>ติดตั้ง Python โดยใช้ standalone installer หรือ embedded packages
+<li>ติดตั้ง Python
 <ul>
+<li>ใช้ standalone installer หรือ embedded packages</li>
 <li>ติดตั้งแบบ admin และเพิ่มเข้าสู่ PATH</li>
 </ul></li>
 <li>ใช้ Configure &gt; Adaptors เลือก Python</li>
 </ol>
 </div></div>
 </section>
-<section id="automated-test-equipment-ate" class="slide level2 smaller">
-<h2>Automated Test Equipment (ATE)</h2>
+<section id="teststand-labview-ate" class="slide level2 smaller">
+<h2>TestStand + (LabVIEW/…) → ATE</h2>
 <p>Computer-controlled systems that automatically measure and evaluate functional, structural, or electrical performance on electronic devices</p>
 <table class="caption-top">
 <colgroup>
@@ -294,7 +299,7 @@
 </colgroup>
 <thead>
 <tr class="header">
-<th>Values</th>
+<th>Goals</th>
 <th>LabVIEW</th>
 <th>TestStand</th>
 </tr>
@@ -313,7 +318,7 @@
 <tr class="odd">
 <td>Reusability</td>
 <td>SubVI, libraries (.llb), .CTL files</td>
-<td>Code Modules, SubSequence</td>
+<td>Module adapters, Code modules, SubSequence</td>
 </tr>
 <tr class="even">
 <td>Maintainability</td>
@@ -334,43 +339,75 @@
 
 </section>
 <section id="ni-teststand-ui" class="slide level2 smaller">
-<h2>NI TestStand UI</h2>
+<h2>NI TestStand: UI</h2>
 <p><img data-src="figs/TS_02_TestStand_UI.jpg" alt="TestStand"><br>
 </p>
 </section>
-<section id="ni-teststand-workflow" class="slide level2 smaller">
-<h2>NI TestStand workflow</h2>
+<section id="ni-teststand-dev-workflow" class="slide level2 smaller">
+<h2>NI TestStand: dev workflow</h2>
 <div class="columns">
-<div class="column" style="width:75%;">
+<div class="column" style="width:70%;">
 <p><img data-src="figs/TS_02_TestStand_UI_new.jpg" alt="TestStand"><br>
 </p>
-</div><div class="column" style="width:25%;">
-<h4 id="workflow">Workflow</h4>
+</div><div class="column" style="width:30%;">
+<h4 id="mainsequence">MainSequence</h4>
 <ol type="1">
-<li>Start Sequence
+<li>Add steps
 <ul>
-<li>Add steps</li>
+<li>Setup group</li>
+<li>Main group</li>
+<li>Cleanup group</li>
 </ul></li>
-<li>Modify code modules
-<ul>
-<li>Parameters</li>
-</ul></li>
-<li>Modify Sequence
-<ul>
-<li>Variables:
+<li>Declare variables
 <ul>
 <li>Locals</li>
 <li>FileGlobals</li>
 <li>StationGlobals</li>
 </ul></li>
+<li>Invoke code modules
+<ul>
+<li>Parameters</li>
 </ul></li>
-<li>Run MainSequence</li>
+<li>Run</li>
 </ol>
 </div></div>
 </section>
-<section id="teststand-tutorial" class="slide level2 smaller">
-<h2>TestStand tutorial</h2>
-<h4 id="สราง-sequence-แสดงขอความ">สร้าง sequence แสดงข้อความ</h4>
+<section id="teststand-practice-i_s-measurement" class="slide level2 smaller">
+<h2>TestStand practice: <span class="math inline">\(I_{S}\)</span> measurement</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Code modules</th>
+<th>Function</th>
+<th>Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Setup</strong></td>
+<td><code>ppsOpen</code> / <code>dmmOpen</code> <br> <code>switchOpen</code> / <code>aoOpen</code></td>
+<td>เชื่อมต่อ UDP3305S และ UT8805E <br> เชื่อมต่อ NI-9269 และ NI-9477</td>
+<td>→ FG.visa<sup>1</sup> <br> → FG.daqmx</td>
+</tr>
+<tr class="even">
+<td><strong>Main</strong></td>
+<td>message popup <br> <code>ppsWrite</code> <br> <code>aoWrite</code> <br> <code>switchOn</code> <br> <code>dmmRead</code> <br> Numeric Limit Test</td>
+<td>รับค่าไฟเลี้ยง <span class="math inline">\(V_S\)</span> <br> จ่ายไฟเลี้ยง ±15V ให้ AUX opamp <br> จ่ายไฟเลี้ยง ±<span class="math inline">\(V_S\)</span> ให้ DUT opamp <br> เปิดสวิทช์ S7 เชื่อม UT8805E <br> อ่านค่ากระแส <span class="math inline">\(I_{S}\)</span> <br> ทดสอบว่ามีค่าน้อยกว่าค่า limit</td>
+<td>→ LC<sup>2</sup>.vs <br> <br> ← LC.vs <br> <br> → LC.is <br> ← LC.is</td>
+</tr>
+<tr class="odd">
+<td><strong>Cleanup</strong></td>
+<td><code>ppsClose</code> / <code>dmmClose</code> <br> <code>switchClose</code> / <code>aoClose</code></td>
+<td>ปิดการเชื่อมต่อ VISA <br> ปิดการเชื่อมต่อ DAQmx</td>
+<td>← FG.visa <br> ← FG.daqmx</td>
+</tr>
+</tbody>
+</table>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>VISA/DAQmx resource เป็น <a href="https://knowledge.ni.com/KnowledgeArticleDetails?id=kA03q000000YGp8CAG&amp;l=en-TH"><code>LabVIEWIOControl</code> type</a></p></li><li id="fn2"><p>LC คือ Locals, FG คือ FileGlobals, SG คือ StationGlobals</p></li></ol></aside></section>
+<section id="teststand-practice-message-popup" class="slide level2 smaller">
+<h2>TestStand practice: message popup</h2>
+<h4 id="รบคา-v_s-โดยใชหนาตางยอย">1. รับค่า <span class="math inline">\(V_S\)</span> โดยใช้หน้าต่างย่อย</h4>
 <div class="columns">
 <div class="column" style="width:65%;">
 <p><img data-src="figs/TS_02_Ex_MsgPopup.jpg" alt="TestStand"><br>
@@ -384,9 +421,9 @@
 </ol>
 </div></div>
 </section>
-<section id="teststand-tutorial-1" class="slide level2 smaller">
-<h2>TestStand tutorial</h2>
-<h4 id="ปรบปรง-sequence-โดยเพม-if-else-end">ปรับปรุง sequence โดยเพิ่ม If-Else-End</h4>
+<section id="teststand-tutorial-flow-control" class="slide level2 smaller">
+<h2>TestStand tutorial: flow control</h2>
+<h4 id="ปองกน-v_s-3v-โดยใช-if-else-end">2. ป้องกัน <span class="math inline">\(V_S\)</span> &lt; 3V โดยใช้ If-Else-End</h4>
 <div class="columns">
 <div class="column" style="width:65%;">
 <p><img data-src="figs/TS_02_IfElse_Expression.jpg" alt="TestStand"><br>
@@ -416,18 +453,18 @@
 <li>Pass-by-value</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<h4 id="variables">Variables</h4>
+<h4 id="variables-scope">Variables: scope</h4>
 <ul>
-<li><strong>Local variables</strong>: scope within step</li>
-<li><strong>FileGlobals</strong>: global within sequence file</li>
-<li><strong>StationGlobals</strong>: global within machine</li>
+<li><strong>Locals</strong>: within sequence</li>
+<li><strong>FileGlobals</strong>: within sequence file</li>
+<li><strong>StationGlobals</strong>: within machine</li>
 </ul>
 </div></div>
 <p><img data-src="figs/TS_02_TestStand_Param.jpg" alt="Param"><br>
 </p>
-<aside><ol class="aside-footnotes"><li id="fn1"><p><a href="https://www.ni.com/en/support/documentation/supplemental/09/teststand-code-module-development-best-practices.html">TestStand Code Module Development Best Practices</a></p></li></ol></aside></section>
-<section id="teststand-tutorial-2" class="slide level2 smaller">
-<h2>TestStand tutorial</h2>
+<aside><ol class="aside-footnotes"><li id="fn3"><p><a href="https://www.ni.com/en/support/documentation/supplemental/09/teststand-code-module-development-best-practices.html">TestStand Code Module Development Best Practices</a></p></li></ol></aside></section>
+<section id="teststand-tutorial-action-step" class="slide level2 smaller">
+<h2>TestStand tutorial: action step</h2>
 <h4 id="สราง-sequence-เรมเชอมตอ-ปรบคา-ปดการเชอม">สร้าง sequence เริ่มเชื่อมต่อ / ปรับค่า / ปิดการเชื่อม</h4>
 <div class="columns">
 <div class="column" style="width:65%;">
@@ -441,8 +478,8 @@
 </ol>
 </div></div>
 </section>
-<section id="teststand-tutorial-3" class="slide level2 smaller">
-<h2>TestStand tutorial</h2>
+<section id="teststand-tutorial-action-step-1" class="slide level2 smaller">
+<h2>TestStand tutorial: action step</h2>
 <h4 id="เพม-step-ในการสงการเครองมอวด">เพิ่ม step ในการสั่งการเครื่องมือวัด</h4>
 <div class="columns">
 <div class="column" style="width:65%;">
@@ -464,11 +501,20 @@
 </ol>
 </div></div>
 </section>
-<section id="teststand-sequence-callbacks" class="slide level2 smaller">
-<h2>TestStand sequence callbacks</h2>
-<p><strong>MainSequence</strong>: Setup → Main → Cleanup</p>
-<p><img data-src="figs/TS_02_Seq_Callback.jpg" alt="TestStand"><br>
-</p>
+<section id="teststand-tutorial-test-step" class="slide level2 smaller">
+<h2>TestStand tutorial: test step</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><strong>Pass/Fail Test</strong>: ตรวจสอบ <code>Step.Result.PassFail</code></li>
+<li><strong>Numeric Limit Test</strong>: เปรียบเทียบ <code>Step.Result.Numeric</code> กับค่า Limit</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><strong>Multiple Numeric Limit Test</strong>: เปรียบเทียบค่าอะเรย์ <code>Step.Result.Measurement</code> กับค่า Limits</li>
+<li><strong>String Value Test</strong>: เปรียบเทียบ <code>Step.Result.String</code> กับเงื่อนไข string/regEx</li>
+</ul>
+</div></div>
 
 </section></section>
 

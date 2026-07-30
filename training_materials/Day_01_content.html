@@ -6,8 +6,8 @@
 <script src="Day_01_content_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="Day_01_content_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Day_01_content_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Day_01_content_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+<link href="Day_01_content_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
   <meta name="dcterms.date" content="2569-08-04">
@@ -156,7 +156,7 @@
 <li>การสร้างสัญญาณทดสอบด้วย NI myRIO</li>
 <li><strong>workshop</strong>: การเชื่อมต่อ DUT</li>
 </ul></li>
-<li><label><input type="checkbox"><strong>วันที่ 2 instrument control</strong></label>
+<li><label><input type="checkbox"><strong>วันที่ 2 Instrument drivers</strong></label>
 <ul>
 <li>การเชื่อมต่อเครื่องมือวัด</li>
 <li>ไดรเวอร์ DAQmx และ VISA</li>
@@ -259,27 +259,6 @@
 </p>
 </div></div>
 </section>
-<section id="problem-based-learning-3" class="slide level2 smaller">
-<h2>Problem-based learning #3</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<h4 id="rpi-pico-2wh-as-uut"><a href="https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html">RPi Pico 2WH</a> as UUT</h4>
-<ul>
-<li>RP2350 (ARM Cortex-M33 x 2) + 4 MB Flash + 520 KB RAM + WiFi/BLE 2.4 GHz</li>
-<li>23 digital pins (2 x UART + 2 x I2C + 2 x SPI) + 3 analog pins (ADC)</li>
-</ul>
-<h4 id="standard-commands-for-programmable-instruments-scpi-protocol"><a href="https://www.keysight.com/my/en/assets/9921-01870/miscellaneous/SCPI-99.pdf">Standard Commands for Programmable Instruments: SCPI protocol</a></h4>
-<ul>
-<li>โปรโทคอลสำหรับสื่อสารกับเครื่องมือวัดในรูปแบบ ASCII</li>
-<li><a href="https://github.com/Vrekrer/Vrekrer_scpi_parser">SCPI parser</a>: เป็นโค้ด ANSI C</li>
-</ul>
-</div><div class="column" style="width:40%;">
-<p><img data-src="figs/00_RPi_Pico_2W.jpg" alt="RPi Pico 2W"><br>
-</p>
-<p><img data-src="figs/00_RPi_Pico.jpg" alt="RPi Pico"><br>
-</p>
-</div></div>
-</section>
 <section id="further-learning" class="slide level2 smaller">
 <h2>Further learning</h2>
 <ul>
@@ -295,11 +274,16 @@
 <h1>1. ATE overview</h1>
 
 </section>
+<section id="electronics-manufacturing-flow" class="slide level2 smaller scrollable">
+<h2>Electronics manufacturing flow</h2>
+<p><img data-src="figs/ATE_01_elec_process.jpg" alt="ElecProcess"><br>
+</p>
+</section>
 <section id="automated-test-equipment-ate" class="slide level2 smaller">
 <h2>Automated Test Equipment (ATE)</h2>
 <p>Computer-controlled systems that automatically measure and evaluate functional, structural, or electrical performance on electronic devices</p>
 <ul>
-<li><strong>Usability</strong> / <strong>Reusability</strong> / <strong>Maintainability</strong> / <strong>Scalability</strong></li>
+<li>Goals: <strong>Usability</strong> / <strong>Reusability</strong> / <strong>Maintainability</strong> / <strong>Scalability</strong></li>
 </ul>
 <div class="columns">
 <div class="column" style="width:67%;">
@@ -598,6 +582,54 @@
 <p>Timing and a series of input (0/1) - output (L/H/Z) combinations</p>
 </div></div>
 </section>
+<section id="product-reqs-test-implementation" class="slide level2 smaller">
+<h2>Product reqs → Test implementation</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Product / Manufacturing</th>
+<th>Test Engineer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Product specification</td>
+<td>Requirement analysis</td>
+</tr>
+<tr class="even">
+<td>Test specification</td>
+<td>Test plan</td>
+</tr>
+<tr class="odd">
+<td>Fixture</td>
+<td>Fixture design</td>
+</tr>
+<tr class="even">
+<td>Test program</td>
+<td><strong>LabVIEW</strong> / <strong>TestStand</strong> development</td>
+</tr>
+<tr class="odd">
+<td>Test platform</td>
+<td>Fixture + instrumentation integration</td>
+</tr>
+<tr class="even">
+<td>DUT measurement</td>
+<td>Execute test &amp; validate results</td>
+</tr>
+<tr class="odd">
+<td>PASS / FAIL / Bin</td>
+<td>Report &amp; database</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:35%;">
+<h4 id="fixture-ex-test-socket">Fixture ex: test socket</h4>
+<p><img data-src="figs/ATE_01_Socket.jpg" alt="Socket"><br>
+</p>
+</div></div>
+</section>
 <section id="die-testing-bin-distribution" class="slide level2 smaller scrollable">
 <h2>Die testing → bin distribution</h2>
 <div class="columns">
@@ -721,36 +753,12 @@
 </p>
 </div></div>
 </section>
-<section id="debugging-labview" class="slide level2 smaller">
-<h2>Debugging LabVIEW</h2>
-<div class="columns">
-<div class="column" style="width:65%;">
-<p><img data-src="figs/LV_01_LabVIEW_debug.jpg" alt="Debug"><br>
-</p>
-</div><div class="column" style="width:35%;">
-<h4 id="highlight-execution">Highlight Execution</h4>
+<section id="labview-quick-tutorial-1" class="slide level2 smaller">
+<h2>LabVIEW quick tutorial #1</h2>
+<h4 id="ลองสราง-vi-พลอตกราฟของคา-random">ลองสร้าง VI พล็อตกราฟของค่า random</h4>
 <ul>
-<li>แสดงลำดับการไหลของ data ผ่าน node ต่างๆ</li>
+<li>Delay loop + array + waveform chart/graph</li>
 </ul>
-<h4 id="probe">Probe</h4>
-<ul>
-<li>แสดงข้อมูลส่งผ่านระหว่าง node</li>
-</ul>
-<h4 id="breakpoint-step">Breakpoint / Step</h4>
-<ul>
-<li>หยุดการทำงานเมื่อ node มีข้อมูลครบ</li>
-<li>บังคับให้ทำงานทีละ node</li>
-</ul>
-</div></div>
-</section>
-<section id="labview-quick-tutorial" class="slide level2 smaller">
-<h2>LabVIEW quick tutorial</h2>
-<h4 id="ลองสราง-n-point-moving-average-filter">ลองสร้าง N-point moving average filter</h4>
-<ul>
-<li>Delay loop + waveform chart + shift register + budle cluster + sub VI</li>
-</ul>
-<p><img data-src="figs/LV_01_LabVIEW_tutorial_01.jpg" alt="Tutorial 01"><br>
-</p>
 </section>
 <section id="labview-terminology" class="slide level2 smaller">
 <h2>LabVIEW terminology</h2>
@@ -797,14 +805,64 @@
 </ul>
 </div></div>
 </section>
-<section id="labview-quick-tutorial-1" class="slide level2 smaller">
-<h2>LabVIEW quick tutorial</h2>
-<h4 id="ลองสราง-iteractive-ui-สำหรบประเมน-reaction-time">ลองสร้าง iteractive UI สำหรับประเมิน <a href="https://humanbenchmark.com/tests/reactiontime">reaction time</a></h4>
-<ul>
-<li>For loop + Event Structure + property node + array</li>
-</ul>
-<p><img data-src="figs/LV_01_LabVIEW_tutorial_02.jpg" alt="Tutorial 02"><br>
+<section id="debugging-labview" class="slide level2 smaller">
+<h2>Debugging LabVIEW</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<p><img data-src="figs/LV_01_LabVIEW_debug.jpg" alt="Debug"><br>
 </p>
+</div><div class="column" style="width:35%;">
+<h4 id="highlight-execution">Highlight Execution</h4>
+<ul>
+<li>แสดงลำดับการไหลของ data ผ่าน node ต่างๆ</li>
+</ul>
+<h4 id="probe">Probe</h4>
+<ul>
+<li>แสดงข้อมูลส่งผ่านระหว่าง node</li>
+</ul>
+<h4 id="breakpoint-step">Breakpoint / Step</h4>
+<ul>
+<li>หยุดการทำงานเมื่อ node มีข้อมูลครบ</li>
+<li>บังคับให้ทำงานทีละ node</li>
+</ul>
+</div></div>
+</section>
+<section id="labview-quick-tutorial-2" class="slide level2 smaller">
+<h2>LabVIEW quick tutorial #2</h2>
+<h4 id="ลองสราง-n-point-moving-average-filter">ลองสร้าง N-point moving average filter</h4>
+<ul>
+<li>Shift register + bundle cluster + sub VI</li>
+</ul>
+<p><img data-src="figs/LV_01_LabVIEW_tutorial_01.jpg" alt="Tutorial 01"><br>
+</p>
+</section>
+<section id="processing-in-labview" class="slide level2 smaller">
+<h2>Processing in LabVIEW</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="mathematics">Mathematics</h4>
+</div><div class="column" style="width:50%;">
+<h4 id="signal-processing">Signal processing</h4>
+</div></div>
+</section>
+<section id="processing-in-labview-1" class="slide level2 smaller">
+<h2>Processing in LabVIEW</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="datastatus-operations">Data/status operations</h4>
+<ul>
+<li>Local/Global/Shared variables</li>
+<li>Feedback node</li>
+<li>Property nodes</li>
+</ul>
+<h4 id="file-operations">File operations</h4>
+<ul>
+<li>Spreadsheet files</li>
+<li>TDMS files</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h4 id="connectivity">Connectivity</h4>
+</div></div>
 </section>
 <section id="labview-synchronization" class="slide level2 smaller">
 <h2>LabVIEW synchronization</h2>
@@ -833,12 +891,27 @@
 <p><img data-src="figs/LV_01_LabVIEW_sync.jpg" style="width:80.0%" alt="LabVIEW sync"><br>
 </p>
 </section>
-<section id="labview-quick-tutorial-2" class="slide level2 smaller">
-<h2>LabVIEW quick tutorial</h2>
-<h4 id="ลองสราง-multi-rate-loop-สำหรบวดและแสดงผล">ลองสร้าง multi-rate loop สำหรับวัดและแสดงผล</h4>
+<section id="ui-events-and-properties" class="slide level2 smaller">
+<h2>UI events and properties</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li>Parallel loop + notifier</li>
+<li><strong>Event structure</strong>: executed when user did something with UI</li>
 </ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><strong>Property node</strong>: method to access internal status/data of UI components</li>
+</ul>
+</div></div>
+</section>
+<section id="labview-quick-tutorial-3" class="slide level2 smaller">
+<h2>LabVIEW quick tutorial #3</h2>
+<h4 id="ลองสราง-ui-loop-สำหรบคมจงหวะของ-loop">ลองสร้าง UI loop สำหรับคุมจังหวะของ loop</h4>
+<ul>
+<li>Event Structure + notifier + property node</li>
+</ul>
+<p><img data-src="figs/LV_01_LabVIEW_tutorial_02.jpg" alt="Tutorial 02"><br>
+</p>
 </section>
 <section id="pattern-state-machine" class="slide level2 smaller">
 <h2>Pattern: <a href="https://www.ni.com/en/support/documentation/supplemental/16/simple-state-machine-template-documentation.html">state machine</a></h2>
@@ -891,28 +964,8 @@
 </div></div>
 </section></section>
 <section>
-<section id="labview-basics" class="title-slide slide level1 center">
-<h1>3. LabVIEW basics</h1>
-
-</section>
-<section id="labview-fundamentals" class="slide level2 smaller">
-<h2>LabVIEW fundamentals</h2>
-</section>
-<section id="labview-ui-components" class="slide level2 smaller">
-<h2>LabVIEW UI components</h2>
-</section>
-<section id="labview-data-types" class="slide level2 smaller">
-<h2>LabVIEW data types</h2>
-</section>
-<section id="labview-flow-control" class="slide level2 smaller">
-<h2>LabVIEW flow control</h2>
-</section>
-<section id="labview-conditions" class="slide level2 smaller">
-<h2>LabVIEW conditions</h2>
-</section></section>
-<section>
 <section id="myrio-introduction" class="title-slide slide level1 center">
-<h1>4. myRIO introduction</h1>
+<h1>3. myRIO introduction</h1>
 
 </section>
 <section id="ni-myrio" class="slide level2 smaller">
@@ -984,7 +1037,7 @@
 <h2>myRIO quick tutorial</h2>
 <p><strong>ลองสร้าง signal processing โดยใช้ analog loopback</strong></p>
 <ul>
-<li>Analog input/output + parallel timed loop + notifier + Pt-by-Pt power spectrum</li>
+<li>Analog input/output + parallel timed loop + Pt-by-Pt power spectrum</li>
 </ul>
 </section>
 <section id="myrio-digital-io-timed-comm." class="slide level2 smaller">
@@ -992,16 +1045,16 @@
 <p><img data-src="figs/MR_01_myRIO_digital.jpg" alt="myRIO digital"><br>
 </p>
 </section>
-<section id="myrio-quick-tutorial-1" class="slide level2 smaller">
-<h2>myRIO quick tutorial</h2>
-<p><strong>ลองสร้าง UART pattern และตรวจจับด้วย PicoScope</strong></p>
+<section id="myrio-quick-demo" class="slide level2 smaller">
+<h2>myRIO quick demo</h2>
+<p><strong>ตรวจจับ UART pattern ของ myRIO ด้วย PicoScope</strong></p>
 <ul>
 <li>UART pattern + PicoScope range/trigger/decode</li>
 </ul>
 </section></section>
 <section>
 <section id="myrio-ads1115-workshop" class="title-slide slide level1 center">
-<h1>5. myRIO ⇆ ADS1115 workshop</h1>
+<h1>4. myRIO ⇆ ADS1115 workshop</h1>
 
 </section>
 <section id="problem-based-learning-1-1" class="slide level2 smaller">
@@ -1112,6 +1165,17 @@
 <section id="labview-myrio-ads1115" class="slide level2 smaller">
 <h2>LabVIEW + myRIO ⇆ ADS1115</h2>
 <div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="addr-pin-to-device-address">ADDR pin to Device Address</h4>
+<h4 id="address-pointer-to-8-bit">Address Pointer to 8-bit</h4>
+</div><div class="column" style="width:50%;">
+<h4 id="ads1115-write">ADS1115 write</h4>
+<h4 id="ads1115-query">ADS1115 query</h4>
+</div></div>
+</section>
+<section id="labview-myrio-ads1115-1" class="slide level2 smaller">
+<h2>LabVIEW + myRIO ⇆ ADS1115</h2>
+<div class="columns">
 <div class="column" style="width:60%;">
 <p><img data-src="figs/MR_01_myRIO_MXP.jpg" alt="MXP"><br>
 </p>
@@ -1160,10 +1224,6 @@
 </tbody>
 </table>
 </div></div>
-</section>
-<section id="labview-myrio-ads1115-1" class="slide level2 smaller">
-<h2>LabVIEW + myRIO ⇆ ADS1115</h2>
-<h4 id="เตรยม-subvi-สำหรบ-readwrite-register">เตรียม SubVI สำหรับ read/write register</h4>
 </section>
 <section id="testing-ads1115-module" class="slide level2 smaller">
 <h2>Testing ADS1115 module</h2>
