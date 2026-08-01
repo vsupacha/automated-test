@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
-  <meta name="dcterms.date" content="2569-07-24">
+  <meta name="dcterms.date" content="2569-08-07">
   <title>Thailand Skill Bridge</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -208,14 +208,14 @@
 </div>
 </div>
 
-  <p class="date">July 24, 2569</p>
+  <p class="date">August 7, 2569</p>
 </section>
 <section id="course-outline" class="slide level2 smaller">
 <h2>Course outline</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul class="task-list">
-<li><label><input type="checkbox" checked=""><strong>วันที่ 1 LabVIEW + myRIO</strong></label>
+<li><label><input type="checkbox"><strong>วันที่ 1 LabVIEW + myRIO</strong></label>
 <ul>
 <li>Automated Test Equipment</li>
 <li>การเข้าจังหวะและส่งผ่านข้อมูลด้วย LabVIEW</li>
@@ -246,6 +246,15 @@
 </ul></li>
 </ul>
 </div></div>
+</section>
+<section id="workshop-outcomes" class="slide level2 smaller">
+<h2>Workshop outcomes</h2>
+<ol type="1">
+<li>เข้าใจแนวคิดของ specification → แนวทางการทดสอบ → เครื่องมือในการทดสอบ</li>
+<li>เข้าใจ process model และการสร้างรายงานของ NI TestStand</li>
+<li>สร้าง Test Sequence สำหรับทดสอบ DUT (LM321 opamp) <img data-src="figs/00_LM321_spec.jpg" alt="LM321"><br>
+</li>
+</ol>
 </section>
 <section>
 <section id="opamp-characterization" class="title-slide slide level1 center">
@@ -453,27 +462,27 @@
 <li>PicoScope 2206B ทดสอบสัญญาณ &gt; 1 kHz</li>
 </ul>
 </div></div>
-<p><img data-src="figs/TS_03_DIB_Connectors.jpg" style="width:80.0%" alt="DIB"><br>
+<p><img data-src="figs/EL_02_DIB_Connectors.jpg" style="width:80.0%" alt="DIB"><br>
 </p>
 </section>
 <section id="dib-switch-matrix" class="slide level2 smaller">
 <h2>DIB switch matrix</h2>
-<p><img data-src="figs/TS_03_Switch_Matrix.jpg" alt="Switch"><br>
+<p><img data-src="figs/EL_02_Switch_Matrix.jpg" alt="Switch"><br>
 </p>
 </section>
 <section id="dut-socket" class="slide level2 smaller">
 <h2>DUT socket</h2>
-<p><img data-src="figs/TS_03_DUT_socket.jpg" alt="Socket"><br>
+<p><img data-src="figs/EL_02_DUT_socket.jpg" alt="Socket"><br>
 </p>
 </section>
 <section id="dut-interface" class="slide level2 smaller">
 <h2>DUT interface</h2>
-<p><img data-src="figs/TS_03_DUT_interface.jpg" alt="DUT"><br>
+<p><img data-src="figs/EL_02_DUT_interface.jpg" alt="DUT"><br>
 </p>
 </section>
 <section id="dut-characteristics-lm321" class="slide level2 smaller">
 <h2>DUT characteristics: LM321</h2>
-<p><img data-src="figs/TS_03_LM321_charac.jpg" alt="DUT"><br>
+<p><img data-src="figs/EL_02_LM321_charac.jpg" alt="DUT"><br>
 </p>
 </section></section>
 <section>
@@ -481,16 +490,238 @@
 <h1>3. TestStand workshop</h1>
 
 </section>
-<section id="test-sequence-for-opamp" class="slide level2 smaller">
-<h2>Test sequence for opamp</h2>
+<section id="running-teststand" class="slide level2 smaller">
+<h2>Running TestStand</h2>
+<div class="columns">
+<div class="column" style="width:35%;">
+<h4 id="execution">Execution</h4>
+<ul class="task-list">
+<li><label><input type="checkbox">Test UUTs</label></li>
+<li><label><input type="checkbox">Single Pass</label></li>
+<li><label><input type="checkbox">Run MainSequence</label></li>
+</ul>
+</div><div class="column" style="width:65%;">
+<h4 id="process-model">Process model</h4>
+<ul>
+<li><strong>Sequential model</strong> (default): test one UUT at a time</li>
+<li><strong>Batch model</strong>: run common steps for each batch, not for each UUT</li>
+<li><strong>Parallel model</strong>: run multiple independent test sequences</li>
+</ul>
+</div></div>
+<p><img data-src="figs/TS_03_Process_Flow.jpg" alt="Process"><br>
+</p>
 </section>
 <section id="teststand-sequence-callbacks" class="slide level2 smaller">
 <h2>TestStand sequence callbacks</h2>
 <p><strong>MainSequence</strong>: Setup → Main → Cleanup</p>
-<p><img data-src="figs/TS_04_Seq_Callback.jpg" alt="TestStand"><br>
+<p><img data-src="figs/TS_03_Seq_Callback.jpg" alt="TestStand"><br>
 </p>
+</section>
+<section id="test-results-and-data-logging" class="slide level2 smaller">
+<h2>Test results and data logging</h2>
+<p>Process model → MainSequence (Test Steps) → <strong>Step results</strong></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<h4 id="report">Report</h4>
+<ul>
+<li>HTML / XML</li>
+<li>Automatic generation</li>
+<li>Review test results</li>
+<li>Debug &amp; traceability</li>
+</ul>
+</div><div class="column" style="width:33%;">
+<h4 id="logging">Logging</h4>
+<ul>
+<li>SQL database</li>
+<li>Manufacturing records</li>
+<li>Yield analysis</li>
+</ul>
+</div><div class="column" style="width:34%;">
+<h4 id="data-streams">Data Streams</h4>
+<ul>
+<li>CSV Input/Output</li>
+<li>Configuration</li>
+<li>Custom logging</li>
+</ul>
+</div></div>
+<p><img data-src="figs/TS_03_Test_Results.jpg" style="width:90.0%" alt="Results"><br>
+</p>
+</section>
+<section id="teststand-process-tutorial" class="slide level2 smaller">
+<h2>TestStand process tutorial</h2>
+<ol type="1">
+<li>เมนู Edit &gt; Sequence File Callbacks เพิ่มตัวเลือก <code>ProcessSetup</code>, <code>ProcessCleanup</code>, <code>PreUUT</code> และ <code>PostUUT</code></li>
+<li>กำหนดตัวแปรสำหรับจัดการข้อมูลใน <strong>MainSequence</strong>
+<ul>
+<li><strong>FileGlobals</strong>: <code>SerialNumber</code> (String), <code>Offset</code> (Number), <code>Limit</code> (Number)</li>
+<li><strong>Locals</strong>: <code>dutValue</code> (Number)</li>
+</ul></li>
+<li>กำหนด step สำหรับการทำงาน</li>
+</ol>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Callbacks</th>
+<th style="text-align: left;">Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>ProcessSetup</code></td>
+<td style="text-align: left;">เพิ่ม <strong>Message Popup</strong> รับค่า <code>FileGlobals.Offset</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>PreUUT</code></td>
+<td style="text-align: left;">เพิ่ม <strong>Statement</strong> <br> <code>FileGlobals.SerialNumber = Parameters.UUT.SerialNumber</code></td>
+</tr>
+</tbody>
+</table>
+<ol start="4" type="1">
+<li>ใช้ breakpoint และ step over เพื่อตรวจสอบการรับค่า</li>
+</ol>
+</section>
+<section id="teststand-process-tutorial-1" class="slide level2 smaller scrollable">
+<h2>TestStand process tutorial</h2>
+<ol start="5" type="1">
+<li>กำหนดตัวแปร <strong>Locals</strong> สำหรับการจัดการข้อมูลใน <strong>PreUUT</strong>
+<ul>
+<li><code>Locals.csvRef</code> (Object Reference) และ <code>rowData</code> (Container)</li>
+<li>เพิ่มสมาชิก <code>SerialNumber</code> (String) และ <code>Limit</code> (Number) ให้ตัวแปร <code>rowData</code></li>
+</ul></li>
+<li>กำหนด step ใน <code>PreUUT</code> เพื่อนำเข้าค่า Limit</li>
+</ol>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Callbacks</th>
+<th style="text-align: left;">Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>PreUUT</code></td>
+<td style="text-align: left;">เพิ่ม <strong>New CSV Input Stream</strong> เพื่ออ้างถึงไฟล์ CSV <br> - ระบุตำแหน่งไฟล์ <br> - กำหนด <strong>Input Record Stream Reference</strong> เป็น <code>Locals.csvRef</code> <br> - กำหนด <strong>Field Mapping</strong> เป็น “0,1”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">เพิ่ม <strong>Stream Loop</strong> สำหรับวนแยกข้อมูล <br> - กำหนด <strong>Input Record Stream</strong> เป็น <code>Locals.csvRef</code> <br> - กำหนด <strong>Input Record</strong> เป็น <code>Locals.rowData</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">(<strong>Stream Loop</strong>)</td>
+<td style="text-align: left;">เพิ่ม <strong>If-End</strong> ตรวจสอบเงื่อนไข <br> <code>FileGlobals.SerialNumber == Locals.rowData.SerialNumber</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">(<strong>If-End</strong>)</td>
+<td style="text-align: left;">เพิ่ม <strong>Statement</strong> อัพเดทค่า Limit <br> <code>FileGlobals.Limit = Locals.rowData.Limit</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">เพิ่ม <strong>Break</strong> เพื่อจบ loop</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="teststand-process-tutorial-2" class="slide level2 smaller">
+<h2>TestStand process tutorial</h2>
+<ol start="7" type="1">
+<li>กำหนด step ใน <code>MainSequence</code> เพื่อรับและตรวจสอบค่า Limit</li>
+</ol>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Callbacks</th>
+<th style="text-align: left;">Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>MainSequence</code></td>
+<td style="text-align: left;">เพิ่ม <strong>Message Popup</strong> รับค่า <code>Locals.dutValue</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">เพิ่ม <strong>Statement</strong> คำนวณค่า <code>dutValue</code> <br> <code>Locals.dutValue = Locals.dutValue + FileGlobals.Offset</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">เพิ่ม <strong>Numeric Limit Test</strong> ทดสอบว่า dutValue &lt; Limit <br> - เมนู Config &gt; Adaptors เลือกเป็น <strong>None</strong> <br> - กำหนด <strong>Data Source</strong> เป็น <code>Locals.dutValue</code> <br> - กำหนดเงื่อนไข <strong>LE (&lt;)</strong> โดยตั้งค่าเป็น <code>FileGlobals.Limit</code></td>
+</tr>
+</tbody>
+</table>
+<ol start="8" type="1">
+<li>ทดสอบป้อนค่าให้ครอบคลุม Pass/Fail</li>
+</ol>
+</section>
+<section id="teststand-process-tutorial-3" class="slide level2 smaller scrollable">
+<h2>TestStand process tutorial</h2>
+<ol start="9" type="1">
+<li><p>กำหนดตัวแปร <strong>Locals</strong> สำหรับการจัดการข้อมูลใน <strong>PostUUT</strong></p>
+<ul>
+<li><code>Locals.csvRef</code> (Object Reference) และ <code>logData</code> (Container)</li>
+<li>เพิ่มสมาชิก <code>idx</code> (Number), <code>SN</code> (String) และ <code>Status</code> (String) ให้ตัวแปร <code>logData</code></li>
+</ul></li>
+<li><p>กำหนด step ใน <code>PostUUT</code> เพื่อบันทึกผลในไฟล์ CSV</p></li>
+</ol>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Callbacks</th>
+<th style="text-align: left;">Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>PostUUT</code></td>
+<td style="text-align: left;">เพิ่ม <strong>New CSV Output Stream</strong> เพื่ออ้างถึงไฟล์ CSV <br> - ระบุตำแหน่งไฟล์ <br> - กำหนด <strong>Output Record Stream Reference</strong> เป็น <code>Locals.csvRef</code> <br> - กำหนด <strong>Field Mapping</strong> เป็น “0,1,2”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">เพิ่ม <strong>Statement</strong> สำหรับเตรียมข้อมูล<sup>1</sup> <br> <code>Locals.logData.index = Parameters.UUT.UUTLoopIndex,</code> <br> <code>Locals.logData.SN = Parameters.UUT.SerialNumber,</code> <br> <code>Locals.logData.status = Parameters.Result.Status</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">เพิ่ม <strong>Write Record</strong> เพื่อเขียนข้อมูล <br> - กำหนด <strong>Output Record Stream</strong> เป็น <code>Locals.csvRef</code> <br> - กำหนด <strong>Record</strong> เป็น <code>Locals.rowData</code></td>
+</tr>
+</tbody>
+</table>
+<ol start="11" type="1">
+<li>ทดสอบป้อนค่าให้ครอบคลุม Pass/Fail</li>
+</ol>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>เว้น expression โดยใช้ <strong>,</strong> (comma)</p></li></ol></aside></section>
+<section id="test-sequence-for-lm321-opamp" class="slide level2 smaller">
+<h2>Test sequence for LM321 opamp</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>เงื่อนไขการทดสอบ <span class="math inline">\(V_S\)</span> = ±5V</li>
+<li>Supply current <span class="math inline">\(I_S\)</span> &lt; 1.2 mA</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Offset voltage <span class="math inline">\(V_{OS}\)</span> &lt; 9 mV</li>
+<li>PSRR &gt; 65 dB<br>
+</li>
+</ul>
+</div></div>
 
 </section></section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="figs/TSE_logo.svg" class="slide-logo"></p>
