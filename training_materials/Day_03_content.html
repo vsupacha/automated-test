@@ -6,12 +6,12 @@
 <script src="Day_03_content_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="Day_03_content_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Day_03_content_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Day_03_content_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+<link href="Day_03_content_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
   <meta name="dcterms.date" content="2569-08-06">
-  <title>BOI STEM++</title>
+  <title>Thailand Skill Bridge</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -131,7 +131,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="figs/background.png" data-background-opacity="0.2" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">BOI STEM++</h1>
+  <h1 class="title">Thailand Skill Bridge</h1>
   <p class="subtitle">B0C690121: การพัฒนาระบบทดสอบแบบอัตโนมัติสำหรับ<br>แผงวงจรควบคุมด้วย LabVIEW, TestStand และ myRIO</p>
 
 <div class="quarto-title-authors">
@@ -173,13 +173,51 @@
 <li>การใช้งาน code module</li>
 <li><strong>workshop</strong>: การสร้าง sequence ทดสอบ</li>
 </ul></li>
-<li><label><input type="checkbox"><strong>วันที่ 4 testing in electronics industry</strong></label>
+<li><label><input type="checkbox"><strong>วันที่ 4 Testing in electronics industry</strong></label>
 <ul>
 <li>กรณีศึกษาของการทดสอบในอุตสาหกรรม</li>
 <li><strong>workshop</strong>: LabVIEW + TestStand for opamp testing</li>
 </ul></li>
 </ul>
 </div></div>
+</section>
+<section id="workshop-outcomes" class="slide level2 smaller">
+<h2>Workshop outcomes</h2>
+<ol type="1">
+<li><p>เข้าใจการสร้าง Test Sequence ด้วย NI TestStand</p></li>
+<li><p>สร้าง TestStand Sequence เพื่อการวัด <span class="math inline">\(I_{S}\)</span> ของ DUT opamp</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Setup</strong></td>
+<td>- เชื่อมต่อ UDP3305S / UT8805E / NI-9269 / NI-9477</td>
+</tr>
+<tr class="even">
+<td><strong>Main</strong></td>
+<td>- สร้างไฟเลี้ยง AUX opamp ±15V <br> - เปิดสวิทช์ S7 <br> - สร้างไฟเลี้ยง DUT opamp ±5V <br> - <strong>ทดสอบกระแสไม่เกิน 1.2 mA</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Cleanup</strong></td>
+<td>- ปิดไฟเลี้ยง DUT opamp <br> - ปิดไฟเลี้ยง AUX opamp <br> - ปิดสวิทช์ S7 <br> - ยกเลิก DAQmx/VISA</td>
+</tr>
+</tbody>
+</table></li>
+</ol>
+</section>
+<section id="workshop-outcomes-1" class="slide level2 smaller">
+<h2>Workshop outcomes</h2>
+<p><img data-src="figs/00_TS_IS.jpg" alt="TestStand"><br>
+</p>
 </section>
 <section>
 <section id="ni-teststand" class="title-slide slide level1 center">
@@ -372,66 +410,43 @@
 </ol>
 </div></div>
 </section>
-<section id="teststand-practice-i_s-measurement" class="slide level2 smaller">
-<h2>TestStand practice: <span class="math inline">\(I_{S}\)</span> measurement</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Group</th>
-<th>Code modules</th>
-<th>Function</th>
-<th>Variables</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Setup</strong></td>
-<td><code>ppsOpen</code> / <code>dmmOpen</code> <br> <code>switchOpen</code> / <code>aoOpen</code></td>
-<td>เชื่อมต่อ UDP3305S และ UT8805E <br> เชื่อมต่อ NI-9269 และ NI-9477</td>
-<td>→ FG.visa<sup>1</sup> <br> → FG.daqmx</td>
-</tr>
-<tr class="even">
-<td><strong>Main</strong></td>
-<td>message popup <br> <code>ppsWrite</code> <br> <code>aoWrite</code> <br> <code>switchOn</code> <br> <code>dmmRead</code> <br> Numeric Limit Test</td>
-<td>รับค่าไฟเลี้ยง <span class="math inline">\(V_S\)</span> <br> จ่ายไฟเลี้ยง ±15V ให้ AUX opamp <br> จ่ายไฟเลี้ยง ±<span class="math inline">\(V_S\)</span> ให้ DUT opamp <br> เปิดสวิทช์ S7 เชื่อม UT8805E <br> อ่านค่ากระแส <span class="math inline">\(I_{S}\)</span> <br> ทดสอบว่ามีค่าน้อยกว่าค่า limit</td>
-<td>→ LC<sup>2</sup>.vs <br> <br> ← LC.vs <br> <br> → LC.is <br> ← LC.is</td>
-</tr>
-<tr class="odd">
-<td><strong>Cleanup</strong></td>
-<td><code>ppsClose</code> / <code>dmmClose</code> <br> <code>switchClose</code> / <code>aoClose</code></td>
-<td>ปิดการเชื่อมต่อ VISA <br> ปิดการเชื่อมต่อ DAQmx</td>
-<td>← FG.visa <br> ← FG.daqmx</td>
-</tr>
-</tbody>
-</table>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>VISA/DAQmx resource เป็น <a href="https://knowledge.ni.com/KnowledgeArticleDetails?id=kA03q000000YGp8CAG&amp;l=en-TH"><code>LabVIEWIOControl</code> type</a></p></li><li id="fn2"><p>LC คือ Locals, FG คือ FileGlobals, SG คือ StationGlobals</p></li></ol></aside></section>
-<section id="teststand-practice-message-popup" class="slide level2 smaller">
-<h2>TestStand practice: message popup</h2>
-<h4 id="รบคา-v_s-โดยใชหนาตางยอย">1. รับค่า <span class="math inline">\(V_S\)</span> โดยใช้หน้าต่างย่อย</h4>
+<section id="teststand-tutorial-basics" class="slide level2 smaller">
+<h2>TestStand tutorial: basics</h2>
+<h4 id="สราง-sequence-รบและตรวจสอบคา-v_s">สร้าง Sequence รับและตรวจสอบค่า <span class="math inline">\(V_S\)</span></h4>
 <div class="columns">
 <div class="column" style="width:65%;">
 <p><img data-src="figs/TS_02_Ex_MsgPopup.jpg" alt="TestStand"><br>
 </p>
 </div><div class="column" style="width:35%;">
 <ol type="1">
-<li>ใช้ <code>Message Popup</code> โดยเพิ่มปุ่ม “Cancel”</li>
-<li>ใช้ Breakpoint + Step over ตรวจสอบการกดปุ่ม → <code>Step.Result.ButtonHit</code></li>
-<li>เพิ่ม <code>ButtonHit</code> เป็น <strong>Locals</strong></li>
-<li>กำหนด Properties &gt; Expressions &gt; Post-Expression: <code>Locals.ButtonHit = Step.Result.ButtonHit</code></li>
+<li>เพิ่ม <strong>Message Popup</strong> ใน <strong>Main group</strong> แสดงข้อความ “Enter Vs supply”
+<ul>
+<li>เลือกใช้ <strong>Enable Response Text Box</strong> → ตัวแปรชั่วครู่ <code>Step.Result.Response</code></li>
+</ul></li>
+<li>เพิ่ม <code>Vsp</code> เป็น <strong>Locals</strong> variable
+<ul>
+<li>กำหนด Properties &gt; Expressions &gt; Post-Expression: <code>Locals.Vsp = Val(Step.Result.Response)</code></li>
+</ul></li>
+<li>ใช้ Breakpoint + Step over ตรวจสอบการรับค่า <code>Locals.Vsp</code></li>
 </ol>
 </div></div>
 </section>
-<section id="teststand-tutorial-flow-control" class="slide level2 smaller">
-<h2>TestStand tutorial: flow control</h2>
-<h4 id="ปองกน-v_s-3v-โดยใช-if-else-end">2. ป้องกัน <span class="math inline">\(V_S\)</span> &lt; 3V โดยใช้ If-Else-End</h4>
+<section id="teststand-tutorial-basics-1" class="slide level2 smaller">
+<h2>TestStand tutorial: basics</h2>
+<h4 id="สราง-sequence-รบและตรวจสอบคา-v_s-1">สร้าง Sequence รับและตรวจสอบค่า <span class="math inline">\(V_S\)</span></h4>
 <div class="columns">
 <div class="column" style="width:65%;">
 <p><img data-src="figs/TS_02_IfElse_Expression.jpg" alt="TestStand"><br>
 </p>
 </div><div class="column" style="width:35%;">
-<ol type="1">
-<li>เพิ่ม Flow Control แบบ <strong>If-Else-End</strong></li>
-<li>กำหนดเงื่อนไข<br> <code>Locals.ButtonHit == 1</code></li>
+<ol start="4" type="1">
+<li>เพิ่ม <code>validVs</code> เป็น <strong>Locals</strong> variable แบบ boolean</li>
+<li>เพิ่ม <strong>Statement</strong> ตรวจสอบ: <code>Locals.validVs = (Locals.Vsp &gt;= 3) &amp;&amp; (Locals.Vsp &lt;= 32)</code></li>
+<li>เพิ่ม Flow Control แบบ <strong>If-Else-End</strong> โดยใช้ <code>Locals.validVs</code> เป็นเงื่อนไข
+<ul>
+<li><strong>True</strong>: Message Popup “Vs OK”</li>
+<li><strong>False</strong>: Message Popup “Vs not in range”</li>
+</ul></li>
 </ol>
 </div></div>
 </section>
@@ -462,61 +477,97 @@
 </div></div>
 <p><img data-src="figs/TS_02_TestStand_Param.jpg" alt="Param"><br>
 </p>
-<aside><ol class="aside-footnotes"><li id="fn3"><p><a href="https://www.ni.com/en/support/documentation/supplemental/09/teststand-code-module-development-best-practices.html">TestStand Code Module Development Best Practices</a></p></li></ol></aside></section>
-<section id="teststand-tutorial-action-step" class="slide level2 smaller">
-<h2>TestStand tutorial: action step</h2>
-<h4 id="สราง-sequence-เรมเชอมตอ-ปรบคา-ปดการเชอม">สร้าง sequence เริ่มเชื่อมต่อ / ปรับค่า / ปิดการเชื่อม</h4>
+<aside><ol class="aside-footnotes"><li id="fn1"><p><a href="https://www.ni.com/en/support/documentation/supplemental/09/teststand-code-module-development-best-practices.html">TestStand Code Module Development Best Practices</a></p></li></ol></aside></section>
+<section id="teststand-tutorial-pps-control" class="slide level2 smaller">
+<h2>TestStand tutorial: PPS control</h2>
+<h4 id="สราง-sequence-สำหรบจายไฟเลยง-aux-opamp-3-วนาทแลวปด">สร้าง Sequence สำหรับจ่ายไฟเลี้ยง AUX opamp 3 วินาทีแล้วปิด</h4>
+<ol type="1">
+<li>เพิ่ม <strong>Message Popup</strong> → <code>Locals.Vsp</code> และ <code>FileGlobals.ppsRef</code> <img data-src="figs/TS_02_PPS_Demo.jpg" style="width:90.0%" alt="PPS"><br>
+</li>
+</ol>
+</section>
+<section id="teststand-tutorial-pps-control-1" class="slide level2 smaller">
+<h2>TestStand tutorial: PPS control</h2>
+<h4 id="สราง-sequence-สำหรบจายไฟเลยง-aux-opamp-3-วนาทแลวปด-1">สร้าง Sequence สำหรับจ่ายไฟเลี้ยง AUX opamp 3 วินาทีแล้วปิด</h4>
 <div class="columns">
 <div class="column" style="width:65%;">
-
+<p><img data-src="figs/TS_02_PPS_Demo_Crop.jpg" alt="PPS"><br>
+</p>
 </div><div class="column" style="width:35%;">
-<ol type="1">
-<li>เพิ่ม Action สำหรับ <strong>ppsOpen</strong>, <strong>dmmOpen</strong> ใน <strong>Setup</strong> group และ <strong>ppsClose</strong>, <strong>dmmClose</strong> ใน <strong>Cleanup</strong> group</li>
-<li>เตรียม VI เรียกใช้ <code>VISA Open</code> และ <code>VISA Close</code> สำหรับ UDP3305S และ UT8805E</li>
-<li>กำหนด FileGlobals สำหรับ <code>ppsResource</code> และ <code>dmmResource</code></li>
-<li>ใช้ <code>ppsResource</code> และ <code>dmmResource</code> ส่งผ่าน</li>
+<ol start="2" type="1">
+<li>เพื่ม action ใน <strong>Setup group</strong>
+<ul>
+<li>VI <code>pps_connect</code> → <code>FileGlobals.ppsRef</code></li>
+</ul></li>
+<li>เพื่ม action ใน <strong>Main group</strong>
+<ul>
+<li>VI <code>pps_ctrl</code> ← <code>Locals.Vsp</code></li>
+<li>เพิ่ม <strong>Wait</strong> 3 วินาทีจาก Synchronization</li>
+</ul></li>
+<li>เพื่ม action ใน <strong>Cleanup group</strong>
+<ul>
+<li>เรียกใช้ <code>visa_close</code></li>
+</ul></li>
+<li>ตรวจสอบหน้าจอ UDP3305S ตอน Run MainSequence</li>
 </ol>
 </div></div>
 </section>
-<section id="teststand-tutorial-action-step-1" class="slide level2 smaller">
-<h2>TestStand tutorial: action step</h2>
-<h4 id="เพม-step-ในการสงการเครองมอวด">เพิ่ม step ในการสั่งการเครื่องมือวัด</h4>
+<section id="test-steps" class="slide level2 smaller">
+<h2>Test steps</h2>
 <div class="columns">
-<div class="column" style="width:65%;">
-
-</div><div class="column" style="width:35%;">
-<ol type="1">
-<li>เพิ่ม Action ในการตั้งค่าแรงดันของ UDP3305S
-<ul>
-<li>เตรียม VI เรียกใช้ <code>VISA Write</code></li>
-</ul></li>
-<li>เพิ่ม Test แบบ Numeric Limit Test ตรวจสอบแรงดันด้วย UT8805E
-<ul>
-<li>เตรียม VI เรียกใช้ <code>VISA Write</code> และ <code>VISA Read</code></li>
-</ul></li>
-<li>รับค่า <code>Volt</code> เป็น <code>Step.Result.Numeric</code>
-<ul>
-<li>กำหนดเงื่อนไข PASS/FAIL</li>
-</ul></li>
-</ol>
-</div></div>
-</section>
-<section id="teststand-tutorial-test-step" class="slide level2 smaller">
-<h2>TestStand tutorial: test step</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:47%;">
 <ul>
 <li><strong>Pass/Fail Test</strong>: ตรวจสอบ <code>Step.Result.PassFail</code></li>
 <li><strong>Numeric Limit Test</strong>: เปรียบเทียบ <code>Step.Result.Numeric</code> กับค่า Limit</li>
 </ul>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:53%;">
 <ul>
-<li><strong>Multiple Numeric Limit Test</strong>: เปรียบเทียบค่าอะเรย์ <code>Step.Result.Measurement</code> กับค่า Limits</li>
-<li><strong>String Value Test</strong>: เปรียบเทียบ <code>Step.Result.String</code> กับเงื่อนไข string/regEx</li>
+<li><strong>Multiple Numeric Limit Test</strong>: เปรียบเทียบอะเรย์ <code>Step.Result.Measurement</code> กับ Limits</li>
+<li><strong>String Value Test</strong>: ใช้เงื่อนไข string/regEx กับ <code>Step.Result.String</code></li>
 </ul>
 </div></div>
+<p><img data-src="figs/TS_02_Numeric_Test.jpg" alt="Test"><br>
+</p>
+</section>
+<section id="lm321-specification" class="slide level2 smaller">
+<h2>LM321 specification</h2>
+<p><img data-src="figs/TS_02_LM321_spec.jpg" alt="LM321"><br>
+</p>
+</section>
+<section id="teststand-practice-i_s-measurement" class="slide level2 smaller">
+<h2>TestStand practice: <span class="math inline">\(I_{S}\)</span> measurement</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Group</th>
+<th style="text-align: left;">Code modules</th>
+<th style="text-align: left;">Function</th>
+<th style="text-align: left;">Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Setup</strong></td>
+<td style="text-align: left;"><code>pps_connect</code> <br> <code>dmm_connect</code> <br> <code>switch_init</code> <br> <code>ao_init</code></td>
+<td style="text-align: left;">เชื่อมต่อ UDP3305S <br> เชื่อมต่อ UT8805E <br> เชื่อมต่อ NI-9269 <br> เชื่อมต่อ NI-9477</td>
+<td style="text-align: left;">→ <code>FG.ppsRef</code><sup>1</sup> <br> → <code>FG.dmmRef</code><sup>2</sup> <br> → <code>FG.switchRef</code> <br> → <code>FG.aoRef</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Main</strong></td>
+<td style="text-align: left;"><code>pps_ctrl</code> <br> <code>switch_ctrl</code> <br> <code>ao_update</code> <br> Numeric Limit Test (<code>dmm_read</code>)</td>
+<td style="text-align: left;">จ่ายไฟเลี้ยง ±15V ให้ AUX <br> จ่ายไฟเลี้ยง ±5V ให้ DUT <br> เปิดสวิทช์ S7 <br> ทดสอบ <span class="math inline">\(I_{S}\)</span> &lt; 1.2mA</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Cleanup</strong></td>
+<td style="text-align: left;"><code>visa_close</code> <br> <code>daqmx_stop</code></td>
+<td style="text-align: left;">ปิดการเชื่อมต่อ VISA <br> ปิดการเชื่อมต่อ DAQmx</td>
+<td style="text-align: left;">← … <br> ← …</td>
+</tr>
+</tbody>
+</table>
 
-</section></section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>VISA/DAQmx resource เป็น <a href="https://knowledge.ni.com/KnowledgeArticleDetails?id=kA03q000000YGp8CAG&amp;l=en-TH"><code>LabVIEWIOControl</code> type</a></p></li><li id="fn3"><p>LC คือ Locals, FG คือ FileGlobals, SG คือ StationGlobals</p></li></ol></aside></section></section>
 
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

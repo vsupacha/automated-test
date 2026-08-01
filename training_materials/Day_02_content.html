@@ -220,7 +220,7 @@
 <ul>
 <li>การใช้งานเครื่องมือวัดแบบ manual และผ่านซอฟต์แวร์ remote</li>
 </ul></li>
-<li>การสร้าง LabVIEW SubVI เพื่อการวัด <span class="math inline">\(I_{S}\)</span> แบบอัตโนมัติ</li>
+<li>สร้าง LabVIEW SubVI เพื่อการวัด <span class="math inline">\(I_{S}\)</span> แบบอัตโนมัติ</li>
 </ol>
 <table class="caption-top">
 <thead>
@@ -232,42 +232,42 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>AO_init</code></td>
+<td><code>ao_init</code></td>
 <td>NI-9269</td>
-<td>เชื่อมต่อ DAQmx</td>
+<td>เชื่อมต่อผ่าน DAQmx</td>
 </tr>
 <tr class="even">
-<td><code>AO_write</code></td>
+<td><code>ao_update</code></td>
 <td>NI-9269</td>
 <td>สร้างแรงดันไฟเลี้ยง DUT opamp</td>
 </tr>
 <tr class="odd">
-<td><code>DO_init</code></td>
+<td><code>switch_init</code></td>
 <td>NI-9477</td>
-<td>เชื่อมต่อ DAQmx</td>
+<td>เชื่อมต่อผ่าน DAQmx</td>
 </tr>
 <tr class="even">
-<td><code>DO_write</code></td>
+<td><code>switch_ctrl</code></td>
 <td>NI-9477</td>
 <td>คุมสถานะ ON/OFF ของสวิทช์</td>
 </tr>
 <tr class="odd">
-<td><code>PPS_init</code></td>
+<td><code>pps_connect</code></td>
 <td>UDP3305S</td>
-<td>เชื่อมต่อ VISA</td>
+<td>เชื่อมต่อผ่าน VISA</td>
 </tr>
 <tr class="even">
-<td><code>PPS_write</code></td>
+<td><code>pps_ctrl</code></td>
 <td>UDP3305S</td>
 <td>สร้างแรงดันไฟเลี้ยง AUX opamp</td>
 </tr>
 <tr class="odd">
-<td><code>DMM_init</code></td>
+<td><code>dmm_connect</code></td>
 <td>UT8805E</td>
-<td>เชื่อมต่อ VISA</td>
+<td>เชื่อมต่อผ่าน VISA และตั้งโหมดการวัด</td>
 </tr>
 <tr class="even">
-<td><code>DMM_read</code></td>
+<td><code>dmm_read</code></td>
 <td>UT8805E</td>
 <td>อ่านค่ากระแส</td>
 </tr>
@@ -293,7 +293,7 @@
 <li><strong>NI-9269</strong>: จ่ายไฟเลี้ยง DUT opamp</li>
 </ol>
 </div></div>
-<p><img data-src="figs/Instr_01_IDD_meas.jpg" alt="IDD"><br>
+<p><img data-src="figs/Instr_01_IS_meas.jpg" alt="IS"><br>
 </p>
 </section>
 <section id="signal-interfaces" class="slide level2 smaller">
@@ -356,12 +356,48 @@
 <div class="column" style="width:50%;">
 <h4 id="aux-opamp-supply-15v">AUX opamp supply: ±15V</h4>
 <ol type="1">
-<li></li>
+<li>ตั้งค่าแรงดัน 15V → กดปุ่ม CH1/CH2
+<ul>
+<li>กดปุ่ม softkey เลือกโหมด Voltage</li>
+<li>กดปุ่มตัวเลข 15</li>
+<li>กดปุ่ม softkey เลือกหน่วย V</li>
+</ul></li>
+<li>กดปุ่ม ON ของ CH1/CH2</li>
+</ol>
+<h4 id="เลกใชงาน">เลิกใช้งาน</h4>
+<ol type="1">
+<li>กดปุ่ม OFF ของ CH1/CH2</li>
+<li>ตั้งค่าแรงดัน 0V → กดปุ่ม CH1/CH2
+<ul>
+<li>กดปุ่ม softkey เลือกโหมด Voltage</li>
+<li>กดปุ่มตัวเลข 0</li>
+<li>กดปุ่ม softkey เลือกหน่วย V</li>
+</ul></li>
 </ol>
 </div><div class="column" style="width:50%;">
 <h4 id="dc-current-measurement-20-ma">DC current measurement: 20 mA</h4>
 <ol type="1">
-<li></li>
+<li>เลือกโหมด DC current
+<ul>
+<li>กดปุ่ม Shift</li>
+<li>กดปุ่ม dcV/<strong>dcI</strong></li>
+</ul></li>
+<li>ตั้งย่านการวัด 20 mA
+<ul>
+<li>กดปุ่ม F1 Range</li>
+<li>กดปุ่มลูกศร ขึ้น/ลง ปรับย่านการวัด</li>
+</ul></li>
+</ol>
+<h4 id="เลกใชงาน-1">เลิกใช้งาน</h4>
+<ol type="1">
+<li>เลือกโหมด DC voltage
+<ul>
+<li>กดปุ่ม <strong>dcV</strong>/dcI</li>
+</ul></li>
+<li>ตั้งย่านการวัด AUTO
+<ul>
+<li>กดปุ่ม F1 Range แล้วกดปุ่ม AUTO</li>
+</ul></li>
 </ol>
 </div></div>
 </section>
@@ -462,14 +498,45 @@
 <h2><span class="math inline">\(I_{S}\)</span> measurement: instr. setup</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
+<p><img data-src="figs/Instr_01_NI_9477_TestPanel.jpg" alt="Switch"><br>
+</p>
+</div><div class="column" style="width:50%;">
 <h4 id="relay-selection-s7-on">Relay selection: S7 ON</h4>
 <ol type="1">
-<li></li>
+<li>เปิด Test Panel ของ NI-9477 จาก NI MAX</li>
+<li>เปิดสวิทช์ line7</li>
 </ol>
+<h4 id="เลกใชงาน-2">เลิกใช้งาน</h4>
+<ol type="1">
+<li>ปิดสวิทช์ line7</li>
+</ol>
+</div></div>
+</section>
+<section id="i_s-measurement-instr.-setup-2" class="slide level2 smaller">
+<h2><span class="math inline">\(I_{S}\)</span> measurement: instr. setup</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="figs/Instr_01_NI_9269_TestPanel.jpg" alt="AO"><br>
+</p>
 </div><div class="column" style="width:50%;">
 <h4 id="dut-opamp-supply-5v">DUT opamp supply: ±5V</h4>
 <ol type="1">
-<li></li>
+<li>เปิด Test Panel ของ NI-9269 จาก NI MAX</li>
+<li>ตั้งค่า Voltage 5V
+<ul>
+<li>เลือก Channel <strong>ao/ao0</strong> และ <strong>ao/ao1</strong></li>
+<li>ตั้ง Output Value 5V</li>
+<li>กดปุ่ม Update</li>
+</ul></li>
+</ol>
+<h4 id="เลกใชงาน-3">เลิกใช้งาน</h4>
+<ol type="1">
+<li>ตั้งค่า Voltage 0V
+<ul>
+<li>เลือก Channel <strong>ao/ao0</strong> และ <strong>ao/ao1</strong></li>
+<li>ตั้ง Output Value 5V</li>
+<li>กดปุ่ม Update</li>
+</ul></li>
 </ol>
 </div></div>
 </section></section>
@@ -586,9 +653,23 @@
 </ul>
 </div></div>
 </section>
-<section id="cdaq-tutorial" class="slide level2 smaller">
-<h2>cDAQ tutorial</h2>
-<h4 id="สราง-task-สำหรบควบคมไฟเลยง-dut-opamp-และสวทช-s7">สร้าง task สำหรับควบคุมไฟเลี้ยง DUT opamp และสวิทช์ S7</h4>
+<section id="cdaq-tutorial-ni-9477" class="slide level2 smaller">
+<h2>cDAQ tutorial: NI-9477</h2>
+<h4 id="สราง-vi-สำหรบควบคมสวทช-s7">สร้าง VI สำหรับควบคุมสวิทช์ S7</h4>
+<ul>
+<li>ยุบเป็น SubVI: <code>switch_init</code>, <code>switch_ctrl</code> และ <code>daqmx_stop</code></li>
+</ul>
+<p><img data-src="figs/Instr_02_Demo_Switch.jpg" alt="DAQmx"><br>
+</p>
+</section>
+<section id="cdaq-tutorial-ni-9269" class="slide level2 smaller">
+<h2>cDAQ tutorial: NI-9269</h2>
+<h4 id="สราง-vi-สำหรบควบคมไฟเลยง-dut-opamp">สร้าง VI สำหรับควบคุมไฟเลี้ยง DUT opamp</h4>
+<ul>
+<li>ยุบเป็น SubVI: <code>ao_init</code> และ <code>ao_update</code></li>
+</ul>
+<p><img data-src="figs/Instr_02_Demo_AO.jpg" alt="DAQmx"><br>
+</p>
 </section></section>
 <section>
 <section id="programming-instruments" class="title-slide slide level1 center">
@@ -687,7 +768,12 @@
 </section>
 <section id="udp3305s-scpi-tutorial" class="slide level2 smaller">
 <h2>UDP3305S SCPI tutorial</h2>
-<h4 id="ควบคมไฟเลยง-aux-opamp">ควบคุมไฟเลี้ยง AUX opamp</h4>
+<h4 id="สราง-vi-ควบคมไฟเลยง-aux-opamp">สร้าง VI ควบคุมไฟเลี้ยง AUX opamp</h4>
+<ul>
+<li>ยุบเป็น SubVI: <code>pps_connect</code>, <code>pps_update</code> และ <code>visa_close</code></li>
+</ul>
+<p><img data-src="figs/Instr_03_UDP3305S_Demo.jpg" alt="VISA"><br>
+</p>
 </section>
 <section id="programming-ut8805e" class="slide level2 smaller scrollable">
 <h2>Programming <a href="https://uni-trendus.com/products/UT8805E">UT8805E</a></h2>
@@ -722,7 +808,12 @@
 </section>
 <section id="ut8805e-scpi-tutorial" class="slide level2 smaller">
 <h2>UT8805E SCPI tutorial</h2>
-<h4 id="เลอกโหมดวดกระแสและอานคา">เลือกโหมดวัดกระแสและอ่านค่า</h4>
+<h4 id="สราง-vi-เลอกโหมดวดกระแสและอานคา">สร้าง VI เลือกโหมดวัดกระแสและอ่านค่า</h4>
+<ul>
+<li>ยุบเป็น SubVI: <code>pps_connect</code> และ <code>pps_update</code></li>
+</ul>
+<p><img data-src="figs/Instr_03_UT8805E_Demo.jpg" alt="UT8805E"><br>
+</p>
 </section></section>
 <section>
 <section id="programming-picoscope" class="title-slide slide level1 center">
