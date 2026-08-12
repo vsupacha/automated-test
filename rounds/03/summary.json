@@ -1,9 +1,9 @@
 {
     "round":3,
     "date":"4-7 August 2026",
-    "status":"closed",
-    "capacity":20,
-    "registered":27,
+    "status":"finished",
+    "capacity":27,
+    "registered":10,
     "photo":"photo.jpg",
     "participants":"participants.csv",
     "pre_test":0,
