@@ -6,11 +6,11 @@
 <script src="Day_04_content_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="Day_04_content_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Day_04_content_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Day_04_content_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="Day_04_content_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
-  <meta name="dcterms.date" content="2569-08-07">
+  <meta name="dcterms.date" content="2569-08-21">
   <title>Thailand Skill Bridge</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -208,7 +208,7 @@
 </div>
 </div>
 
-  <p class="date">August 7, 2569</p>
+  <p class="date">August 21, 2569</p>
 </section>
 <section id="course-outline" class="slide level2 smaller">
 <h2>Course outline</h2>
@@ -508,13 +508,13 @@
 <li><strong>Parallel model</strong>: run multiple independent test sequences</li>
 </ul>
 </div></div>
-<p><img data-src="figs/TS_03_Process_Flow.jpg" alt="Process"><br>
+<p><img data-src="figs/TS_04_Process_Flow.jpg" alt="Process"><br>
 </p>
 </section>
 <section id="teststand-sequence-callbacks" class="slide level2 smaller">
 <h2>TestStand sequence callbacks</h2>
 <p><strong>MainSequence</strong>: Setup → Main → Cleanup</p>
-<p><img data-src="figs/TS_03_Seq_Callback.jpg" alt="TestStand"><br>
+<p><img data-src="figs/TS_04_Seq_Callback.jpg" alt="TestStand"><br>
 </p>
 </section>
 <section id="test-results-and-data-logging" class="slide level2 smaller">
@@ -544,7 +544,7 @@
 <li>Custom logging</li>
 </ul>
 </div></div>
-<p><img data-src="figs/TS_03_Test_Results.jpg" style="width:90.0%" alt="Results"><br>
+<p><img data-src="figs/TS_04_Test_Results.jpg" style="width:90.0%" alt="Results"><br>
 </p>
 </section>
 <section id="teststand-process-tutorial" class="slide level2 smaller">
@@ -719,6 +719,42 @@
 </li>
 </ul>
 </div></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Callback</th>
+<th style="text-align: left;">Code modules</th>
+<th style="text-align: left;">Function</th>
+<th style="text-align: left;">Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ProcessSetup</td>
+<td style="text-align: left;"><code>pps_connect</code> <br> <code>dmm_connect</code> <br> <code>switch_init</code> <br> <code>ao_init</code> <br> <code>ai_init</code></td>
+<td style="text-align: left;">เชื่อมต่อ UDP3305S <br> เชื่อมต่อ UT8805E <br> เชื่อมต่อ NI-9477 <br> เชื่อมต่อ NI-9269 <br> เชื่อมต่อ NI-9239</td>
+<td style="text-align: left;">→ <code>FG.ppsRef</code> <br> → <code>FG.dmmRef</code> <br> → <code>FG.switchRef</code> <br> → <code>FG.aoRef</code> <br> → <code>FG.aiRef</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MainSequence</td>
+<td style="text-align: left;"><code>pps_ctrl</code> <br> <code>ao_update</code> <br> NumTest <code>ai_measure</code> <br> <code>switch_ctrl</code> <br> NumTest <code>dmm_read</code></td>
+<td style="text-align: left;">ไฟเลี้ยง AUX ±15V <br> ไฟเลี้ยง DUT ±5V <br> ทดสอบ <span class="math inline">\(V\)</span> &lt; 9V <br> เปิดสวิทช์ S7 <br> ทดสอบ <span class="math inline">\(I_{S}\)</span> &lt; 1.2mA</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ProcessCleanup</td>
+<td style="text-align: left;"><code>visa_close</code> <br> <code>daqmx_stop</code></td>
+<td style="text-align: left;">ปิด VISA <br> ปิด DAQmx</td>
+<td style="text-align: left;">← … <br> ← …</td>
+</tr>
+</tbody>
+</table>
 
 </section></section>
 

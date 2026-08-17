@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
-  <meta name="dcterms.date" content="2569-08-04">
+  <meta name="dcterms.date" content="2569-08-18">
   <title>Thailand Skill Bridge</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -142,7 +142,7 @@
 </div>
 </div>
 
-  <p class="date">August 4, 2569</p>
+  <p class="date">August 18, 2569</p>
 </section>
 <section id="course-outline" class="slide level2 smaller">
 <h2>Course outline</h2>
@@ -331,11 +331,11 @@
 <section id="ate-for-pcb-products" class="slide level2 smaller">
 <h2>ATE for PCB products<sup>1</sup></h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:45%;">
 <h4 id="automated-optical-inspection-aoi">Automated Optical Inspection (AOI)</h4>
 <p><img data-src="figs/ATE_01_PCB_AOI.jpg" alt="PCB AOI"><br>
 </p>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:55%;">
 <h4 id="electrical-testing-ict-or-flying-probe">Electrical testing → ICT or Flying probe</h4>
 <ul>
 <li>Continuity Testing (Short Testing)</li>
@@ -538,12 +538,12 @@
 </div><div class="column" style="width:50%;">
 <h4 id="ppmu-pin-parametric-measurement-unit">PPMU (Pin Parametric Measurement Unit)</h4>
 <ul>
-<li>Operating modes:
+<li>Operating modes (2 quadrants):
 <ul>
 <li>Force voltage, measure current</li>
 <li>Force current, measure voltage</li>
 </ul></li>
-<li>Less precision, no programmable limits, but higher speed, and more channels <img data-src="figs/ATE_01_PPMU.jpg" style="width:65.0%" alt="PPMU"><br>
+<li>Less precision, no programmable limits → higher speed, and more channels <img data-src="figs/ATE_01_PPMU.jpg" style="width:65.0%" alt="PPMU"><br>
 </li>
 </ul>
 </div></div>
@@ -573,60 +573,55 @@
 <section id="functional-testing-digital-dut" class="slide level2 smaller">
 <h2>Functional testing: digital DUT</h2>
 <div class="columns">
-<div class="column" style="width:75%;">
+<div class="column" style="width:65%;">
 <p><img data-src="figs/ATE_01_FCT_test.jpg" alt="FCT"><br>
 </p>
-</div><div class="column" style="width:25%;">
+</div><div class="column" style="width:35%;">
+<h4 id="concepts-1">Concepts</h4>
+<p><strong>Stimulus</strong> → <strong>DUT</strong> → <strong>Response</strong></p>
+<ul>
+<li>Drive digital inputs: <strong>0 / 1</strong></li>
+<li>Compare outputs: <strong>L / H / Z</strong></li>
+<li>Verify response at specified <strong>timing</strong></li>
+</ul>
 <h4 id="test-vector">Test vector</h4>
-<p>Timing and a series of input (0/1) - output (L/H/Z) combinations</p>
-</div></div>
-</section>
-<section id="product-reqs-test-implementation" class="slide level2 smaller">
-<h2>Product reqs → Test implementation</h2>
-<div class="columns">
-<div class="column" style="width:65%;">
+<p>timing + input stimulus + expected response</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>Product / Manufacturing</th>
-<th>Test Engineer</th>
+<th style="text-align: right;">Time</th>
+<th style="text-align: center;">IN1</th>
+<th style="text-align: center;">IN2</th>
+<th style="text-align: center;">OUT</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Product specification</td>
-<td>Requirement analysis</td>
+<td style="text-align: right;"><span class="math inline">\(t_0\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">L</td>
 </tr>
 <tr class="even">
-<td>Test specification</td>
-<td>Test plan</td>
+<td style="text-align: right;"><span class="math inline">\(t_1\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">H</td>
 </tr>
 <tr class="odd">
-<td>Fixture</td>
-<td>Fixture design</td>
+<td style="text-align: right;"><span class="math inline">\(t_2\)</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">H</td>
 </tr>
 <tr class="even">
-<td>Test program</td>
-<td><strong>LabVIEW</strong> / <strong>TestStand</strong> development</td>
-</tr>
-<tr class="odd">
-<td>Test platform</td>
-<td>Fixture + instrumentation integration</td>
-</tr>
-<tr class="even">
-<td>DUT measurement</td>
-<td>Execute test &amp; validate results</td>
-</tr>
-<tr class="odd">
-<td>PASS / FAIL / Bin</td>
-<td>Report &amp; database</td>
+<td style="text-align: right;"><span class="math inline">\(t_3\)</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">Z</td>
 </tr>
 </tbody>
 </table>
-</div><div class="column" style="width:35%;">
-<h4 id="fixture-ex-test-socket">Fixture ex: test socket</h4>
-<p><img data-src="figs/ATE_01_Socket.jpg" alt="Socket"><br>
-</p>
 </div></div>
 </section>
 <section id="die-testing-bin-distribution" class="slide level2 smaller scrollable">
@@ -674,6 +669,54 @@
 <h1>2. LabVIEW quick recap</h1>
 
 </section>
+<section id="product-reqs-test-implementation" class="slide level2 smaller">
+<h2>Product reqs → Test implementation</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Product / Manufacturing</th>
+<th>Test Engineer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Product specification</td>
+<td>Requirement analysis</td>
+</tr>
+<tr class="even">
+<td>Test specification</td>
+<td>Test plan</td>
+</tr>
+<tr class="odd">
+<td>Fixture</td>
+<td>Fixture design</td>
+</tr>
+<tr class="even">
+<td>Test program</td>
+<td>Software development: <strong>LabVIEW</strong> / <strong>TestStand</strong></td>
+</tr>
+<tr class="odd">
+<td>Test platform</td>
+<td>Fixture + instrumentation integration</td>
+</tr>
+<tr class="even">
+<td>DUT measurement</td>
+<td>Execute test &amp; validate results</td>
+</tr>
+<tr class="odd">
+<td>PASS / FAIL / Bin</td>
+<td>Report &amp; database</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:35%;">
+<h4 id="fixture-ex-test-socket">Fixture ex: test socket</h4>
+<p><img data-src="figs/LV_01_TestImpl.jpg" alt="Socket"><br>
+</p>
+</div></div>
+</section>
 <section id="why-labview" class="slide level2 smaller">
 <h2>Why LabVIEW?</h2>
 <div class="columns">
@@ -689,13 +732,8 @@
 </p>
 </div></div>
 </section>
-<section id="ni-max" class="slide level2 smaller">
-<h2>NI MAX</h2>
-<p><strong>Measurement &amp; Automation Explorer</strong> ใช้ตั้งค่าและตรวจสอบเครื่องมือวัด/DAQ/PXI <img data-src="figs/LV_01_NI_MAX.jpg" alt="NI MAX"><br>
-</p>
-</section>
-<section id="why-labview-for-ate" class="slide level2 smaller">
-<h2>Why LabVIEW for ATE?</h2>
+<section id="tester-labview-instr.-fixture" class="slide level2 smaller">
+<h2>Tester = LabVIEW + instr. + fixture</h2>
 <div class="columns">
 <div class="column" style="width:32%;">
 <h4 id="ni-daqmx">NI-DAQmx</h4>
@@ -725,6 +763,11 @@
 <p><img data-src="figs/LV_01_PXI_chassis.jpg" alt="PXI"><br>
 </p>
 </div></div>
+</section>
+<section id="ni-max" class="slide level2 smaller">
+<h2>NI MAX</h2>
+<p><strong>Measurement &amp; Automation Explorer</strong> ใช้ตั้งค่าและตรวจสอบเครื่องมือวัด/DAQ/PXI <img data-src="figs/LV_01_NI_MAX.jpg" alt="NI MAX"><br>
+</p>
 </section>
 <section id="labview" class="slide level2 smaller">
 <h2>LabVIEW</h2>
@@ -1061,7 +1104,7 @@
 <h2>Problem-based learning #1</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
-<h4 id="ads11115-adc-module-as-dut"><a href="https://www.ti.com/product/ADS1115">ADS11115</a> ADC module as DUT</h4>
+<h4 id="ads1115-adc-module-as-dut"><a href="https://www.ti.com/product/ADS1115">ADS1115</a> ADC module as DUT</h4>
 <ul>
 <li>16-bit Delta-Sigma: upto 860 Samples/sec</li>
 <li>2 differential inputs or 4 single-ended inputs</li>
