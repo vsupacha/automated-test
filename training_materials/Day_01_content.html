@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
-  <meta name="dcterms.date" content="2569-08-18">
+  <meta name="dcterms.date" content="2569-08-27">
   <title>Thailand Skill Bridge</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -142,7 +142,7 @@
 </div>
 </div>
 
-  <p class="date">August 18, 2569</p>
+  <p class="date">August 27, 2569</p>
 </section>
 <section id="course-outline" class="slide level2 smaller">
 <h2>Course outline</h2>
@@ -488,7 +488,7 @@
 </section>
 <section id="microcontroller-pin" class="slide level2 smaller">
 <h2>Microcontroller pin</h2>
-<h4 id="multiplexed-io-pin">Multiplexed I/O pin</h4>
+<h4 id="multiplexed-io-pin-esd-protection-diodes">Multiplexed I/O pin: ESD protection diodes</h4>
 <p><img data-src="figs/ATE_01_MCU_pin.jpg" alt="MCU pin"><br>
 </p>
 </section>
@@ -1082,18 +1082,13 @@
 <ul>
 <li>Analog input/output + parallel timed loop + Pt-by-Pt power spectrum</li>
 </ul>
+<p><img data-src="figs/MR_01_loopback.jpg" alt="myRIO loopback"><br>
+</p>
 </section>
 <section id="myrio-digital-io-timed-comm." class="slide level2 smaller">
 <h2>myRIO digital: I/O, timed, comm.</h2>
 <p><img data-src="figs/MR_01_myRIO_digital.jpg" alt="myRIO digital"><br>
 </p>
-</section>
-<section id="myrio-quick-demo" class="slide level2 smaller">
-<h2>myRIO quick demo</h2>
-<p><strong>ตรวจจับ UART pattern ของ myRIO ด้วย PicoScope</strong></p>
-<ul>
-<li>UART pattern + PicoScope range/trigger/decode</li>
-</ul>
 </section></section>
 <section>
 <section id="myrio-ads1115-workshop" class="title-slide slide level1 center">
@@ -1210,11 +1205,15 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="addr-pin-to-device-address">ADDR pin to Device Address</h4>
-<h4 id="address-pointer-to-8-bit">Address Pointer to 8-bit</h4>
+<p><img data-src="figs/MR_02_ADDR_DevAddr.jpg" style="width:70.0%" alt="ADS1115"><br>
+</p>
 </div><div class="column" style="width:50%;">
-<h4 id="ads1115-write">ADS1115 write</h4>
-<h4 id="ads1115-query">ADS1115 query</h4>
+<h4 id="address-pointer-to-8-bit">Address Pointer to 8-bit</h4>
+<p><img data-src="figs/MR_02_Addr_Pointer.jpg" style="width:70.0%" alt="ADS1115"><br>
+</p>
 </div></div>
+<p><img data-src="figs/MR_02_ADS1115_I2C.jpg" alt="ADS1115"><br>
+</p>
 </section>
 <section id="labview-myrio-ads1115-1" class="slide level2 smaller">
 <h2>LabVIEW + myRIO ⇆ ADS1115</h2>
@@ -1307,13 +1306,11 @@
 <p><img data-src="figs/LV_01_LabVIEW_StateMachine.jpg" alt="StateMachine"><br>
 </p>
 </section>
-<section id="labview-myrio-ads1115-2" class="slide level2 smaller">
-<h2>LabVIEW + myRIO ⇆ ADS1115</h2>
+<section id="labview-myrio-practice" class="slide level2 smaller">
+<h2>LabVIEW + myRIO practice</h2>
 <h4 id="สราง-vi-สำหรบ-i2c-comm-test">สร้าง VI สำหรับ I2C comm test</h4>
-</section>
-<section id="labview-myrio-ads1115-3" class="slide level2 smaller">
-<h2>LabVIEW + myRIO ⇆ ADS1115</h2>
-<h4 id="สราง-vi-สำหรบ-ads1115-a0-conversion">สร้าง VI สำหรับ ADS1115 A0 conversion</h4>
+<p><img data-src="figs/MR_02_ADS1115_template.jpg" alt="StateMachine"><br>
+</p>
 
 </section></section>
 

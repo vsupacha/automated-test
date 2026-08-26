@@ -6,11 +6,11 @@
 <script src="Day_03_content_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="Day_03_content_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Day_03_content_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Day_03_content_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+<link href="Day_03_content_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์">
-  <meta name="dcterms.date" content="2569-08-20">
+  <meta name="dcterms.date" content="2569-08-29">
   <title>Thailand Skill Bridge</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -142,7 +142,7 @@
 </div>
 </div>
 
-  <p class="date">August 20, 2569</p>
+  <p class="date">August 29, 2569</p>
 </section>
 <section id="course-outline" class="slide level2 smaller">
 <h2>Course outline</h2>
@@ -377,6 +377,16 @@
 <p><img data-src="figs/TS_02_TestStand_UI.jpg" alt="TestStand"><br>
 </p>
 </section>
+<section id="ni-teststand-step" class="slide level2 smaller">
+<h2>NI TestStand: Step</h2>
+<p><strong>Step</strong> = adaptor + properties</p>
+<ul>
+<li><strong>Statement</strong>: คำสั่งที่ใกล้เคียงภาษา C/C++ (ยกเว้น <code>str+str</code> การใช้ <code>,</code> คั่นคำสั่ง)</li>
+<li><strong>Sequence call</strong>: กลุ่มของ step สำหรับการทำงานเฉพาะ</li>
+</ul>
+<p><img data-src="figs/TS_02_Step_Settings.jpg" alt="TestStand"><br>
+</p>
+</section>
 <section id="ni-teststand-dev-workflow" class="slide level2 smaller">
 <h2>NI TestStand: dev workflow</h2>
 <div class="columns">
@@ -508,12 +518,6 @@
 </ol>
 </div></div>
 </section>
-<section id="teststand-tutorial-sequence-call" class="slide level2 smaller">
-<h2>TestStand tutorial: Sequence call</h2>
-</section>
-<section id="teststand-tutorial-statement" class="slide level2 smaller">
-<h2>TestStand tutorial: Statement</h2>
-</section>
 <section id="test-steps" class="slide level2 smaller">
 <h2>Test steps</h2>
 <div class="columns">
@@ -595,6 +599,79 @@
 <h2>TestStand practice</h2>
 <p><img data-src="figs/TS_03_TS_IS.jpg" alt="TestStand"><br>
 </p>
+</section>
+<section id="teststand-practice-sequence-call" class="slide level2 smaller">
+<h2>TestStand practice: sequence call</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 25%">
+<col style="width: 33%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Group</th>
+<th style="text-align: left;">Code modules</th>
+<th style="text-align: left;">Function</th>
+<th style="text-align: left;">Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Setup</strong></td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Main</strong></td>
+<td style="text-align: left;"><code>pps_ctrl</code> <br> <code>ao_update</code> <br> Call <code>I_S_test</code></td>
+<td style="text-align: left;">จ่ายไฟเลี้ยง ±15V ให้ AUX <br> จ่ายไฟเลี้ยง ±5V ให้ DUT <br> ทดสอบ <span class="math inline">\(I_{S}\)</span> &lt; 1.2mA</td>
+<td style="text-align: left;">…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Cleanup</strong></td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:20%;">
+<h4 id="sub-sequence-i_s-test">Sub-sequence: “I_S test”</h4>
+</div><div class="column" style="width:75%;">
+<div style="border: 2px solid black; padding: 10px; display: inline-block;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Group</th>
+<th style="text-align: left;">Code modules</th>
+<th style="text-align: left;">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Setup</strong></td>
+<td style="text-align: left;"><code>switch_ctrl</code></td>
+<td style="text-align: left;">เปิดสวิทช์ S7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Main</strong></td>
+<td style="text-align: left;">Numeric Limit Test (<code>dmm_read</code>)</td>
+<td style="text-align: left;">ทดสอบ <span class="math inline">\(I_{S}\)</span> &lt; 1.2mA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Cleanup</strong></td>
+<td style="text-align: left;"><code>switch_ctrl</code></td>
+<td style="text-align: left;">ปิดสวิทช์ S7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></div>
 
 </section></section>
 
