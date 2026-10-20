@@ -1,0 +1,44 @@
+# Shared line-ending policy for repos in Dropbox/workspace (one working tree synced to 3 PCs):
+# store and check out text as LF on every PC so Dropbox and git see identical bytes.
+* text=auto eol=lf
+
+# Windows scripts
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binaries
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.pdf   binary
+*.docx  binary
+*.xlsx  binary
+*.pptx  binary
+*.zip   binary
+*.woff  binary
+*.woff2 binary
+*.eot   binary
+*.ttf   binary
+*.otf   binary
+*.pt    binary
+*.onnx  binary
+*.elf   binary
+*.bin   binary
+*.o     binary
+*.a     binary
+*.pyc   binary
+
+# LabVIEW: keep files exactly as LabVIEW writes them
+*.vi      binary
+*.ctl     binary
+*.vim     binary
+*.lvproj  -text
+*.lvlps   -text
+*.aliases -text
+*.lvlib   -text
+*.lvclass -text
+*.xctl    -text
+*.hex     -text
