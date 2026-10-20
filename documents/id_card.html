@@ -8,86 +8,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="doc-kit.css">
 <style>
-  :root {
-    --bg: #f4f5f7;
-    --surface: #ffffff;
-    --text: #1d2330;
-    --muted: #5f6878;
-    --border: #dde1e7;
-    --accent: #1f5fd1;
-    --accent-text: #ffffff;
-    --warn-bg: #fff4dc;
-    --warn-text: #7a5300;
-    --ok-bg: #e3f5e8;
-    --ok-text: #1d6b35;
-    --err-bg: #fde7e7;
-    --err-text: #9b1c1c;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #14171c;
-      --surface: #1d2128;
-      --text: #e8ebf0;
-      --muted: #9aa3b2;
-      --border: #333a45;
-      --accent: #5b8ff0;
-      --accent-text: #0b1220;
-      --warn-bg: #3a2e12;
-      --warn-text: #f3cf7a;
-      --ok-bg: #16331f;
-      --ok-text: #8fdca6;
-      --err-bg: #3d1a1a;
-      --err-text: #f5a3a3;
-    }
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Sarabun", Tahoma, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-  }
-  main { max-width: 960px; margin: 0 auto; padding: 20px 16px 40px; }
-  h1 { font-size: 1.5rem; font-weight: 600; margin: 0 0 4px; }
-  .sub { color: var(--muted); margin: 0 0 16px; }
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-  }
-  .hidden { display: none !important; }
-
-  /* camera stage */
-  .stage-wrap { display: flex; justify-content: center; }
-  .stage {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: #000;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .stage video {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: contain;
-  }
-  .stage.mirror video { transform: scaleX(-1); }
-  .guide {
-    position: absolute;
-    left: 50%; top: 50%;
-    width: var(--guide-w, 72%);
-    aspect-ratio: 85.6 / 53.98;
-    transform: translate(-50%, -50%);
-    border: 2px dashed rgba(255,255,255,0.85);
-    border-radius: 3.7% / 5.9%;
-    box-shadow: 0 0 0 9999px rgba(0,0,0,0.55);
-    pointer-events: none;
-  }
+  .stage { --guide-radius: 3.7% / 5.9%; }
   .guide .photo-hint {
     position: absolute;
     right: 5%; bottom: 10%;
@@ -95,75 +18,6 @@
     border: 1px solid rgba(255,255,255,0.35);
     border-radius: 4px;
   }
-  .guide-label {
-    position: absolute; left: 0; right: 0; bottom: 8px;
-    text-align: center; color: #fff; font-size: 0.95rem;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-    pointer-events: none;
-  }
-  .countdown {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 6rem; font-weight: 600; color: #fff;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.7);
-    pointer-events: none;
-  }
-  .flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; transition: opacity .25s; }
-  .flash.on { opacity: 0.8; transition: none; }
-
-  .controls {
-    display: flex; flex-wrap: wrap; gap: 10px 16px;
-    align-items: center; margin-top: 14px;
-  }
-  .controls .spacer { flex: 1; }
-  label.inline { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 0.95rem; }
-  select {
-    font: inherit; color: var(--text); background: var(--surface);
-    border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px; max-width: 100%;
-  }
-  button, .btn {
-    font: inherit; font-weight: 600;
-    border: 1px solid var(--border); background: var(--surface); color: var(--text);
-    border-radius: 8px; padding: 9px 16px; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
-  button:disabled { opacity: 0.5; cursor: not-allowed; }
-  .file-btn input { display: none; }
-
-  .notice { border-radius: 8px; padding: 10px 12px; margin-top: 12px; font-size: 0.95rem; }
-  .notice.warn { background: var(--warn-bg); color: var(--warn-text); }
-  .notice.ok { background: var(--ok-bg); color: var(--ok-text); }
-  .notice.err { background: var(--err-bg); color: var(--err-text); }
-
-  .tips { margin: 12px 0 0; padding-left: 20px; color: var(--muted); font-size: 0.92rem; }
-
-  /* review */
-  .review { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
-  @media (max-width: 720px) { .review { grid-template-columns: 1fr; } }
-  .review h2 { font-size: 1.05rem; font-weight: 600; margin: 0 0 8px; }
-  .review img { width: 100%; display: block; border-radius: 6px; border: 1px solid var(--border); }
-  .page-preview img { background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
-  .meta { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
-
-  /* participant info */
-  #infoView { margin-bottom: 16px; }
-  #infoView h2 { font-size: 1.05rem; font-weight: 600; margin: 0 0 10px; }
-  .form-grid { display: grid; grid-template-columns: 140px 1fr 1fr; gap: 10px 12px; }
-  .form-grid .wide { grid-column: span 2; }
-  @media (max-width: 720px) { .form-grid { grid-template-columns: 1fr; } .form-grid .wide { grid-column: auto; } }
-  .field { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: 0.92rem; }
-  .field input, .field select { width: 100%; }
-  input[type="text"], input[type="date"] {
-    font: inherit; color: var(--text); background: var(--surface);
-    border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px;
-  }
-  input:invalid:not(:placeholder-shown) { border-color: var(--err-text); }
-  .req { color: var(--err-text); }
-
-  .privacy { color: var(--muted); font-size: 0.88rem; margin-top: 16px; }
-  .back { display: inline-block; margin-bottom: 12px; color: var(--accent); text-decoration: none; font-size: 0.95rem; }
-  .back:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -240,7 +94,7 @@
     <div class="review">
       <div>
         <h2>ภาพบัตรที่ถ่าย</h2>
-        <img id="cardImg" alt="ภาพบัตรที่ถ่าย">
+        <img id="srcImg" alt="ภาพบัตรที่ถ่าย">
         <div id="sharpMsg" class="notice hidden"></div>
         <div class="controls">
           <label class="inline">ขนาดบัตรใน PDF
@@ -269,294 +123,26 @@
   <p class="privacy">ภาพทั้งหมดประมวลผลในเบราว์เซอร์ของคุณเท่านั้น ไม่มีการอัปโหลดหรือจัดเก็บบนเซิร์ฟเวอร์</p>
 </main>
 
+<script src="doc-kit.js"></script>
 <script>
 (() => {
-  // ---------- constants ----------
+  const { COURSE, COURSE_CODE, VENUE, BLANK, FONT, pt, mm, wrapLines, newPage, drawImageFramed, signatureBlock } = DocKit;
   const CARD_W_MM = 85.6, CARD_H_MM = 53.98;
-  const CARD_RATIO = CARD_W_MM / CARD_H_MM;
   const DOC_TITLE = 'สำเนาบัตรประจำตัวประชาชนเพื่อยืนยันการเข้าร่วมอบรม';
-  const COURSE = 'การพัฒนาระบบทดสอบแบบอัตโนมัติสำหรับแผงวงจรควบคุมด้วย LabVIEW, TestStand และ myRIO';
-  const COURSE_CODE = 'B0C690121';
-  const VENUE = 'คณะวิศวกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์ ศูนย์รังสิต';
-  // keep in sync with FALLBACK_DATES in ../index.html
-  const ROUNDS = {
-    '01': '14 – 17 กรกฎาคม 2569',
-    '02': '21 – 24 กรกฎาคม 2569',
-    '03': '4 – 7 สิงหาคม 2569',
-    '04': '18 – 21 สิงหาคม 2569',
-    '05': '27 – 30 สิงหาคม 2569',
-    '06': '5 – 6 และ 12 – 13 กันยายน 2569',
-    '07': '22 – 25 กันยายน 2569'
-  };
-  const BLANK = '..............................';
-  const WATERMARK = 'ใช้สำหรับ BOI / สอวช เท่านั้น';
-  const FONT = '"Sarabun", Tahoma, sans-serif';
-  const PAGE_W_MM = 210, PAGE_H_MM = 297;
-  const DPI = 300;
-  const PX_PER_MM = DPI / 25.4;
-  const pt = v => v * DPI / 72;
-  const SHARP_LOW = 40, SHARP_OK = 90;   // Laplacian variance heuristics
-
-  // ---------- elements ----------
-  const $ = id => document.getElementById(id);
-  const video = $('video'), stage = $('stage');
-  const cameraSelect = $('cameraSelect'), mirrorChk = $('mirrorChk'), timerChk = $('timerChk');
-  const captureBtn = $('captureBtn'), fileInput = $('fileInput');
-  const camMsg = $('camMsg'), countdownEl = $('countdown'), flash = $('flash');
-  const cameraView = $('cameraView'), reviewView = $('reviewView');
-  const cardImg = $('cardImg'), pageImg = $('pageImg'), sharpMsg = $('sharpMsg');
-  const sizeSelect = $('sizeSelect'), retakeBtn = $('retakeBtn'), pdfBtn = $('pdfBtn');
-  const prefixSelect = $('prefixSelect'), firstName = $('firstName'), lastName = $('lastName');
-  const roundSelect = $('roundSelect'), signDate = $('signDate'), formMsg = $('formMsg');
-
-  let stream = null;
-  let cardCanvas = null;     // cropped card image
-  let pageCanvas = null;     // composed A4 page
-  let guideFrac = 0.72;      // guide width as fraction of video width
-  let busy = false;
-
-  function showMsg(el, kind, html) {
-    el.className = 'notice ' + kind;
-    el.innerHTML = html;
-  }
-  function hideMsg(el) { el.className = 'notice hidden'; }
-
-  // ---------- camera ----------
-  async function startCamera(deviceId) {
-    stopCamera();
-    captureBtn.disabled = true;
-    if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
-      showMsg(camMsg, 'err', 'เบราว์เซอร์ไม่อนุญาตให้ใช้กล้อง ต้องเปิดหน้านี้ผ่าน <strong>https://</strong> หรือ <strong>localhost</strong> เท่านั้น — หรือกด “อัปโหลดรูปแทน”');
-      return;
-    }
-    const constraints = {
-      audio: false,
-      video: deviceId
-        ? { deviceId: { exact: deviceId }, width: { ideal: 1920 }, height: { ideal: 1080 } }
-        : { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } }
-    };
-    try {
-      stream = await navigator.mediaDevices.getUserMedia(constraints);
-    } catch (e) {
-      const msg = {
-        NotAllowedError: 'ไม่ได้รับอนุญาตให้ใช้กล้อง กรุณาอนุญาตการเข้าถึงกล้องในเบราว์เซอร์แล้วโหลดหน้าใหม่',
-        NotFoundError: 'ไม่พบกล้องในเครื่องนี้ — กด “อัปโหลดรูปแทน” เพื่อใช้ไฟล์ภาพ',
-        NotReadableError: 'กล้องกำลังถูกใช้งานโดยโปรแกรมอื่น กรุณาปิดโปรแกรมนั้นแล้วลองใหม่',
-        OverconstrainedError: 'กล้องที่เลือกไม่รองรับ ลองเลือกกล้องอื่น'
-      }[e.name] || ('เปิดกล้องไม่สำเร็จ: ' + e.message);
-      showMsg(camMsg, 'err', msg);
-      return;
-    }
-    hideMsg(camMsg);
-    video.srcObject = stream;
-    await new Promise(r => video.readyState >= 1 ? r() : video.addEventListener('loadedmetadata', r, { once: true }));
-    layoutStage();
-    captureBtn.disabled = false;
-    await listCameras(stream.getVideoTracks()[0]?.getSettings().deviceId);
-
-    // preview is un-mirrored by default so the card text reads correctly
-    if (stream.getVideoTracks()[0]?.getSettings().facingMode === 'environment') mirrorChk.checked = false;
-    applyMirror();
-
-    const { videoWidth: w, videoHeight: h } = video;
-    if (Math.max(w, h) < 1280) {
-      showMsg(camMsg, 'warn', `กล้องนี้ให้ความละเอียดเพียง ${w}×${h} — ภาพบัตรอาจไม่คมชัด แนะนำกล้องความละเอียด 1080p หรือใช้มือถือ`);
-    }
-  }
-
-  function stopCamera() {
-    if (stream) stream.getTracks().forEach(t => t.stop());
-    stream = null;
-  }
-
-  async function listCameras(activeId) {
-    const devices = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === 'videoinput');
-    cameraSelect.innerHTML = '';
-    devices.forEach((d, i) => {
-      const o = document.createElement('option');
-      o.value = d.deviceId;
-      o.textContent = d.label || `กล้อง ${i + 1}`;
-      if (d.deviceId === activeId) o.selected = true;
-      cameraSelect.appendChild(o);
-    });
-  }
-
-  function layoutStage() {
-    const w = video.videoWidth, h = video.videoHeight;
-    if (!w || !h) return;
-    const ar = w / h;
-    stage.style.aspectRatio = `${w} / ${h}`;
-    stage.style.maxWidth = `calc((100vh - 300px) * ${ar})`;
-    stage.style.minWidth = 'min(100%, 320px)';
-    // portrait (phone) streams: make the guide wider
-    guideFrac = ar < 1 ? 0.9 : 0.72;
-    // never let the guide exceed the frame height
-    guideFrac = Math.min(guideFrac, 0.92 * CARD_RATIO / ar);
-    stage.style.setProperty('--guide-w', (guideFrac * 100) + '%');
-  }
-
-  function applyMirror() { stage.classList.toggle('mirror', mirrorChk.checked); }
-
-  // ---------- capture ----------
-  async function capture() {
-    if (busy || !stream || captureBtn.disabled) return;
-    busy = true;
-    try {
-      if (timerChk.checked) {
-        countdownEl.classList.remove('hidden');
-        for (let n = 3; n > 0; n--) {
-          countdownEl.textContent = n;
-          await new Promise(r => setTimeout(r, 1000));
-        }
-        countdownEl.classList.add('hidden');
-      }
-      const vw = video.videoWidth, vh = video.videoHeight;
-      const sw = Math.round(vw * guideFrac);
-      const sh = Math.round(sw / CARD_RATIO);
-      const sx = Math.round((vw - sw) / 2), sy = Math.round((vh - sh) / 2);
-      const c = document.createElement('canvas');
-      c.width = sw; c.height = sh;
-      // drawn un-mirrored so the card text reads correctly
-      c.getContext('2d').drawImage(video, sx, sy, sw, sh, 0, 0, sw, sh);
-
-      flash.classList.add('on');
-      requestAnimationFrame(() => requestAnimationFrame(() => flash.classList.remove('on')));
-
-      await showReview(c);
-    } finally {
-      busy = false;
-    }
-  }
-
-  function loadFromFile(file) {
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    const img = new Image();
-    img.onload = async () => {
-      // center-crop to the ID-1 aspect ratio
-      let sw = img.naturalWidth, sh = img.naturalHeight;
-      if (sw / sh > CARD_RATIO) sw = Math.round(sh * CARD_RATIO);
-      else sh = Math.round(sw / CARD_RATIO);
-      const sx = Math.round((img.naturalWidth - sw) / 2), sy = Math.round((img.naturalHeight - sh) / 2);
-      const c = document.createElement('canvas');
-      c.width = sw; c.height = sh;
-      c.getContext('2d').drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
-      URL.revokeObjectURL(url);
-      await showReview(c);
-    };
-    img.onerror = () => { URL.revokeObjectURL(url); showMsg(camMsg, 'err', 'เปิดไฟล์ภาพไม่ได้'); };
-    img.src = url;
-  }
-
-  // ---------- quality check ----------
-  function sharpness(src) {
-    const W = 640, H = Math.round(W / CARD_RATIO);
-    const c = document.createElement('canvas');
-    c.width = W; c.height = H;
-    const ctx = c.getContext('2d', { willReadFrequently: true });
-    ctx.drawImage(src, 0, 0, W, H);
-    const d = ctx.getImageData(0, 0, W, H).data;
-    const g = new Float32Array(W * H);
-    for (let i = 0, j = 0; i < d.length; i += 4, j++) g[j] = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
-    let sum = 0, sum2 = 0, n = 0;
-    for (let y = 1; y < H - 1; y++) {
-      for (let x = 1; x < W - 1; x++) {
-        const k = y * W + x;
-        const lap = g[k - W] + g[k + W] + g[k - 1] + g[k + 1] - 4 * g[k];
-        sum += lap; sum2 += lap * lap; n++;
-      }
-    }
-    const mean = sum / n;
-    return sum2 / n - mean * mean;
-  }
-
-  // ---------- participant info ----------
-  function readInfo() {
-    const first = firstName.value.trim(), last = lastName.value.trim();
-    const round = roundSelect.value;
-    const date = signDate.value ? new Date(signDate.value + 'T00:00:00') : new Date();
-    return {
-      first, last, round,
-      fullName: first || last ? `${prefixSelect.value}${first} ${last}`.trim() : '',
-      roundDates: ROUNDS[round] || '',
-      signDate: date.toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' }),
-      complete: Boolean(first && last && round)
-    };
-  }
+  const sizeSelect = document.getElementById('sizeSelect');
 
   function statementText(info) {
-    const roundNo = info.round ? String(parseInt(info.round, 10)) : '....';
     return `ข้าพเจ้า ${info.fullName || BLANK} ขอรับรองว่าได้เข้าร่วมการอบรมหลักสูตร “${COURSE}” `
-      + `รหัสหลักสูตร ${COURSE_CODE} (Thailand Skill Bridge) รุ่นที่ ${roundNo} `
+      + `รหัสหลักสูตร ${COURSE_CODE} (Thailand Skill Bridge) รุ่นที่ ${info.roundNo} `
       + `ระหว่างวันที่ ${info.roundDates || BLANK} ณ ${VENUE} จริง `
       + 'และยินยอมให้ใช้สำเนาบัตรประจำตัวประชาชนฉบับนี้เพื่อยืนยันการเข้าร่วมอบรมดังกล่าวเท่านั้น';
   }
 
-  function updateFormState() {
-    const info = readInfo();
-    pdfBtn.disabled = !window.jspdf || !info.complete;
-    if (info.complete) hideMsg(formMsg);
-    else showMsg(formMsg, 'warn', 'กรอก ชื่อ นามสกุล และรุ่นที่เข้าอบรม ในส่วน “ข้อมูลผู้เข้าอบรม” ก่อนดาวน์โหลด PDF');
-    return info;
-  }
-
-  // ---------- page composition ----------
-  // Thai has no spaces between words, so break on word segments when Intl.Segmenter is available
-  const segmenter = window.Intl?.Segmenter ? new Intl.Segmenter('th', { granularity: 'word' }) : null;
-
-  function wrapLines(ctx, text, maxW, firstMaxW = maxW) {
-    const tokens = segmenter
-      ? Array.from(segmenter.segment(text), s => s.segment)
-      : text.split(/(\s+)/);
-    const lines = [];
-    let line = '';
-    for (const t of tokens) {
-      const test = line + t;
-      const limit = lines.length ? maxW : firstMaxW;
-      if (ctx.measureText(test).width > limit && line.trim()) {
-        lines.push(line.trimEnd());
-        line = t.trimStart();
-      } else {
-        line = test;
-      }
-    }
-    if (line.trim()) lines.push(line.trimEnd());
-    return lines;
-  }
-
-  function drawWatermark(ctx, W, H) {
-    ctx.save();
-    ctx.font = `300 ${pt(18)}px ${FONT}`;
-    ctx.fillStyle = 'rgba(70, 70, 70, 0.16)';
-    ctx.textBaseline = 'middle';
-    const tw = ctx.measureText(WATERMARK).width;
-    const stepX = tw + 20 * PX_PER_MM;
-    const stepY = 30 * PX_PER_MM;
-    ctx.translate(W / 2, H / 2);
-    ctx.rotate(-30 * Math.PI / 180);
-    const R = Math.hypot(W, H) / 2 + stepX;
-    let row = 0;
-    for (let y = -R; y <= R; y += stepY, row++) {
-      const offset = (row % 2) * stepX / 2;
-      for (let x = -R - offset; x <= R; x += stepX) ctx.fillText(WATERMARK, x, y);
-    }
-    ctx.restore();
-  }
-
-  function composePage(card, scale, info) {
-    const W = Math.round(PAGE_W_MM * PX_PER_MM), H = Math.round(PAGE_H_MM * PX_PER_MM);
-    const mm = v => v * PX_PER_MM;
-    const c = document.createElement('canvas');
-    c.width = W; c.height = H;
-    const ctx = c.getContext('2d');
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, W, H);
-
+  function compose(card, info) {
+    const { canvas, ctx, W } = newPage();
     const margin = mm(22);
     const textW = W - 2 * margin;
     const bodyPt = 14, lineH = pt(bodyPt) * 1.6;
-    ctx.fillStyle = '#1a1a1a';
-    ctx.textBaseline = 'top';
 
     // title
     let y = mm(22);
@@ -576,125 +162,25 @@
     y += mm(8);
 
     // card image
+    const scale = parseFloat(sizeSelect.value);
     const cw = mm(CARD_W_MM * scale), ch = mm(CARD_H_MM * scale);
-    const cx = (W - cw) / 2;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(card, cx, y, cw, ch);
-    ctx.strokeStyle = 'rgba(0,0,0,0.25)';
-    ctx.lineWidth = mm(0.2);
-    ctx.strokeRect(cx, y, cw, ch);
+    drawImageFramed(ctx, card, (W - cw) / 2, y, cw, ch);
     y += ch + mm(14);
 
     // signature block, right column
-    const colX = W - margin - mm(45);
-    ctx.textAlign = 'center';
-    ctx.font = `600 ${pt(bodyPt)}px ${FONT}`;
-    ctx.fillText('สำเนาถูกต้อง', colX, y);
-    y += lineH * 2.4;
-    ctx.font = `400 ${pt(bodyPt)}px ${FONT}`;
-    ctx.fillText(`ลงชื่อ ${BLANK}${BLANK.slice(0, 10)}`, colX, y);
-    y += lineH;
-    ctx.fillText(`( ${info.fullName || BLANK} )`, colX, y);
-    y += lineH;
-    ctx.fillText(`วันที่ ${info.signDate}`, colX, y);
-
-    // watermark goes last so it also covers the card image
-    drawWatermark(ctx, W, H);
-    return c;
+    signatureBlock(ctx, info, bodyPt, lineH * 0.9).draw(W - margin - mm(45), y);
+    return { canvas };
   }
 
-  async function renderPage() {
-    if (!cardCanvas) return;
-    pageCanvas = composePage(cardCanvas, parseFloat(sizeSelect.value), updateFormState());
-    pageImg.src = pageCanvas.toDataURL('image/jpeg', 0.8);
-  }
-
-  async function showReview(c) {
-    await fontsReady;
-    cardCanvas = c;
-    cardImg.src = c.toDataURL('image/jpeg', 0.9);
-
-    const s = sharpness(c);
-    if (s < SHARP_LOW) showMsg(sharpMsg, 'warn', 'ภาพดูเบลอ ตัวอักษรอาจอ่านไม่ชัด — แนะนำให้ถ่ายใหม่ โดยถือบัตรให้นิ่งและห่างกล้องขึ้นเล็กน้อย');
-    else if (s < SHARP_OK) showMsg(sharpMsg, 'warn', 'ความคมชัดพอใช้ — ตรวจสอบว่าอ่านเลขบัตรและชื่อได้ชัดเจน');
-    else showMsg(sharpMsg, 'ok', 'ภาพคมชัดดี');
-    sharpMsg.title = 'sharpness ' + s.toFixed(1);
-
-    await renderPage();
-    stopCamera();
-    cameraView.classList.add('hidden');
-    reviewView.classList.remove('hidden');
-  }
-
-  function retake() {
-    reviewView.classList.add('hidden');
-    cameraView.classList.remove('hidden');
-    cardCanvas = pageCanvas = null;
-    fileInput.value = '';
-    startCamera(cameraSelect.value || undefined);
-  }
-
-  function downloadPdf() {
-    const info = updateFormState();
-    if (!pageCanvas || !info.complete) return;
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
-    doc.setProperties({ title: `สำเนาบัตรประชาชน - ${info.fullName} - ${COURSE_CODE} รุ่นที่ ${info.round}`, subject: WATERMARK });
-    doc.addImage(pageCanvas.toDataURL('image/jpeg', 0.9), 'JPEG', 0, 0, PAGE_W_MM, PAGE_H_MM);
-    const d = new Date();
-    const stamp = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
-    const safe = v => v.replace(/[\\/:*?"<>|\s]+/g, '_');
-    doc.save(`ID-copy_${COURSE_CODE}_R${info.round}_${safe(info.first)}_${safe(info.last)}_${stamp}.pdf`);
-  }
-
-  // ---------- wiring ----------
-  const fontsReady = Promise.all([
-    document.fonts.load(`300 40px "Sarabun"`),
-    document.fonts.load(`400 40px "Sarabun"`),
-    document.fonts.load(`600 40px "Sarabun"`)
-  ]).catch(() => {});
-
-  // participant form: round options, default sign date, re-render the preview as the user types
-  Object.entries(ROUNDS).forEach(([id, dates]) => {
-    const o = document.createElement('option');
-    o.value = id;
-    o.textContent = `รุ่นที่ ${parseInt(id, 10)} : ${dates}`;
-    roundSelect.appendChild(o);
+  DocKit.createTool({
+    ratio: CARD_W_MM / CARD_H_MM,
+    cropUpload: true,
+    compose,
+    docNoun: 'บัตร',
+    sharpHint: 'ตรวจสอบว่าอ่านเลขบัตรและชื่อได้ชัดเจน',
+    pdfTitle: info => `สำเนาบัตรประชาชน - ${info.fullName} - ${COURSE_CODE} รุ่นที่ ${info.roundNo}`,
+    fileTag: 'ID-copy'
   });
-  const presetRound = new URLSearchParams(location.search).get('round');
-  if (ROUNDS[presetRound]) roundSelect.value = presetRound;
-  const today = new Date();
-  signDate.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-  let renderTimer = null;
-  [prefixSelect, firstName, lastName, roundSelect, signDate].forEach(el => {
-    el.addEventListener('input', () => {
-      updateFormState();
-      clearTimeout(renderTimer);
-      renderTimer = setTimeout(renderPage, 250);
-    });
-  });
-
-  captureBtn.addEventListener('click', capture);
-  mirrorChk.addEventListener('change', applyMirror);
-  cameraSelect.addEventListener('change', () => cameraSelect.value && startCamera(cameraSelect.value));
-  fileInput.addEventListener('change', e => loadFromFile(e.target.files[0]));
-  sizeSelect.addEventListener('change', renderPage);
-  retakeBtn.addEventListener('click', retake);
-  pdfBtn.addEventListener('click', downloadPdf);
-  document.addEventListener('keydown', e => {
-    if (e.code === 'Space' && !cameraView.classList.contains('hidden') && !['SELECT', 'INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
-      e.preventDefault();
-      capture();
-    }
-  });
-
-  if (!window.jspdf) {
-    pdfBtn.disabled = true;
-    pdfBtn.title = 'โหลดไลบรารี PDF ไม่สำเร็จ (ต้องเชื่อมต่ออินเทอร์เน็ต)';
-  }
-  updateFormState();
-
-  startCamera();
 })();
 </script>
 </body>

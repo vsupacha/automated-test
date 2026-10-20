@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>สำเนาวุฒิการศึกษา</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="doc-kit.css">
+<style>
+  .review img#srcImg { max-height: 60vh; object-fit: contain; background: #fff; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../index.html#documents">← กลับไปหน้า Dashboard</a>
+  <h1>สำเนาเอกสารแสดงวุฒิการศึกษา</h1>
+  <p class="sub">Thailand Skill Bridge · รหัสหลักสูตร B0C690121</p>
+
+  <!-- participant info: printed on the PDF as the certification statement and signature block -->
+  <section id="infoView" class="card">
+    <h2>ข้อมูลผู้เข้าอบรม</h2>
+    <div class="form-grid">
+      <label class="field">คำนำหน้า
+        <select id="prefixSelect">
+          <option>นาย</option>
+          <option>นาง</option>
+          <option>นางสาว</option>
+          <option value="">ไม่ระบุ</option>
+        </select>
+      </label>
+      <label class="field"><span>ชื่อ <span class="req">*</span></span>
+        <input type="text" id="firstName" placeholder="ชื่อ" autocomplete="given-name" required>
+      </label>
+      <label class="field"><span>นามสกุล <span class="req">*</span></span>
+        <input type="text" id="lastName" placeholder="นามสกุล" autocomplete="family-name" required>
+      </label>
+      <label class="field wide"><span>รุ่นที่เข้าอบรม <span class="req">*</span></span>
+        <select id="roundSelect" required>
+          <option value="">— เลือกรุ่น —</option>
+        </select>
+      </label>
+      <label class="field">วันที่ลงนาม
+        <input type="date" id="signDate">
+      </label>
+    </div>
+  </section>
+
+  <!-- step 1: camera -->
+  <section id="cameraView" class="card">
+    <div class="stage-wrap">
+      <div id="stage" class="stage">
+        <video id="video" autoplay playsinline muted></video>
+        <div class="guide"></div>
+        <div class="guide-label">วางเอกสาร (แนวตั้ง) ให้พอดีกรอบ</div>
+        <div id="countdown" class="countdown hidden"></div>
+        <div id="flash" class="flash"></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <label class="inline">กล้อง
+        <select id="cameraSelect"><option>กำลังค้นหา…</option></select>
+      </label>
+      <label class="inline"><input type="checkbox" id="mirrorChk"> กลับด้านภาพพรีวิว</label>
+      <label class="inline"><input type="checkbox" id="timerChk"> หน่วงเวลา 3 วินาที</label>
+      <span class="spacer"></span>
+      <label class="btn file-btn">อัปโหลดรูปแทน
+        <input type="file" id="fileInput" accept="image/*">
+      </label>
+      <button id="captureBtn" class="primary" disabled>ถ่ายภาพ</button>
+    </div>
+
+    <div id="camMsg" class="notice hidden"></div>
+
+    <ul class="tips">
+      <li>ใช้ใบปริญญาบัตร ใบรับรองคุณวุฒิ หรือใบแสดงผลการเรียน (transcript) <strong>หน้าเดียว</strong></li>
+      <li>เอกสารขนาด A4 ถ่ายด้วยเว็บแคมมักไม่คมชัด แนะนำ<strong>สแกนหรือถ่ายด้วยมือถือ</strong>แล้วกด “อัปโหลดรูปแทน” (ไฟล์ภาพ JPG/PNG)</li>
+      <li>วางเอกสารบนพื้นเรียบ ถ่ายตรงจากด้านบน และเลี่ยงเงาหรือแสงสะท้อน</li>
+      <li>กด <kbd>Space</kbd> เพื่อถ่ายภาพได้</li>
+    </ul>
+  </section>
+
+  <!-- step 2: review -->
+  <section id="reviewView" class="card hidden">
+    <div class="review">
+      <div>
+        <h2>ภาพเอกสารที่ได้</h2>
+        <img id="srcImg" alt="ภาพเอกสารแสดงวุฒิการศึกษา">
+        <div id="sharpMsg" class="notice hidden"></div>
+        <div class="controls">
+          <label class="inline">ขนาดเอกสารใน PDF
+            <select id="areaSelect">
+              <option value="0.65">65% ของหน้า A4</option>
+              <option value="0.70" selected>70% ของหน้า A4</option>
+              <option value="0.75">75% ของหน้า A4</option>
+            </select>
+          </label>
+          <button id="rotateBtn" type="button">หมุนภาพ 90°</button>
+        </div>
+        <div class="controls">
+          <button id="retakeBtn">ถ่ายใหม่</button>
+          <span class="spacer"></span>
+          <button id="pdfBtn" class="primary">ดาวน์โหลด PDF</button>
+        </div>
+        <div id="formMsg" class="notice hidden"></div>
+      </div>
+      <div class="page-preview">
+        <h2>ตัวอย่างเอกสาร</h2>
+        <img id="pageImg" alt="ตัวอย่างหน้าเอกสาร PDF">
+        <div class="meta"><span id="pageNote"></span><br>A4 แนวตั้ง · ลายน้ำ “ใช้สำหรับ BOI / สอวช เท่านั้น” · พิมพ์แล้วลงลายมือชื่อรับรองสำเนาถูกต้อง</div>
+      </div>
+    </div>
+  </section>
+
+  <p class="privacy">ภาพทั้งหมดประมวลผลในเบราว์เซอร์ของคุณเท่านั้น ไม่มีการอัปโหลดหรือจัดเก็บบนเซิร์ฟเวอร์</p>
+</main>
+
+<script src="doc-kit.js"></script>
+<script>
+(() => {
+  const { COURSE_CODE, BLANK, FONT, PAGE_W_MM, PAGE_H_MM, pt, mm, wrapLines, newPage, drawImageFramed, signatureBlock, rotate90 } = DocKit;
+  const DOC_TITLE = 'สำเนาเอกสารแสดงวุฒิการศึกษา';
+  const areaSelect = document.getElementById('areaSelect');
+
+  function statementText(info) {
+    return `ข้าพเจ้า ${info.fullName || BLANK} ผู้เข้าอบรมหลักสูตรรหัส ${COURSE_CODE} (Thailand Skill Bridge) `
+      + `รุ่นที่ ${info.roundNo} ขอรับรองว่าเป็นสำเนาเอกสารแสดงวุฒิการศึกษาที่ถูกต้องตรงกับต้นฉบับ `
+      + 'และใช้เพื่อประกอบการเข้าร่วมอบรมดังกล่าวเท่านั้น';
+  }
+
+  // The document image gets a box of the chosen share of the A4 area, at its own aspect
+  // ratio, then shrinks only if it would not fit above the footer.
+  function compose(doc, info) {
+    const { canvas, ctx, W, H } = newPage();
+    const margin = mm(8), gap = mm(3);
+
+    // footer: title + statement on the left, signature block on the right
+    const sig = signatureBlock(ctx, info, 10, mm(5));
+    const sigW = mm(78);
+    const leftW = W - 2 * margin - sigW - mm(6);
+    const titlePt = 11, bodyPt = 10;
+    const titleH = pt(titlePt) * 1.5, lineH = pt(bodyPt) * 1.5;
+    ctx.font = `400 ${pt(bodyPt)}px ${FONT}`;
+    const lines = wrapLines(ctx, statementText(info), leftW);
+    const footerH = Math.max(titleH + lines.length * lineH, sig.height);
+    const footerTop = H - margin - footerH;
+
+    // document image
+    const boxW = W - 2 * margin, boxH = footerTop - gap - margin;
+    const aspect = doc.width / doc.height;
+    let iw = Math.sqrt(parseFloat(areaSelect.value) * W * H * aspect), ih = iw / aspect;
+    const fit = Math.min(1, boxW / iw, boxH / ih);
+    iw *= fit; ih *= fit;
+    drawImageFramed(ctx, doc, (W - iw) / 2, margin + (boxH - ih) / 2, iw, ih);
+
+    // footer text
+    ctx.textAlign = 'left';
+    ctx.font = `600 ${pt(titlePt)}px ${FONT}`;
+    ctx.fillText(DOC_TITLE, margin, footerTop);
+    ctx.font = `400 ${pt(bodyPt)}px ${FONT}`;
+    lines.forEach((l, i) => ctx.fillText(l, margin, footerTop + titleH + i * lineH));
+    sig.draw(W - margin - sigW / 2, footerTop);
+
+    const pct = Math.round(iw * ih / (W * H) * 100);
+    const w = Math.round(iw / mm(1)), h = Math.round(ih / mm(1));
+    return {
+      canvas,
+      note: `เอกสารใช้พื้นที่ ${pct}% ของหน้า (${w} × ${h} มม. จาก ${PAGE_W_MM} × ${PAGE_H_MM} มม.)`
+        + (fit < 1 ? ' — ขยายได้สูงสุดเท่านี้ตามสัดส่วนของภาพ' : '')
+    };
+  }
+
+  const tool = DocKit.createTool({
+    ratio: PAGE_W_MM / PAGE_H_MM,
+    cropUpload: false,
+    // landscape scans (e.g. a diploma) are turned upright so they can fill the portrait page
+    prepare: c => (c.width > c.height * 1.05 ? rotate90(c) : c),
+    compose,
+    docNoun: 'เอกสาร',
+    sharpHint: 'ตรวจสอบว่าอ่านชื่อ สถาบัน และวุฒิการศึกษาได้ชัดเจน',
+    pdfTitle: info => `สำเนาวุฒิการศึกษา - ${info.fullName} - ${COURSE_CODE} รุ่นที่ ${info.roundNo}`,
+    fileTag: 'Degree-copy'
+  });
+
+  document.getElementById('rotateBtn').addEventListener('click', () => {
+    if (tool.source) tool.setSource(rotate90(tool.source));
+  });
+})();
+</script>
+</body>
+</html>
