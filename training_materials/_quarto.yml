@@ -1,0 +1,9 @@
+# Slide decks for the training days. The other .md/.qmd files are partials
+# pulled in via {{< include >}} and must not be rendered on their own.
+project:
+  type: default
+  render:
+    - Day_01_content.qmd
+    - Day_02_content.qmd
+    - Day_03_content.qmd
+    - Day_04_content.qmd

@@ -1,0 +1,29 @@
+---
+title: "Thailand Skill Bridge"
+subtitle: "B0C690121: การพัฒนาระบบทดสอบแบบอัตโนมัติสำหรับ<br>แผงวงจรควบคุมด้วย LabVIEW, TestStand และ myRIO"
+author: "ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์"
+date: "9/13/2569"
+date-format: long
+title-slide-attributes:
+    data-background-image: figs/background.png
+    data-background-size: contain
+    data-background-opacity: "0.2"
+format: 
+    revealjs:
+        logo: figs/TSE_logo.svg
+        footer: คอร์สอบรม BOC690121 ได้รับการสนับสนุนโดยโครงการ BOI STEM++ ปีงบประมาณ 2569
+        slide-number: true
+        show-slide-number: all 
+        theme: default
+---
+
+{{< include 00_day_04_overview.md >}}
+
+# 1. Opamp characterization
+{{< include EL_01_Opamp.md >}}
+
+# 2. DIB &lrarr; DUT 
+{{< include EL_02_DIB_DUT.md >}}
+
+# 3. TestStand workshop
+{{< include TS_04_TestStand_workshop.md >}}

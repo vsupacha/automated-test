@@ -1,0 +1,8 @@
+# Quarto output, rendered by .github/workflows/publish.yml
+training_materials/Day_*_content.html
+training_materials/*_files/
+.quarto/
+_site/
+
+# Working files that do not belong on the site
+*.pptx
