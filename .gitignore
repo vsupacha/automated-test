@@ -6,3 +6,6 @@ _site/
 
 # Working files that do not belong on the site
 *.pptx
+
+# Local AI-assistant working files (kept in the parent folder)
+.claude/
