@@ -67,8 +67,8 @@
       <label class="inline"><input type="checkbox" id="mirrorChk"> กลับด้านภาพพรีวิว</label>
       <label class="inline"><input type="checkbox" id="timerChk"> หน่วงเวลา 3 วินาที</label>
       <span class="spacer"></span>
-      <label class="btn file-btn">อัปโหลดรูปแทน
-        <input type="file" id="fileInput" accept="image/*">
+      <label class="btn file-btn">อัปโหลดรูป / PDF
+        <input type="file" id="fileInput" accept="image/*,application/pdf,.pdf">
       </label>
       <button id="captureBtn" class="primary" disabled>ถ่ายภาพ</button>
     </div>
@@ -77,7 +77,8 @@
 
     <ul class="tips">
       <li>ใช้ใบปริญญาบัตร ใบรับรองคุณวุฒิ หรือใบแสดงผลการเรียน (transcript) <strong>หน้าเดียว</strong></li>
-      <li>เอกสารขนาด A4 ถ่ายด้วยเว็บแคมมักไม่คมชัด แนะนำ<strong>สแกนหรือถ่ายด้วยมือถือ</strong>แล้วกด “อัปโหลดรูปแทน” (ไฟล์ภาพ JPG/PNG)</li>
+      <li>เอกสารขนาด A4 ถ่ายด้วยเว็บแคมมักไม่คมชัด แนะนำ<strong>สแกนหรือถ่ายด้วยมือถือ</strong>แล้วกด “อัปโหลดรูป / PDF” (ไฟล์ JPG, PNG หรือ PDF)</li>
+      <li>ไฟล์ PDF หลายหน้าเลือกหน้าที่ต้องการได้หลังเปิดไฟล์ (สร้างเอกสารได้ครั้งละ 1 หน้า)</li>
       <li>วางเอกสารบนพื้นเรียบ ถ่ายตรงจากด้านบน และเลี่ยงเงาหรือแสงสะท้อน</li>
       <li>กด <kbd>Space</kbd> เพื่อถ่ายภาพได้</li>
     </ul>
@@ -90,6 +91,11 @@
         <h2>ภาพเอกสารที่ได้</h2>
         <img id="srcImg" alt="ภาพเอกสารแสดงวุฒิการศึกษา">
         <div id="sharpMsg" class="notice hidden"></div>
+        <div id="pdfPageField" class="controls hidden">
+          <label class="inline">หน้าจากไฟล์ PDF
+            <select id="pdfPageSelect"></select>
+          </label>
+        </div>
         <div class="controls">
           <label class="inline">ขนาดเอกสารใน PDF
             <select id="areaSelect">
@@ -176,6 +182,7 @@
   const tool = DocKit.createTool({
     ratio: PAGE_W_MM / PAGE_H_MM,
     cropUpload: false,
+    acceptPdf: true,
     // landscape scans (e.g. a diploma) are turned upright so they can fill the portrait page
     prepare: c => (c.width > c.height * 1.05 ? rotate90(c) : c),
     compose,

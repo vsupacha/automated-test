@@ -182,6 +182,46 @@ window.DocKit = (() => {
     ctx.restore();
   }
 
+  // ---------- PDF input ----------
+  // pdf.js is ~1.4 MB, so it is only fetched when someone actually picks a PDF
+  const PDFJS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+  let pdfjsReady = null;
+
+  function loadPdfJs() {
+    if (!pdfjsReady) {
+      pdfjsReady = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = PDFJS_URL + 'pdf.min.js';
+        script.onload = () => {
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_URL + 'pdf.worker.min.js';
+          resolve(window.pdfjsLib);
+        };
+        script.onerror = () => {
+          pdfjsReady = null;
+          reject(new Error('โหลดตัวอ่านไฟล์ PDF ไม่สำเร็จ (ต้องเชื่อมต่ออินเทอร์เน็ต)'));
+        };
+        document.head.appendChild(script);
+      });
+    }
+    return pdfjsReady;
+  }
+
+  // render one page at up to 300 dpi, capped at A4-at-300-dpi pixels on the long side
+  async function renderPdfPage(pdf, pageNo) {
+    const page = await pdf.getPage(pageNo);
+    const base = page.getViewport({ scale: 1 });
+    const scale = Math.min(DPI / 72, mm(PAGE_H_MM) / Math.max(base.width, base.height));
+    const viewport = page.getViewport({ scale });
+    const c = document.createElement('canvas');
+    c.width = Math.ceil(viewport.width); c.height = Math.ceil(viewport.height);
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, c.width, c.height);
+    // 'print' intent renders without requestAnimationFrame, so it also finishes in a background tab
+    await page.render({ canvasContext: ctx, viewport, intent: 'print' }).promise;
+    return c;
+  }
+
   function rotate90(src) {
     const c = document.createElement('canvas');
     c.width = src.height; c.height = src.width;
@@ -194,6 +234,7 @@ window.DocKit = (() => {
 
   // ---------- tool ----------
   // cfg.ratio       width / height of the document, used for the camera guide (and upload crop)
+  // cfg.acceptPdf   allow PDF uploads (needs #pdfPageField / #pdfPageSelect for multi-page files)
   // cfg.cropUpload  centre-crop uploaded images to cfg.ratio (ID card) or keep them whole (documents)
   // cfg.prepare     optional (canvas) => canvas applied to every new source image
   // cfg.compose     (source, info) => { canvas, note? } builds the A4 page; watermark is added afterwards
@@ -215,6 +256,8 @@ window.DocKit = (() => {
     let pageCanvas = null;     // composed A4 page
     let guideFrac = 0.72;      // guide width as fraction of video width
     let busy = false;
+    let pdfDoc = null;         // open PDF when the source came from one
+    const pdfPageField = $('pdfPageField'), pdfPageSelect = $('pdfPageSelect');
 
     stage.style.setProperty('--guide-ratio', cfg.ratio);
 
@@ -325,8 +368,59 @@ window.DocKit = (() => {
       }
     }
 
+    function closePdf() {
+      if (pdfDoc) pdfDoc.destroy();
+      pdfDoc = null;
+      if (pdfPageField) pdfPageField.classList.add('hidden');
+    }
+
+    async function loadPdf(file) {
+      showMsg(camMsg, 'warn', 'กำลังเปิดไฟล์ PDF…');
+      try {
+        const pdfjs = await loadPdfJs();
+        const doc = await pdfjs.getDocument({ data: await file.arrayBuffer() }).promise;
+        closePdf();
+        pdfDoc = doc;
+        if (pdfPageField && doc.numPages > 1) {
+          pdfPageSelect.innerHTML = '';
+          for (let n = 1; n <= doc.numPages; n++) {
+            const o = document.createElement('option');
+            o.value = n;
+            o.textContent = `หน้า ${n} จาก ${doc.numPages}`;
+            pdfPageSelect.appendChild(o);
+          }
+          pdfPageField.classList.remove('hidden');
+        }
+        const c = await renderPdfPage(doc, 1);
+        hideMsg(camMsg);
+        await showReview(c);
+      } catch (e) {
+        const msg = e.name === 'PasswordException'
+          ? 'ไฟล์ PDF นี้มีรหัสผ่าน กรุณาใช้ไฟล์ที่ไม่ได้ล็อก'
+          : e.name === 'InvalidPDFException'
+            ? 'ไฟล์ PDF เสียหายหรือไม่ใช่ไฟล์ PDF'
+            : 'เปิดไฟล์ PDF ไม่ได้: ' + e.message;
+        showMsg(camMsg, 'err', msg);
+        fileInput.value = '';
+      }
+    }
+
+    async function showPdfPage(pageNo) {
+      if (!pdfDoc) return;
+      try {
+        await showReview(await renderPdfPage(pdfDoc, pageNo));
+      } catch (e) {
+        showMsg(sharpMsg, 'err', 'แสดงหน้านี้ไม่ได้: ' + e.message);
+      }
+    }
+
     function loadFromFile(file) {
       if (!file) return;
+      if (cfg.acceptPdf && (file.type === 'application/pdf' || /\.pdf$/i.test(file.name))) {
+        loadPdf(file);
+        return;
+      }
+      closePdf();
       const url = URL.createObjectURL(file);
       const img = new Image();
       img.onload = async () => {
@@ -391,6 +485,7 @@ window.DocKit = (() => {
       reviewView.classList.add('hidden');
       cameraView.classList.remove('hidden');
       source = pageCanvas = null;
+      closePdf();
       fileInput.value = '';
       startCamera(cameraSelect.value || undefined);
     }
@@ -417,7 +512,10 @@ window.DocKit = (() => {
     };
     initParticipantForm(scheduleRender);
     // any option control inside the review panel (size, rotation, ...) re-renders the page
-    reviewView.addEventListener('change', e => { if (e.target.matches('select, input')) render(); });
+    reviewView.addEventListener('change', e => {
+      if (e.target === pdfPageSelect) showPdfPage(parseInt(pdfPageSelect.value, 10));
+      else if (e.target.matches('select, input')) render();
+    });
 
     captureBtn.addEventListener('click', capture);
     mirrorChk.addEventListener('change', applyMirror);
