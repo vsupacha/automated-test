@@ -208,15 +208,14 @@
        ============================================================== */
     .round-photo{
       width:100%;
-      min-height:220px;
-      max-height:360px;
-      object-fit:cover;
+      height:auto;
       border-radius:16px;
       border:1px solid var(--line);
       background:rgba(255,255,255,.03);
       display:block;
     }
     .round-photo[hidden]{display:none}
+    .photo-slot[hidden]{display:none}
     .summary-metrics{
       display:grid;
       grid-template-columns:repeat(3,1fr);
@@ -256,7 +255,7 @@
           <a class="btn primary" href="#apply">สมัครเข้าร่วมอบรม</a>
           <a class="btn" href="#training-materials">Training materials</a>
           <a class="btn" href="#documents">เอกสาร</a>
-          <a class="btn" href="photos/">Photos</a>
+          <a class="btn" href="#workshop-status">Photos</a>
         </div>
       </div>
       <div class="hero-card">
@@ -794,7 +793,9 @@
       const postTest = summary.post_test ?? "–";
       const certificate = summary.certificate ? "พร้อมออก" : "ยังไม่ออก";
       const photoFile = summary.photo || "photo.jpg";
-      const photoPath = roundPath(round, photoFile);
+      const photoPath = photoFile.startsWith("photos/")
+        ? photoFile
+        : roundPath(round, photoFile);
 
       panel.innerHTML = `
         <h3>รอบที่ ${formatRoundNumber(round)}: ${escapeHTML(date)}</h3>
@@ -810,9 +811,12 @@
 
         <div class="round-media">
           <div>
-            <img class="round-photo"
+            <a href="${escapeHTML(photoPath)}" target="_blank" rel="noopener"
+               aria-label="เปิดภาพกิจกรรมอบรม รุ่นที่ ${formatRoundNumber(round)} ขนาดเต็ม">
+            <img class="round-photo" loading="lazy" decoding="async"
                  src="${escapeHTML(photoPath)}"
                  alt="ภาพกิจกรรมอบรม รุ่นที่ ${formatRoundNumber(round)}">
+            </a>
             <div class="photo-slot" hidden>
               ยังไม่มีภาพกิจกรรม<br>${escapeHTML(photoPath)}
             </div>

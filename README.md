@@ -69,3 +69,7 @@ quarto render training_materials
 python -m http.server 8766 --bind 127.0.0.1
 ```
 แล้วเปิด http://localhost:8766/
+
+### รูปกิจกรรมใน dashboard
+
+เก็บรูปแต่ละรอบที่ `photos/round_01/round_01.jpg` ถึง `photos/round_07/round_07.jpg` และกำหนด `photo` ใน `rounds/01..07/summary.json` เป็น path จากรากเว็บไซต์ เช่น `photos/round_01/round_01.jpg` รูปจะแสดงในแท็บ Workshop status ของรอบนั้น กดรูปเพื่อเปิดขนาดเต็มได้ ค่า `photo` แบบเดิมที่เป็นชื่อไฟล์ในโฟลเดอร์รอบยังใช้ได้

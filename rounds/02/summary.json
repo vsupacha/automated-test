@@ -4,7 +4,7 @@
     "status":"finished",
     "capacity":20,
     "registered":11,
-    "photo":"photo.jpg",
+    "photo":"photos/round_02/round_02.jpg",
     "participants":"participants.csv",
     "pre_test":0,
     "post_test":0,
