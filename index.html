@@ -100,10 +100,10 @@
       font-size:13px;
       font-weight:600;
     }
-    .schedule-status[data-status="confirmed"] .status-main{color:var(--green)}
+    .schedule-status[data-status="finished"] .status-main{color:var(--green)}
     .schedule-status[data-status="waiting"] .status-main{color:var(--yellow)}
-    .schedule-status[data-status="open"] .status-main{color:var(--cyan)}
-    .schedule-status[data-status="closed"] .status-main{color:var(--red)}
+    .schedule-status[data-status="finished"] .status-main{color:var(--cyan)}
+    .schedule-status[data-status="finished"] .status-main{color:var(--red)}
 
     /* ==============================================================
        SECTION: Participant list modal
@@ -214,6 +214,7 @@
       background:rgba(255,255,255,.03);
       display:block;
     }
+    button.btn{font-family:inherit;font-size:inherit;color:var(--muted)}
     .round-photo[hidden]{display:none}
     .photo-slot[hidden]{display:none}
     .summary-metrics{
@@ -252,7 +253,7 @@
         <h1>Automated Test for Functional Testing</h1>
         <p class="lead">การพัฒนาระบบทดสอบแบบอัตโนมัติสำหรับแผงวงจรควบคุมด้วย <b>LabVIEW</b>, <b>TestStand</b> และ <b>NI myRIO</b></p> รหัสหลักสูตร <b>B0C690121</b>
         <div class="btns">
-          <a class="btn primary" href="#apply">สมัครเข้าร่วมอบรม</a>
+          <button class="btn disabled" type="button" disabled>โครงการจบแล้ว</button>
           <a class="btn" href="#training-materials">Training materials</a>
           <a class="btn" href="#documents">เอกสาร</a>
           <a class="btn" href="#workshop-status">Photos</a>
@@ -279,11 +280,11 @@
         <span class="tag">Functional Test</span><span class="tag">LabVIEW</span><span class="tag">TestStand</span><span class="tag">NI myRIO</span><span class="tag">PCB Control Board</span>
       </div>
       <div class="card" id="apply">
-        <h2>การสมัคร</h2>
-        <p>สมัครผ่าน Google Form โดยรายชื่อจะถูกส่งให้ผู้บริหารหน่วยงาน/อาจารย์เพื่ออนุมัติก่อน เนื่องจากเป็นการอบรมต่อเนื่อง 4 วัน</p>
+        <h2>สถานะโครงการ</h2>
+        <p>โครงการอบรมทั้ง 7 รอบเสร็จสิ้นแล้ว ขอบคุณผู้เข้าอบรมทุกท่าน สามารถดูรูปกิจกรรม รายชื่อ และเอกสารประกอบการอบรมได้จากหน้านี้</p>
         <p><b>สถานที่อบรม:</b> คณะวิศวกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์ ศูนย์รังสิต</p>
         <div class="btns">
-          <a class="btn primary" href="https://forms.gle/2fZMSc5xiRbo1u4k8" target="_blank" rel="noopener">เปิด Google Form</a>
+          <button class="btn disabled" type="button" disabled>โครงการจบแล้ว</button>
           <a class="btn" href="https://maps.app.goo.gl/39AQxayLcaCgLPiHA" target="_blank" rel="noopener">เปิด Google Maps</a>
         </div>
       </div>
@@ -307,7 +308,7 @@
                role="button"
                tabindex="0"
                data-round="01"
-               data-status="confirmed"
+               data-status="finished"
                aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 1">
           </div>
         </div>
@@ -322,7 +323,7 @@
                role="button"
                tabindex="0"
                data-round="02"
-               data-status="confirmed"
+               data-status="finished"
                aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 2">
           </div>
         </div>
@@ -337,7 +338,7 @@
                role="button"
                tabindex="0"
                data-round="03"
-               data-status="closed"
+               data-status="finished"
                aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 3">
           </div>
         </div>
@@ -352,7 +353,7 @@
                role="button"
                tabindex="0"
                data-round="04"
-               data-status="open"
+               data-status="finished"
                aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 4">
           </div>
         </div>
@@ -367,7 +368,7 @@
                role="button"
                tabindex="0"
                data-round="05"
-               data-status="open"
+               data-status="finished"
                aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 5">
           </div>
         </div>
@@ -382,7 +383,7 @@
                role="button"
                tabindex="0"
                data-round="06"
-               data-status="open"
+               data-status="finished"
                aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 6">
           </div>
         </div>
@@ -397,7 +398,7 @@
                role="button"
                tabindex="0"
                data-round="07"
-               data-status="open"
+               data-status="finished"
                aria-label="ดูรายชื่อผู้เข้าอบรม รุ่นที่ 7">
           </div>
         </div>
@@ -448,7 +449,7 @@
         <div class="tab-content">
           <div class="tab-panel" id="round-1-panel">
             <h3>รอบที่ 1: 14 – 17 กรกฎาคม 2569</h3>
-            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <p class="muted">เวลา 9.00 – 17.00 น. • อบรมเสร็จแล้ว</p>
             <div class="grid grid-3">
               <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
               <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
@@ -460,7 +461,7 @@
             </div>
           </div><div class="tab-panel" id="round-2-panel">
             <h3>รอบที่ 2: 21 – 24 กรกฎาคม 2569</h3>
-            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <p class="muted">เวลา 9.00 – 17.00 น. • อบรมเสร็จแล้ว</p>
             <div class="grid grid-3">
               <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
               <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
@@ -472,7 +473,7 @@
             </div>
           </div><div class="tab-panel" id="round-3-panel">
             <h3>รอบที่ 3: 4 – 7 สิงหาคม 2569</h3>
-            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <p class="muted">เวลา 9.00 – 17.00 น. • อบรมเสร็จแล้ว</p>
             <div class="grid grid-3">
               <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
               <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
@@ -484,7 +485,7 @@
             </div>
           </div><div class="tab-panel" id="round-4-panel">
             <h3>รอบที่ 4: 18 – 21 สิงหาคม 2569</h3>
-            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <p class="muted">เวลา 9.00 – 17.00 น. • อบรมเสร็จแล้ว</p>
             <div class="grid grid-3">
               <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
               <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
@@ -496,7 +497,7 @@
             </div>
           </div><div class="tab-panel" id="round-5-panel">
             <h3>รอบที่ 5: 27 – 30 สิงหาคม 2569</h3>
-            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <p class="muted">เวลา 9.00 – 17.00 น. • อบรมเสร็จแล้ว</p>
             <div class="grid grid-3">
               <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
               <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
@@ -508,7 +509,7 @@
             </div>
           </div><div class="tab-panel" id="round-6-panel">
             <h3>รอบที่ 6: 5-6/12-13 กันยายน 2569</h3>
-            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <p class="muted">เวลา 9.00 – 17.00 น. • อบรมเสร็จแล้ว</p>
             <div class="grid grid-3">
               <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
               <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
@@ -520,7 +521,7 @@
             </div>
           </div><div class="tab-panel" id="round-7-panel">
             <h3>รอบที่ 7: 22 – 25 กันยายน 2569</h3>
-            <p class="muted">เวลา 9.00 – 17.00 น. • สถานะและผลลัพธ์จะอัพเดทหลังจบการอบรม</p>
+            <p class="muted">เวลา 9.00 – 17.00 น. • อบรมเสร็จแล้ว</p>
             <div class="grid grid-3">
               <div><div class="label">Registration</div><div class="status soon">รอข้อมูล</div></div>
               <div><div class="label">Participants</div><div class="status soon">รอข้อมูล</div></div>
@@ -572,7 +573,7 @@
     const ROUND_IDS = ["01", "02", "03", "04", "05", "06", "07"];
 
     const STATUS_CONFIG = {
-      finished:  { icon: "✅", text: "อบรมเสร็จสิ้นแล้ว", cssClass: "confirmed" },
+      finished:  { icon: "✅", text: "อบรมเสร็จแล้ว", cssClass: "confirmed" },
       confirmed: { icon: "🟢", text: "ยืนยันรายชื่อแล้ว", cssClass: "confirmed" },
       waiting:   { icon: "🟡", text: "รอเปิดอบรม", cssClass: "waiting" },
       open:      { icon: "🔵", text: "เปิดรับสมัคร", cssClass: "open" },
