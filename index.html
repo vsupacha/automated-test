@@ -268,7 +268,7 @@
     <section class="section grid grid-4">
       <div class="card"><div class="stat">7</div><div class="label">รุ่นอบรม</div></div>
       <div class="card"><div class="stat">4 วัน</div><div class="label">ต่อรุ่น เวลา 9.00–17.00 น.</div></div>
-      <div class="card"><div class="stat">20</div><div class="label">คนต่อรุ่น</div></div>
+      <div class="card"><div class="stat" id="attendee-total" aria-live="polite">–</div><div class="label">ผู้ผ่านอบรมจริง (คน)</div></div>
       <div class="card"><div class="stat">140</div><div class="label">เป้าหมายรวม</div></div>
     </section>
 
@@ -640,8 +640,26 @@
       }
 
       const summary = await response.json();
+      const rows = await loadParticipants(round, summary);
+      const statusColumn = rows[0].indexOf("สถานะ");
+      if (statusColumn === -1) {
+        throw new Error(`ไม่พบคอลัมน์สถานะในรายชื่อรุ่น ${round}`);
+      }
+      summary.registered = rows.slice(1)
+        .filter(row => row[statusColumn] === "อบรมเสร็จแล้ว").length;
       summaryCache.set(round, summary);
       return summary;
+    }
+
+    async function initializeAttendanceTotal() {
+      const totalElement = document.getElementById("attendee-total");
+      try {
+        const summaries = await Promise.all(ROUND_IDS.map(loadSummary));
+        totalElement.textContent = summaries.reduce((total, summary) => total + summary.registered, 0);
+      } catch (error) {
+        totalElement.textContent = "ไม่พร้อม";
+        console.info(error.message);
+      }
     }
 
     function parseCSV(csvText) {
@@ -805,7 +823,7 @@
         </p>
 
         <div class="summary-metrics">
-          ${renderMetric("Registration", `${registered}/${capacity} คน`)}
+          ${renderMetric("ผู้ผ่านอบรม / ความจุรอบ", `${registered}/${capacity} คน`)}
           ${renderMetric("Pre-test", preTest)}
           ${renderMetric("Post-test", postTest)}
         </div>
@@ -994,6 +1012,7 @@
     });
 
     ROUND_IDS.forEach(initializeWorkshopPanel);
+    initializeAttendanceTotal();
 
     modalCloseButton.addEventListener("click", closeModal);
 
