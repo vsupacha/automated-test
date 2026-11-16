@@ -646,7 +646,7 @@
         throw new Error(`ไม่พบคอลัมน์สถานะในรายชื่อรุ่น ${round}`);
       }
       summary.registered = rows.slice(1)
-        .filter(row => row[statusColumn] === "อบรมเสร็จแล้ว").length;
+        .filter(row => row[statusColumn] === "อบรม").length;
       summaryCache.set(round, summary);
       return summary;
     }
